@@ -114,7 +114,7 @@ data:extend(
   {
     type = "module",
     name = "alien-module-5",
-    icon = "__alien-module__/graphics/alien-module-4.png",
+    icon = "__alien-module__/graphics/alien-module-5.png",
 	flags = {"goes-to-main-inventory"},
     subgroup = "module",
     category = "alien-module",

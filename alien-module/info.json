@@ -1,12 +1,11 @@
 {
   "name": "alien-module",
   "title": "Alien Module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "renoth",
   "contact": "berndnewsreader@gmail.com",
   "homepage": "https://github.com/renoth/factorio-alien-module",
   "description": "Makes alien units drop ingredients for alien modules when they die. Alien modules can be crafted from the loot. These modules give various bonuses, just like normal modules.",
-  "dependencies": ["base"],
   "factorio_version": "0.14",
   "dependencies": ["base >= 0.14.0"]
 }

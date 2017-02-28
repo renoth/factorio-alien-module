@@ -30,7 +30,7 @@ data:extend(
     ingredients =
     {
       {"alien-module-1", 3},
-	  {"electronic-circuit", 1}
+	  {"electronic-circuit", 3}
     },
   },
 }
@@ -49,7 +49,44 @@ data:extend(
     ingredients =
     {
       {"alien-module-2", 3},
-      {"advanced-circuit", 1}
+      {"advanced-circuit", 3}
+    },
+  },
+}
+)
+
+-- alien-module-4 --
+data:extend(
+{
+   {
+    type = "recipe",
+    name = "alien-module-4",
+    enabled = true,
+    energy_required = 80,
+    result = "alien-module-4",
+    result_count = 1,
+    ingredients =
+    {
+      {"alien-module-3", 3},
+      {"processing-unit", 3}
+    },
+  },
+}
+)
+-- alien-module-3 --
+data:extend(
+{
+   {
+    type = "recipe",
+    name = "alien-module-5",
+    enabled = true,
+    energy_required = 100,
+    result = "alien-module-5",
+    result_count = 1,
+    ingredients =
+    {
+      {"alien-module-4", 3},
+      {"processing-unit", 12}
     },
   },
 }

@@ -1,20 +1,4 @@
--- alien-module-component --
-
-data:extend(
-{
-  {
-    type = "item",
-    name = "alien-module-component",
-    icon = "__alien-module__/graphics/alien-module-component.png",
-    flags = { "goes-to-main-inventory" },
-    subgroup = "component",
-    category = "alien-module",
-    tier = 1,
-    order = "a-1",
-    stack_size = 250,
-  },
-}
-)
+-- alien modules --
 
 data:extend(
 {

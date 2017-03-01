@@ -1,5 +1,20 @@
+-- make alien plate from alien ore --
 
--- alien-module-1 from alien-module-component --
+data:extend(
+{
+  {
+    type = "recipe",
+    name = "alien-plate",
+    category = "smelting",
+    enabled = true,
+    energy_required = 10,
+    ingredients = {{"alien-ore", 1}},
+    result = "alien-plate"
+  }
+}
+)
+
+-- alien-module-1 from alien-plate --
 data:extend(
 {
   {
@@ -11,7 +26,7 @@ data:extend(
     result_count = 1,	
     ingredients =
     {
-      {"alien-module-component", 10}
+      {"alien-plate", 10}
     },
   },
 }

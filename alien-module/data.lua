@@ -1,4 +1,5 @@
 require("prototypes.item.alien-module")
+require("prototypes.item.alien-components")
 require("prototypes.item-group.item-groups-module")
 require("prototypes.recipe.alien-module")
 
@@ -14,11 +15,11 @@ function AddLootToEntity(entityType, entityName, itemName, probability, countMin
 end
 
 function AddLootToBiters() 
-    SMALL_LOOT_PROBABILITY = 0.1
+    SMALL_LOOT_PROBABILITY = 0.12
     MEDIUM_LOOT_PROBABILITY = 0.4
-    BIG_LOOT_PROBABILITY = 0.7
+    BIG_LOOT_PROBABILITY = 0.75
     
-    ALIEN_MODULE_ITEM_NAME = "alien-module-component"
+    ALIEN_MODULE_ITEM_NAME = "alien-ore"
 
     AddLootToEntity("unit", "small-spitter", ALIEN_MODULE_ITEM_NAME, SMALL_LOOT_PROBABILITY, 1, 1)
     AddLootToEntity("unit", "small-biter", ALIEN_MODULE_ITEM_NAME, SMALL_LOOT_PROBABILITY, 1, 1)

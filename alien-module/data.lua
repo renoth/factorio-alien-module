@@ -1,7 +1,9 @@
 require("prototypes.item.alien-module")
 require("prototypes.item.alien-components")
+require("prototypes.item.alien-warfare")
 require("prototypes.item-group.item-groups-module")
 require("prototypes.recipe.alien-module")
+require("prototypes.recipe.alien-warfare")
 
 function AddLootToEntity(entityType, entityName, itemName, probability, countMin, countMax)
     if data.raw[entityType] ~= nil then

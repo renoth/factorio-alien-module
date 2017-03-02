@@ -14,6 +14,21 @@ data:extend(
 }
 )
 
+data:extend(
+{
+  {
+    type = "recipe",
+    name = "alien-artifact-to-plate",
+    category = "smelting",
+    enabled = true,
+    energy_required = 10,
+	result_count = 5,	
+    ingredients = {{"alien-artifact", 1}},
+    result = "alien-plate"
+  }
+}
+)
+
 -- alien-module-1 from alien-plate --
 data:extend(
 {

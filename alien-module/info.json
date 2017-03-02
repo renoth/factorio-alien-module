@@ -1,11 +1,11 @@
 {
   "name": "alien-module",
-  "title": "Alien Module",
-  "version": "0.1.0",
-  "author": "renoth",
+  "title": "Alien Loot Economy",
+  "version": "0.1.2",
+  "author": "sensenmann",
   "contact": "berndnewsreader@gmail.com",
   "homepage": "https://github.com/renoth/factorio-alien-module",
-  "description": "Makes alien units drop ingredients for alien modules when they die. Alien modules can be crafted from the loot. These modules give various bonuses, just like normal modules.",
+  "description": "Makes alien units drop alien ore that can be smelted into alien metal, which can be used for all sorts of alien empowered items.",
   "dependencies": ["base"],
   "factorio_version": "0.14",
   "dependencies": ["base >= 0.14.0"]

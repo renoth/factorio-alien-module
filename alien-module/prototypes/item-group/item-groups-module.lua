@@ -27,6 +27,12 @@ data:extend({
     name = "module",
     group = "alien-module",
     order = "2"
+  },
+  {
+    type = "item-subgroup",
+    name = "warfare",
+    group = "alien-module",
+    order = "3"
   }
 }
 )

@@ -4,8 +4,8 @@ data:extend(
 {
   {
     type = "item",
-    name = "alien-ore",
-    icon = "__alien-module__/graphics/alien-ore.png",
+    name = "artifact-ore",
+    icon = "__alien-module__/graphics/artifact-ore.png",
     flags = { "goes-to-main-inventory" },
     subgroup = "component",
     category = "alien-module",

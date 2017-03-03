@@ -28,7 +28,7 @@ function AddLootToBiters()
     MEDIUM_LOOT_PROBABILITY = 0.4
     BIG_LOOT_PROBABILITY = 0.75
     
-    ALIEN_MODULE_ITEM_NAME = "alien-ore"
+    ALIEN_MODULE_ITEM_NAME = "artifact-ore"
 
     AddLootToEntity("unit", "small-spitter", ALIEN_MODULE_ITEM_NAME, SMALL_LOOT_PROBABILITY, 1, 1)
     AddLootToEntity("unit", "small-biter", ALIEN_MODULE_ITEM_NAME, SMALL_LOOT_PROBABILITY, 1, 1)

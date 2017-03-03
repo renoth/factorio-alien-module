@@ -8,7 +8,7 @@ data:extend(
     category = "smelting",
     enabled = false,
     energy_required = 10,
-    ingredients = {{"alien-ore", 1}},
+    ingredients = {{"artifact-ore", 1}},
     result = "alien-plate"
   }
 }

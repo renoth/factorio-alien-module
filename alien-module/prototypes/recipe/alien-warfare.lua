@@ -4,7 +4,7 @@ data:extend(
   {
     type = "recipe",
     name = "alien-magazine",
-    enabled = true,
+    enabled = false,
     energy_required = 10,	
     result = "alien-magazine",
     result_count = 1,	

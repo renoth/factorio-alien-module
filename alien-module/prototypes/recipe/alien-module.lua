@@ -6,7 +6,7 @@ data:extend(
     type = "recipe",
     name = "alien-plate",
     category = "smelting",
-    enabled = true,
+    enabled = false,
     energy_required = 10,
     ingredients = {{"alien-ore", 1}},
     result = "alien-plate"
@@ -20,7 +20,7 @@ data:extend(
     type = "recipe",
     name = "alien-artifact-to-plate",
     category = "smelting",
-    enabled = true,
+    enabled = false,
     energy_required = 10,
 	result_count = 5,	
     ingredients = {{"alien-artifact", 1}},
@@ -35,7 +35,7 @@ data:extend(
   {
     type = "recipe",
     name = "alien-module-1",
-    enabled = true,
+    enabled = false,
     energy_required = 20,	
     result = "alien-module-1",
     result_count = 1,	
@@ -53,7 +53,7 @@ data:extend(
   {
     type = "recipe",
     name = "alien-module-2",
-    enabled = true,
+    enabled = false,
     energy_required = 40,
     result = "alien-module-2",
     result_count = 1,	
@@ -72,7 +72,7 @@ data:extend(
    {
     type = "recipe",
     name = "alien-module-3",
-    enabled = true,
+    enabled = false,
     energy_required = 60,
     result = "alien-module-3",
     result_count = 1,
@@ -91,7 +91,7 @@ data:extend(
    {
     type = "recipe",
     name = "alien-module-4",
-    enabled = true,
+    enabled = false,
     energy_required = 80,
     result = "alien-module-4",
     result_count = 1,
@@ -109,7 +109,7 @@ data:extend(
    {
     type = "recipe",
     name = "alien-module-5",
-    enabled = true,
+    enabled = false,
     energy_required = 100,
     result = "alien-module-5",
     result_count = 1,

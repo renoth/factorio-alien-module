@@ -61,3 +61,11 @@ table.insert(data.raw["technology"]["advanced-electronics"].effects,
 		
 	}
 )
+
+table.insert(data.raw["technology"]["solar-energy"].effects,
+	{
+        type = "unlock-recipe",
+        recipe = "alien-solarpanel"
+		
+	}
+)

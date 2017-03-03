@@ -29,6 +29,21 @@ data:extend(
 }
 )
 
+data:extend(
+{
+  {
+    type = "recipe",
+    name = "alien-solarpanel",
+    category = "smelting",
+    enabled = false,
+    energy_required = 8,
+	result_count = 1,	
+    ingredients = {{"alien-plate", 5}, {"electronic-circuit", 3}, {"steel-plate", 5}},
+    result = "alien-solarpanel"
+  }
+}
+)
+
 -- alien-module-1 from alien-plate --
 data:extend(
 {

@@ -32,6 +32,13 @@ data:extend({
     type = "item-subgroup",
     name = "warfare",
     group = "alien-module",
+    order = "4"
+  }
+  ,
+  {
+    type = "item-subgroup",
+    name = "economy",
+    group = "alien-module",
     order = "3"
   }
 }

@@ -68,8 +68,10 @@ end
 
 function update_recipes(assemblers, level, newrecipe)
 	for _, entity in ipairs(assemblers) do
-		if string.find(entity.recipe.name, "hyper") then
-			entity.recipe = newrecipe
+		if entity.recipe ~= nil then
+			if string.find(entity.recipe.name, "hyper") then
+				entity.recipe = newrecipe
+			end
 		end
 	end
 end

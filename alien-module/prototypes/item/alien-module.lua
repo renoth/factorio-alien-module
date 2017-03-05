@@ -116,6 +116,30 @@ data:extend(
 }
 )
 
+for i=1,100,1 do 
+	data:extend(
+	{
+	  {
+		type = "module",
+		name = "alien-hyper-module-" .. i,
+		icon = "__alien-module__/graphics/alien-hyper-module-1.png",
+		flags = {"goes-to-main-inventory"},
+		subgroup = "alien-hyper-module",
+		category = "alien-module",
+		tier = i,
+		order = "a-" .. i,
+		stack_size = 50,
+		effect = 
+		{
+		  consumption = {bonus = 0.1 * i},
+		  speed = {bonus = 0.02 * i},
+		  productivity = {bonus = 0.02 * i},
+		  pollution = {bonus = 0.01 * i * i}
+		},
+	  },
+	}
+	)
+end
 
 
 

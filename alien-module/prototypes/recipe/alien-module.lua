@@ -118,7 +118,8 @@ data:extend(
   },
 }
 )
--- alien-module-3 --
+
+-- alien-module-5 --
 data:extend(
 {
    {
@@ -136,3 +137,24 @@ data:extend(
   },
 }
 )
+
+for i=1,100,1 do 
+	data:extend(
+	{
+	   {
+		type = "recipe",
+		name = "alien-hyper-module-" .. i,
+		enabled = false,
+		energy_required = i,
+		result = "alien-hyper-module-" .. i,
+		result_count = 1,
+		ingredients =
+		{
+		  {"alien-plate", 20}
+		},
+	  },
+	}
+	)
+end
+
+

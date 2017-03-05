@@ -20,26 +20,30 @@ data:extend({
     name = "component",
     group = "alien-module",
     order = "1"
-  }
-  ,
+  },
   {
     type = "item-subgroup",
-    name = "module",
+    name = "alien-hyper-module",
     group = "alien-module",
     order = "2"
   },
   {
     type = "item-subgroup",
+    name = "module",
+    group = "alien-module",
+    order = "3"
+  },
+  {
+    type = "item-subgroup",
     name = "warfare",
     group = "alien-module",
-    order = "4"
-  }
-  ,
+    order = "5"
+  },
   {
     type = "item-subgroup",
     name = "economy",
     group = "alien-module",
-    order = "3"
+    order = "4"
   }
 }
 )

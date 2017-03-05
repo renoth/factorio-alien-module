@@ -77,3 +77,11 @@ table.insert(data.raw["technology"]["solar-energy"].effects,
 		
 	}
 )
+
+table.insert(data.raw["technology"]["electric-energy-accumulators-1"].effects,
+	{
+        type = "unlock-recipe",
+        recipe = "alien-accumulator"
+		
+	}
+)

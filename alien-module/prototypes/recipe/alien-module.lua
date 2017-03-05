@@ -33,6 +33,23 @@ data:extend(
 {
   {
     type = "recipe",
+    name = "alien-accumulator",
+    energy_required = 10,
+    enabled = false,
+    ingredients =
+    {
+      {"alien-plate", 3},
+      {"battery", 5}
+    },
+    result = "alien-accumulator"
+  }
+}
+)
+
+data:extend(
+{
+  {
+    type = "recipe",
     name = "alien-solarpanel",
     category = "smelting",
     enabled = false,

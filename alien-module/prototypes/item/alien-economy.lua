@@ -15,3 +15,19 @@ data:extend(
   }
 }
 )
+
+data:extend(
+{
+  {
+    type = "item",
+    name = "alien-accumulator",
+    icon = "__alien-module__/graphics/alien-accumulator.png",
+    flags = {"goes-to-quickbar"},
+    subgroup = "economy",
+    category = "alien-economy",
+	place_result = "alien-accumulator",
+    order = "a",
+    stack_size = 50
+  }
+}
+)

@@ -29,6 +29,7 @@ table.insert(data.raw["technology"]["automation"].effects,
 		
 	}
 )
+
 table.insert(data.raw["technology"]["automation"].effects,
 	
 	{

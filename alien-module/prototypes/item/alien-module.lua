@@ -14,10 +14,10 @@ data:extend(
     stack_size = 50,
 	effect = 
 	{
-	  consumption = {bonus = 0.0625},
+	  consumption = {bonus = 0.05},
 	  speed = {bonus = 0.1},
 	  productivity = {bonus = 0.1},
-	  pollution = {bonus = 0.25}
+	  pollution = {bonus = 0.1}
 	},
   },
 }
@@ -37,10 +37,10 @@ data:extend(
     stack_size = 50,
 	effect = 
 	{
-	  consumption = {bonus = 0.125},
+	  consumption = {bonus = 0.1},
 	  speed = {bonus = 0.2},
 	  productivity = {bonus = 0.2},
-	  pollution = {bonus = 0.50}
+	  pollution = {bonus = 0.2}
 	},
   },
 }
@@ -60,10 +60,10 @@ data:extend(
     stack_size = 50,
 	effect = 
 	{
-	  consumption = {bonus = 0.25},
+	  consumption = {bonus = 0.2},
 	  speed = {bonus = 0.3},
 	  productivity = {bonus = 0.3},
-	  pollution = {bonus = 1.0}
+	  pollution = {bonus = 0.4}
 	},
   },
 }
@@ -83,10 +83,10 @@ data:extend(
     stack_size = 50,
 	effect = 
 	{
-	  consumption = {bonus = 0.50},
+	  consumption = {bonus = 0.4},
 	  speed = {bonus = 0.4},
 	  productivity = {bonus = 0.4},
-	  pollution = {bonus = 2.0}
+	  pollution = {bonus = 0.6}
 	},
   },
 }
@@ -107,10 +107,10 @@ data:extend(
     stack_size = 50,
 	effect = 
 	{
-	  consumption = {bonus = 1.0},
+	  consumption = {bonus = 0.6},
 	  speed = {bonus = 0.5},
 	  productivity = {bonus = 0.5},
-	  pollution = {bonus = 4.0}
+	  pollution = {bonus = 1}
 	},
   },
 }
@@ -131,10 +131,10 @@ for i=1,100,1 do
 		stack_size = 50,
 		effect = 
 		{
-		  consumption = {bonus = 0.1 * i},
-		  speed = {bonus = 0.02 * i},
-		  productivity = {bonus = 0.02 * i},
-		  pollution = {bonus = 0.01 * i * i}
+		  consumption = {bonus = 0.01 * i},
+		  speed = {bonus = 0.01 * i},
+		  productivity = {bonus = 0.01 * i},
+		  pollution = {bonus = 0.01 * i}
 		},
 	  },
 	}

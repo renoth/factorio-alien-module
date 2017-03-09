@@ -10,7 +10,7 @@ data:extend(
     result_count = 1,	
     ingredients =
     {
-      {"alien-plate", 1}, {"iron-plate", 3}, {"copper-plate", 1}
+      {"alien-plate", 2}, {"iron-plate", 6}, {"copper-plate", 1}
     },
   },
 }

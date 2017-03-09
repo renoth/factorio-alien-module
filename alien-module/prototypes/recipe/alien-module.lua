@@ -38,7 +38,7 @@ data:extend(
     enabled = false,
     ingredients =
     {
-      {"alien-plate", 3},
+      {"alien-plate", 5},
       {"battery", 5}
     },
     result = "alien-accumulator"
@@ -51,12 +51,25 @@ data:extend(
   {
     type = "recipe",
     name = "alien-solarpanel",
-    category = "smelting",
     enabled = false,
     energy_required = 8,
 	result_count = 1,	
-    ingredients = {{"alien-plate", 5}, {"electronic-circuit", 3}, {"steel-plate", 5}},
+    ingredients = {{"alien-plate", 10}, {"electronic-circuit", 5}, {"steel-plate", 5}},
     result = "alien-solarpanel"
+  }
+}
+)
+
+data:extend(
+{
+  {
+    type = "recipe",
+    name = "alien-mining-drill",
+    enabled = true,
+    energy_required = 8,
+	result_count = 1,	
+    ingredients = {{"alien-plate", 25}, {"electronic-circuit", 10}, {"iron-gear-wheel", 10}},
+    result = "alien-mining-drill"
   }
 }
 )
@@ -73,7 +86,7 @@ data:extend(
     result_count = 1,	
     ingredients =
     {
-      {"alien-plate", 10}
+      {"alien-plate", 30}
     },
   },
 }
@@ -92,7 +105,7 @@ data:extend(
     ingredients =
     {
       {"alien-module-1", 3},
-	  {"electronic-circuit", 3}
+	  {"electronic-circuit", 10}
     },
   },
 }
@@ -111,7 +124,7 @@ data:extend(
     ingredients =
     {
       {"alien-module-2", 3},
-      {"advanced-circuit", 3}
+      {"advanced-circuit", 10}
     },
   },
 }
@@ -130,7 +143,7 @@ data:extend(
     ingredients =
     {
       {"alien-module-3", 3},
-      {"processing-unit", 3}
+      {"processing-unit", 10}
     },
   },
 }
@@ -149,7 +162,7 @@ data:extend(
     ingredients =
     {
       {"alien-module-4", 3},
-      {"processing-unit", 12}
+      {"processing-unit", 20}
     },
   },
 }
@@ -167,7 +180,7 @@ for i=1,100,1 do
 		result_count = 1,
 		ingredients =
 		{
-		  {"alien-plate", 20}
+		  {"alien-plate", 10 * i}
 		},
 	  },
 	}

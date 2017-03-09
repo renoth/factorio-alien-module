@@ -12,13 +12,8 @@ data:extend(
 	place_result = "alien-solarpanel",
     order = "a",
     stack_size = 50
-  }
-}
-)
-
-data:extend(
-{
-  {
+  },
+    {
     type = "item",
     name = "alien-accumulator",
     icon = "__alien-module__/graphics/alien-accumulator.png",
@@ -26,8 +21,21 @@ data:extend(
     subgroup = "economy",
     category = "alien-economy",
 	place_result = "alien-accumulator",
-    order = "a",
+    order = "b",
+    stack_size = 50
+  },
+  {
+    type = "item",
+    name = "alien-mining-drill",
+    icon = "__alien-module__/graphics/alien-mining-drill.png",
+    flags = {"goes-to-quickbar"},
+    subgroup = "economy",
+    category = "alien-economy",
+	place_result = "alien-mining-drill",
+    order = "c",
     stack_size = 50
   }
 }
 )
+
+

@@ -24,9 +24,9 @@ function AddLootToEntity(entityType, entityName, itemName, probability, countMin
 end
 
 function AddLootToBiters() 
-    SMALL_LOOT_PROBABILITY = 0.12
-    MEDIUM_LOOT_PROBABILITY = 0.4
-    BIG_LOOT_PROBABILITY = 0.75
+    SMALL_LOOT_PROBABILITY = 0.2
+    MEDIUM_LOOT_PROBABILITY = 0.5
+    BIG_LOOT_PROBABILITY = 1
     
     ALIEN_MODULE_ITEM_NAME = "artifact-ore"
 

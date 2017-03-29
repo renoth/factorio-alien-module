@@ -33,6 +33,23 @@ data:extend(
 {
   {
     type = "recipe",
+    name = "alien-plate-to-alienscience",
+    energy_required = 3,
+    enabled = true,
+    ingredients =
+    {
+      {"alien-plate", 1},
+      {"iron-plate", 1}
+    },
+    result = "alien-science-pack"
+  }
+}
+)
+
+data:extend(
+{
+  {
+    type = "recipe",
     name = "alien-accumulator",
     energy_required = 10,
     enabled = false,

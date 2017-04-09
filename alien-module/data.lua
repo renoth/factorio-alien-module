@@ -39,8 +39,8 @@ function AddLootToBiters()
     AddLootToEntity("unit", "big-spitter", ALIEN_MODULE_ITEM_NAME, BIG_LOOT_PROBABILITY, 1, 5)
     AddLootToEntity("unit", "big-biter", ALIEN_MODULE_ITEM_NAME, BIG_LOOT_PROBABILITY, 1, 5)
 
-    AddLootToEntity("unit", "behemoth-spitter", ALIEN_MODULE_ITEM_NAME, 1, 2, 5)
-    AddLootToEntity("unit", "behemoth-biter", ALIEN_MODULE_ITEM_NAME, 1, 2, 5)
+    AddLootToEntity("unit", "behemoth-spitter", ALIEN_MODULE_ITEM_NAME, 1, 2, 20)
+    AddLootToEntity("unit", "behemoth-biter", ALIEN_MODULE_ITEM_NAME, 1, 2, 20)
 
     AddLootToEntity("turret", "little-worm-turret", ALIEN_MODULE_ITEM_NAME, MEDIUM_LOOT_PROBABILITY, 1, 5)
     AddLootToEntity("turret", "medium-worm-turret", ALIEN_MODULE_ITEM_NAME, BIG_LOOT_PROBABILITY, 1, 10)

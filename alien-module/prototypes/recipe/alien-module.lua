@@ -39,7 +39,7 @@ data:extend(
     ingredients =
     {
       {"alien-plate", 1},
-      {"iron-plate", 1}
+      {"iron-plate", 3}
     },
     result = "alien-science-pack"
   }
@@ -56,7 +56,7 @@ data:extend(
     ingredients =
     {
       {"alien-plate", 5},
-      {"battery", 5}
+      {"battery", 10}
     },
     result = "alien-accumulator"
   }
@@ -71,7 +71,7 @@ data:extend(
     enabled = false,
     energy_required = 8,
 	result_count = 1,	
-    ingredients = {{"alien-plate", 10}, {"electronic-circuit", 5}, {"steel-plate", 5}},
+    ingredients = {{"alien-plate", 10}, {"electronic-circuit", 10}, {"steel-plate", 5}},
     result = "alien-solarpanel"
   }
 }
@@ -103,7 +103,7 @@ data:extend(
     result_count = 1,	
     ingredients =
     {
-      {"alien-plate", 30}
+      {"alien-plate", 40}
     },
   },
 }
@@ -197,7 +197,7 @@ for i=1,100,1 do
 		result_count = 1,
 		ingredients =
 		{
-		  {"alien-plate", 10 * i}
+		  {"alien-plate", 20 * i}
 		},
 	  },
 	}

@@ -6,14 +6,6 @@ table.insert(data.raw["technology"]["military"].effects,
 	}
 )
 
-table.insert(data.raw["technology"]["military-2"].effects,
-	{
-        type = "unlock-recipe",
-        recipe = "alien-artifact-to-plate"
-		
-	}
-)
-
 table.insert(data.raw["technology"]["military"].effects,
 	{
         type = "unlock-recipe",

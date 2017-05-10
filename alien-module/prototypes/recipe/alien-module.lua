@@ -18,38 +18,6 @@ data:extend(
 {
   {
     type = "recipe",
-    name = "alien-artifact-to-plate",
-    category = "smelting",
-    enabled = false,
-    energy_required = 10,
-	result_count = 5,	
-    ingredients = {{"alien-artifact", 1}},
-    result = "alien-plate"
-  }
-}
-)
-
-data:extend(
-{
-  {
-    type = "recipe",
-    name = "alien-plate-to-alienscience",
-    energy_required = 3,
-    enabled = true,
-    ingredients =
-    {
-      {"alien-plate", 1},
-      {"iron-plate", 3}
-    },
-    result = "alien-science-pack"
-  }
-}
-)
-
-data:extend(
-{
-  {
-    type = "recipe",
     name = "alien-accumulator",
     energy_required = 10,
     enabled = false,

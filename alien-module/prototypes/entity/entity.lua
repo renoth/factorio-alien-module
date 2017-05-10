@@ -205,8 +205,7 @@ data:extend(
       }
     },
     circuit_connector_sprites = get_circuit_connector_sprites({0.46875, 0.5}, {0.46875, 0.8125}, 26),
-    circuit_wire_max_distance = 7.5,
-    default_output_signal = "signal-A"
+    circuit_wire_max_distance = 7.5
   }
 })
 

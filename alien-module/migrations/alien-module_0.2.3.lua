@@ -1,10 +1,4 @@
-for i, force in pairs(game.forces) do 
- if force.technologies["military-2"].researched then 
-   force.recipes["alien-artifact-to-plate"].enabled = true
- end
-end
-
-for i, force in pairs(game.forces) do 
+for i, force in pairs(game.forces) do
  if force.technologies["military"].researched then 
    force.recipes["alien-plate"].enabled = true
  end

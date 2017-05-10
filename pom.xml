@@ -19,13 +19,61 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.5.3</version>
                 <configuration>
-                    <finalName>alien-module_${version}</finalName>
+                    <finalName>alien-module_${project.version}</finalName>
                     <appendAssemblyId>false</appendAssemblyId>
                     <descriptors>
                         <descriptor>src/package.xml</descriptor>
                     </descriptors>
                     <tarLongFileMode>posix</tarLongFileMode>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.github.goldin</groupId>
+                <artifactId>copy-maven-plugin</artifactId>
+                <version>0.2.5</version>
+                <executions>
+                    <execution>
+                        <id>deploy-to-local-directory</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <skipIdentical>false</skipIdentical>
+                            <failIfNotFound>true</failIfNotFound>
+                            <resources>
+                                <resource>
+                                    <description>Copy zipped mod to factorio mod folder</description>
+                                    <targetPath>${factorio.mod.path}</targetPath>
+                                    <directory>${project.build.directory}</directory>
+                                    <includes>
+                                        <include>*.zip</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>read-project-properties</goal>
+                        </goals>
+                        <configuration>
+                            <files>
+                                <file>src/config.properties</file>
+                            </files>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

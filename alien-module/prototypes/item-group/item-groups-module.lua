@@ -29,7 +29,7 @@ data:extend({
   },
   {
     type = "item-subgroup",
-    name = "module",
+    name = "alien-module",
     group = "alien-module",
     order = "3"
   },

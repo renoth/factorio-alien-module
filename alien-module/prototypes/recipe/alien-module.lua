@@ -53,7 +53,7 @@ data:extend(
     enabled = true,
     energy_required = 8,
 	result_count = 1,	
-    ingredients = {{"alien-plate", 25}, {"electronic-circuit", 10}, {"iron-gear-wheel", 10}},
+    ingredients = {{"alien-plate", 50}, {"electronic-circuit", 10}, {"iron-gear-wheel", 10}},
     result = "alien-mining-drill"
   }
 }
@@ -71,7 +71,7 @@ data:extend(
     result_count = 1,	
     ingredients =
     {
-      {"alien-plate", 40}
+      {"alien-plate", 50}
     },
   },
 }
@@ -90,7 +90,7 @@ data:extend(
     ingredients =
     {
       {"alien-module-1", 3},
-	  {"electronic-circuit", 10}
+	  {"electronic-circuit", 20}
     },
   },
 }
@@ -109,7 +109,7 @@ data:extend(
     ingredients =
     {
       {"alien-module-2", 3},
-      {"advanced-circuit", 10}
+      {"advanced-circuit", 20}
     },
   },
 }

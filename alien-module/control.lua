@@ -36,22 +36,20 @@ function update_gui()
 		if player.gui.top.killcount == nil then
 			player.gui.top.add{type="label", name="killcount", caption="TEST"}
 		end
-		player.gui.top.killcount.caption = "Hypermodule level: " .. math.log(global.killcount * 0.1) * math.pow(global.killcount, 0.1) .. " Killcount: " .. global.killcount
+		player.gui.top.killcount.caption = "Hypermodule level: " .. roundModuleLevel(3) .. " Killcount: " .. global.killcount
     end
 end
 
--- every 36000 ticks update modules in machines, to update those that werent in module slots and chests at update time
---script.on_event(defines.events.on_tick, function(event)
-  --  if (event.tick % 36000) ~= 0 then return end
-	
---	local assemblers = game.surfaces[1].find_entities_filtered{type = "assembling-machine"}
---	local miners = game.surfaces[1].find_entities_filtered{type = "mining-drill"}
-	
-	--update_modules_in_module_slot(assemblers, global.modulelevel)
-	--update_modules_in_module_slot(miners, global.modulelevel)
---end)
+function modulelevel()
+	return math.log(global.killcount * 0.1) * math.pow(global.killcount, 0.1)
+end
 
-function update_modules_in_module_slot(entities, level) 
+function roundModuleLevel(decimals)
+	shift = 10^decimals
+	return math.floor(modulelevel() * shift + 0.5) / shift
+end
+
+function update_modules_in_module_slot(entities, level)
 	for _, entity in ipairs(entities) do
 		local minv = entity.get_module_inventory()
 		
@@ -81,7 +79,7 @@ script.on_event(defines.events.on_entity_died, function(event)
 	if (event.entity.type == "unit") then
 		global.killcount = global.killcount + 1
 		
-		global.modulelevel = math.max(math.floor(math.log(global.killcount * 0.1) * math.pow(global.killcount, 0.1)), 1)
+		global.modulelevel = math.max(math.floor(modulelevel()), 1)
 		
 		update_gui()
 		

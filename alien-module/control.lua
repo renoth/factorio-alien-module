@@ -64,12 +64,37 @@ function update_modules_in_module_slot(entities, level)
 	end
 end
 
+function MergeTables(t1,t2)
+	for i=1,#t2 do
+		t1[#t1+1] = t2[i]
+	end
+	return t1
+end
+
 function update_recipes(assemblers, level, newrecipe)
 	for _, entity in ipairs(assemblers) do
 		if entity.recipe ~= nil then
 			if string.find(entity.recipe.name, "^alien%-hyper%-module") then
 				entity.recipe = newrecipe
 			end
+		end
+	end
+end
+
+function updateChestContents(chest)
+	local cinv = chest.get_inventory(defines.inventory.chest)
+
+	for i=1,80,1 do
+		if pcall(function ()
+			if string.find(cinv[i].name, "^alien%-hyper%-module") then
+				local stacksize = cinv[i].count
+				cinv[i].clear()
+				cinv[i].set_stack({name ="alien-hyper-module-" .. global.currentmodulelevel, count = stacksize})
+			end
+		end) then
+
+		else
+
 		end
 	end
 end
@@ -116,22 +141,18 @@ script.on_event(defines.events.on_entity_died, function(event)
 				local chests = surface.find_entities_filtered{type = "container"}
 
 				for _, chest in ipairs(chests) do
-					local cinv = chest.get_inventory(defines.inventory.chest)
-
-					for i=1,80,1 do
-						if pcall(function ()
-							if string.find(cinv[i].name, "^alien%-hyper%-module") then
-								local stacksize = cinv[i].count
-								cinv[i].clear()
-								cinv[i].set_stack({name ="alien-hyper-module-" .. global.currentmodulelevel, count = stacksize})
-							end
-						end) then
-
-						else
-
-						end
-					end
+					updateChestContents(chest)
 				end
+
+				local logisticChests = surface.find_entities_filtered{name = "logistic-chest-passive-provider"}
+				MergeTables(logisticChests, surface.find_entities_filtered{name = "logistic-chest-active-provider"})
+				MergeTables(logisticChests, surface.find_entities_filtered{name = "logistic-chest-storage"})
+				MergeTables(logisticChests, surface.find_entities_filtered{name = "logistic-chest-requester"})
+
+				for _, chest in ipairs(logisticChests) do
+					updateChestContents(chest)
+				end
+
 			end
 			
 			for _, player in pairs(game.players) do

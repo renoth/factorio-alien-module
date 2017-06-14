@@ -51,13 +51,13 @@ end
 
 function update_modules_in_module_slot(entities, level)
 	for _, entity in ipairs(entities) do
-		local minv = entity.get_module_inventory()
+		local moduleInventory = entity.get_module_inventory()
 		
-		for i=1,4,1 do 
+		for i=1,6,1 do
 			local status, err = pcall(function () 
-				if string.find(minv[i].name, "^alien%-hyper%-module") then
-					minv[i].clear()
-					minv[i].set_stack({name ="alien-hyper-module-" .. level})
+				if string.find(moduleInventory[i].name, "^alien%-hyper%-module") then
+					moduleInventory[i].clear()
+					moduleInventory[i].set_stack({name ="alien-hyper-module-" .. level})
 				end 
 			end)
 		end
@@ -81,15 +81,16 @@ function update_recipes(assemblers, level, newrecipe)
 	end
 end
 
+-- todo optimization: break method call if max chest size has been reached
 function updateChestContents(chest)
-	local cinv = chest.get_inventory(defines.inventory.chest)
+	local chestInventory = chest.get_inventory(defines.inventory.chest)
 
 	for i=1,80,1 do
 		if pcall(function ()
-			if string.find(cinv[i].name, "^alien%-hyper%-module") then
-				local stacksize = cinv[i].count
-				cinv[i].clear()
-				cinv[i].set_stack({name ="alien-hyper-module-" .. global.currentmodulelevel, count = stacksize})
+			if string.find(chestInventory[i].name, "^alien%-hyper%-module") then
+				local stacksize = chestInventory[i].count
+				chestInventory[i].clear()
+				chestInventory[i].set_stack({name ="alien-hyper-module-" .. global.currentmodulelevel, count = stacksize})
 			end
 		end) then
 
@@ -108,8 +109,9 @@ script.on_event(defines.events.on_entity_died, function(event)
 		
 		update_gui()
 		
-		for i, force in pairs(game.forces) do 
-			if force.technologies["automation"].researched then 
+		for _, force in pairs(game.forces) do
+			if force.technologies["automation"].researched then
+				force.recipes["alien-hyper-module-1"].enabled = false
 				force.recipes["alien-hyper-module-" .. global.currentmodulelevel].enabled = true
 			end
 		end
@@ -118,7 +120,7 @@ script.on_event(defines.events.on_entity_died, function(event)
 		if (global.modulelevel > global.currentmodulelevel) then
 			global.currentmodulelevel = global.currentmodulelevel + 1
 
-			for i, force in pairs(game.forces) do
+			for _, force in pairs(game.forces) do
 			    force.recipes["alien-hyper-module-" .. global.currentmodulelevel - 1].enabled = false
 			    force.recipes["alien-hyper-module-" .. global.currentmodulelevel].enabled = true
 			end
@@ -128,13 +130,15 @@ script.on_event(defines.events.on_entity_died, function(event)
 				local miners = surface.find_entities_filtered{type = "mining-drill"}
 				local labs = surface.find_entities_filtered{type = "lab"}
 				local furnaces = surface.find_entities_filtered{type = "furnace"}
+				local rocketSilos = surface.find_entities_filtered{name = "rocket-silo"}
 
 				update_modules_in_module_slot(assemblers, global.currentmodulelevel)
 				update_modules_in_module_slot(miners, global.currentmodulelevel)
 				update_modules_in_module_slot(labs, global.currentmodulelevel)
 				update_modules_in_module_slot(furnaces, global.currentmodulelevel)
+				update_modules_in_module_slot(rocketSilos, global.currentmodulelevel)
 
-				for i, force in pairs(game.forces) do
+				for _, force in pairs(game.forces) do
 					update_recipes(assemblers, global.currentmodulelevel, force.recipes["alien-hyper-module-" .. global.currentmodulelevel])
 				end
 

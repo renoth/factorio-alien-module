@@ -24,27 +24,27 @@ function AddLootToEntity(entityType, entityName, itemName, probability, countMin
 end
 
 function AddLootToBiters() 
-    SMALL_LOOT_PROBABILITY = 0.2
-    MEDIUM_LOOT_PROBABILITY = 0.5
-    BIG_LOOT_PROBABILITY = 1
+    local SMALL_LOOT_PROBABILITY = 0.2
+    local MEDIUM_LOOT_PROBABILITY = 0.5
+    local BIG_LOOT_PROBABILITY = 1
     
-    ALIEN_MODULE_ITEM_NAME = "artifact-ore"
+    local ALIEN_ORE_ITEM_NAME = "artifact-ore"
 
-    AddLootToEntity("unit", "small-spitter", ALIEN_MODULE_ITEM_NAME, SMALL_LOOT_PROBABILITY, 1, 1)
-    AddLootToEntity("unit", "small-biter", ALIEN_MODULE_ITEM_NAME, SMALL_LOOT_PROBABILITY, 1, 1)
+    AddLootToEntity("unit", "small-spitter", ALIEN_ORE_ITEM_NAME, SMALL_LOOT_PROBABILITY, 1, 1)
+    AddLootToEntity("unit", "small-biter", ALIEN_ORE_ITEM_NAME, SMALL_LOOT_PROBABILITY, 1, 1)
 
-    AddLootToEntity("unit", "medium-spitter", ALIEN_MODULE_ITEM_NAME, MEDIUM_LOOT_PROBABILITY, 1, 2)
-    AddLootToEntity("unit", "medium-biter", ALIEN_MODULE_ITEM_NAME, MEDIUM_LOOT_PROBABILITY, 1, 2)
+    AddLootToEntity("unit", "medium-spitter", ALIEN_ORE_ITEM_NAME, MEDIUM_LOOT_PROBABILITY, 1, 2)
+    AddLootToEntity("unit", "medium-biter", ALIEN_ORE_ITEM_NAME, MEDIUM_LOOT_PROBABILITY, 1, 2)
 
-    AddLootToEntity("unit", "big-spitter", ALIEN_MODULE_ITEM_NAME, BIG_LOOT_PROBABILITY, 1, 5)
-    AddLootToEntity("unit", "big-biter", ALIEN_MODULE_ITEM_NAME, BIG_LOOT_PROBABILITY, 1, 5)
+    AddLootToEntity("unit", "big-spitter", ALIEN_ORE_ITEM_NAME, BIG_LOOT_PROBABILITY, 1, 5)
+    AddLootToEntity("unit", "big-biter", ALIEN_ORE_ITEM_NAME, BIG_LOOT_PROBABILITY, 1, 5)
 
-    AddLootToEntity("unit", "behemoth-spitter", ALIEN_MODULE_ITEM_NAME, 1, 2, 20)
-    AddLootToEntity("unit", "behemoth-biter", ALIEN_MODULE_ITEM_NAME, 1, 2, 20)
+    AddLootToEntity("unit", "behemoth-spitter", ALIEN_ORE_ITEM_NAME, 1, 2, 20)
+    AddLootToEntity("unit", "behemoth-biter", ALIEN_ORE_ITEM_NAME, 1, 2, 20)
 
-    AddLootToEntity("turret", "little-worm-turret", ALIEN_MODULE_ITEM_NAME, MEDIUM_LOOT_PROBABILITY, 1, 5)
-    AddLootToEntity("turret", "medium-worm-turret", ALIEN_MODULE_ITEM_NAME, BIG_LOOT_PROBABILITY, 1, 10)
-    AddLootToEntity("turret", "big-worm-turret", ALIEN_MODULE_ITEM_NAME, 1, 1, 25)
+    AddLootToEntity("turret", "little-worm-turret", ALIEN_ORE_ITEM_NAME, MEDIUM_LOOT_PROBABILITY, 1, 5)
+    AddLootToEntity("turret", "medium-worm-turret", ALIEN_ORE_ITEM_NAME, BIG_LOOT_PROBABILITY, 1, 10)
+    AddLootToEntity("turret", "big-worm-turret", ALIEN_ORE_ITEM_NAME, 1, 1, 25)
 end
 
 AddLootToBiters()

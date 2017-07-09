@@ -31,7 +31,6 @@ if data.raw.item["alien-artifact"] then
     )
 end
 
-
 data:extend(
 {
   {

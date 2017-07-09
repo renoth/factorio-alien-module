@@ -13,7 +13,7 @@ end)
 
 function init_gui()
 	for _, player in pairs(game.players) do
-        player.gui.top.add{type="label", name="killcount", caption="TEST"}
+        player.gui.top.add{type="label", name="killcount", caption="Killcount"}
 		player.gui.top.killcount.caption = "Killcount: " .. global.killcount
     end
 end

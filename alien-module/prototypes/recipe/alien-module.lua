@@ -14,6 +14,24 @@ data:extend(
 }
 )
 
+-- if bobs enemies is enabled, make conversion of alien artifacts possible
+if data.raw.item["alien-artifact"] then
+    data:extend(
+        {
+            {
+                type = "recipe",
+                name = "alien-artifact-to-ore",
+                enabled = true,
+                energy_required = 25,
+                result_count = 5,
+                ingredients = {{"alien-artifact", 1}, {"stone", 5}, {"iron-ore", 5}},
+                result = "artifact-ore"
+            }
+        }
+    )
+end
+
+
 data:extend(
 {
   {

@@ -45,7 +45,7 @@ function modulelevel()
 end
 
 function roundModuleLevel(decimals)
-	shift = 10^decimals
+	local shift = 10^decimals
 	return math.floor(modulelevel() * shift + 0.5) / shift
 end
 

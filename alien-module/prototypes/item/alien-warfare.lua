@@ -1,45 +1,44 @@
 -- alien modules --
 
-data:extend(
-{
-  {
-    type = "ammo",
-    name = "alien-magazine",
-    icon = "__alien-module__/graphics/alien-magazine.png",
-    flags = {"goes-to-main-inventory"},
-    ammo_type =
+data:extend({
     {
-      category = "bullet",
-      action =
-      {
-        type = "direct",
-        action_delivery =
+        type = "ammo",
+        name = "alien-magazine",
+        icon = "__alien-module__/graphics/alien-magazine.png",
+        icon_size = 32,
+        flags = { "goes-to-main-inventory" },
+        ammo_type =
         {
-          type = "instant",
-          source_effects =
-          {
-              type = "create-explosion",
-              entity_name = "explosion-gunshot"
-          },
-          target_effects =
-          {
+            category = "bullet",
+            action =
             {
-              type = "create-entity",
-              entity_name = "explosion-hit"
-            },
-            {
-              type = "damage",
-              damage = { amount = 10 , type = "physical"}
+                type = "direct",
+                action_delivery =
+                {
+                    type = "instant",
+                    source_effects =
+                    {
+                        type = "create-explosion",
+                        entity_name = "explosion-gunshot"
+                    },
+                    target_effects =
+                    {
+                        {
+                            type = "create-entity",
+                            entity_name = "explosion-hit"
+                        },
+                        {
+                            type = "damage",
+                            damage = { amount = 10, type = "physical" }
+                        }
+                    }
+                }
             }
-          }
-        }
-      }
-    },
-    magazine_size = 10,
-    subgroup = "warfare",
-    category = "alien-module",
-    order = "a",
-    stack_size = 100
-  }
-}
-)
+        },
+        magazine_size = 10,
+        subgroup = "warfare",
+        category = "alien-module",
+        order = "a",
+        stack_size = 100
+    }
+})

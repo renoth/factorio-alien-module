@@ -14,6 +14,7 @@ data:extend({
     order = "ff",
     inventory_order = "gf",
     icon = "__alien-module__/graphics/item-group/module.png",
+    icon_size = 32,
   },
   {
     type = "item-subgroup",

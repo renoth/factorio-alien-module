@@ -4,6 +4,7 @@ data:extend(
     type = "solar-panel",
     name = "alien-solarpanel",
     icon = "__alien-module__/graphics/alien-solarpanel.png",
+    icon_size = 32,
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.2, mining_time = 0.5, result = "alien-solarpanel"},
     max_health = 150,
@@ -28,6 +29,7 @@ data:extend(
     type = "mining-drill",
     name = "alien-mining-drill",
     icon = "__alien-module__/graphics/alien-mining-drill.png",
+    icon_size = 32,
     flags = {"placeable-neutral", "player-creation"},
     minable = {mining_time = 1, result = "alien-mining-drill"},
     max_health = 500,
@@ -131,6 +133,7 @@ data:extend(
     type = "accumulator",
     name = "alien-accumulator",
     icon = "__alien-module__/graphics/alien-accumulator.png",
+    icon_size = 32,
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.2, mining_time = 0.5, result = "alien-accumulator"},
     max_health = 250,
@@ -204,7 +207,7 @@ data:extend(
         green = {0.6875, 0.71875}
       }
     },
-    circuit_connector_sprites = get_circuit_connector_sprites({0.46875, 0.5}, {0.46875, 0.8125}, 26),
+
     circuit_wire_max_distance = 7.5
   }
 })

@@ -11,16 +11,42 @@ data:extend({
     }
 })
 
--- make normal ore from alien ore --
+-- make iron ore from alien ore --
 data:extend({
     {
         type = "recipe",
         name = "alien-ore-to-iron-ore",
-        enabled = false,
-        energy_required = 10,
+        enabled = true,
+        energy_required = 20,
         ingredients = { { "artifact-ore", 1 } },
-        result = "alien-plate",
-        result_count = 1
+        result = "iron-ore",
+        result_count = 10
+    }
+})
+
+-- make copper ore from alien ore --
+data:extend({
+    {
+        type = "recipe",
+        name = "alien-ore-to-copper-ore",
+        enabled = true,
+        energy_required = 20,
+        ingredients = { { "artifact-ore", 1 } },
+        result = "copper-ore",
+        result_count = 10
+    }
+})
+
+-- make coal from alien ore --
+data:extend({
+    {
+        type = "recipe",
+        name = "alien-ore-to-coal",
+        enabled = true,
+        energy_required = 20,
+        ingredients = { { "artifact-ore", 1 } },
+        result = "coal",
+        result_count = 10
     }
 })
 

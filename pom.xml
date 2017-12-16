@@ -6,7 +6,7 @@
 
     <groupId>de.renoth</groupId>
     <artifactId>alien-loot-economy</artifactId>
-    <version>0.4.1</version>
+    <version>0.4.2</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

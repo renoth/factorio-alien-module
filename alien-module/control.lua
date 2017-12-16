@@ -73,9 +73,9 @@ end
 
 function update_recipes(assemblers, level, newrecipe)
 	for _, entity in ipairs(assemblers) do
-		if entity.recipe ~= nil then
-			if string.find(entity.recipe.name, "^alien%-hyper%-module") then
-				entity.recipe = newrecipe
+		if entity.get_recipe() ~= nil then
+			if string.find(entity.get_recipe().name, "^alien%-hyper%-module") then
+				entity.set_recipe(newrecipe)
 			end
 		end
 	end

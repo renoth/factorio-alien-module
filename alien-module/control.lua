@@ -14,7 +14,7 @@ end)
 function init_gui()
 	for _, player in pairs(game.players) do
         player.gui.top.add{type="label", name="killcount", caption="Killcount"}
-		player.gui.top.killcount.caption = "Killcount: " .. global.killcount
+		player.gui.top.killcount.caption = "消灭异虫数量: " .. global.killcount
     end
 end
 
@@ -36,7 +36,7 @@ function update_gui()
 		if player.gui.top.killcount == nil then
 			player.gui.top.add{type="label", name="killcount", caption="TEST"}
 		end
-		player.gui.top.killcount.caption = "Hypermodule level: " .. roundModuleLevel(3) .. " Killcount: " .. global.killcount
+		player.gui.top.killcount.caption = "异星超级插件等级: " .. roundModuleLevel(3) .. " 消灭异虫数量: " .. global.killcount
     end
 end
 
@@ -104,23 +104,25 @@ end
 script.on_event(defines.events.on_entity_died, function(event)
 	if (event.entity.type == "unit") then
 		global.killcount = global.killcount + 1
-		
+	end
+end)
+
+script.on_event(defines.events.on_tick, function(event)
+	-- Every 0.5 seconds
+	if event.tick%30 == 0 then
 		global.modulelevel = math.max(math.floor(modulelevel()), 1)
 		
 		update_gui()
-		
-		for _, force in pairs(game.forces) do
-			if force.technologies["automation"].researched then
-				force.recipes["alien-hyper-module-1"].enabled = false
-				force.recipes["alien-hyper-module-" .. global.currentmodulelevel].enabled = true
-			end
-		end
-		
+				
 		-- if the modulelevel is raised by the kill, increase the level of all hyper modules by finding and replacing them (future API of factorio might have more convenient methods of doing that)
 		if (global.modulelevel > global.currentmodulelevel) then
 			global.currentmodulelevel = global.currentmodulelevel + 1
-
+			
 			for _, force in pairs(game.forces) do
+				if force.technologies["automation"].researched then
+					force.recipes["alien-hyper-module-1"].enabled = false
+					force.recipes["alien-hyper-module-" .. global.currentmodulelevel].enabled = true
+				end
 			    force.recipes["alien-hyper-module-" .. global.currentmodulelevel - 1].enabled = false
 			    force.recipes["alien-hyper-module-" .. global.currentmodulelevel].enabled = true
 			end
@@ -143,16 +145,11 @@ script.on_event(defines.events.on_entity_died, function(event)
 				end
 
 				local chests = surface.find_entities_filtered{type = "container"}
-
 				for _, chest in ipairs(chests) do
 					updateChestContents(chest)
 				end
 
-				local logisticChests = surface.find_entities_filtered{name = "logistic-chest-passive-provider"}
-				MergeTables(logisticChests, surface.find_entities_filtered{name = "logistic-chest-active-provider"})
-				MergeTables(logisticChests, surface.find_entities_filtered{name = "logistic-chest-storage"})
-				MergeTables(logisticChests, surface.find_entities_filtered{name = "logistic-chest-requester"})
-
+				local logisticChests = surface.find_entities_filtered{type = "logistic-container"}
 				for _, chest in ipairs(logisticChests) do
 					updateChestContents(chest)
 				end
@@ -173,7 +170,7 @@ script.on_event(defines.events.on_entity_died, function(event)
 				end
 			end
 			
-			pp("Alien Hyper Modules upgraded to level: " .. global.modulelevel)
+			pp("异星超级插件提升至: " .. global.modulelevel .. "级")
 		end
 	end
 end)

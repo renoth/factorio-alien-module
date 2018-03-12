@@ -14,20 +14,16 @@ end)
 function init_gui()
 	for _, player in pairs(game.players) do
         player.gui.top.add{type="label", name="killcount", caption="Killcount"}
-		player.gui.top.killcount.caption = "消灭异虫数量: " .. global.killcount
+		player.gui.top.killcount.caption = {'gui.label', roundModuleLevel(3), global.killcount}
     end
 end
 
 -- pretty print a variable var
-function pp(var)
+function pp(key, param)
     for _, player in pairs(game.players) do
-      local msg
-      if type(var) == "string" then
-        msg = var
-      else
-        msg = serpent.dump(var, {name="var", compact=false, nocode=true, comment=false, sparse=false, sortkeys=true})
-      end
-      player.print(msg)
+        if type(key) == "string" then
+			player.print({key, param})
+        end
     end
 end
 
@@ -36,7 +32,8 @@ function update_gui()
 		if player.gui.top.killcount == nil then
 			player.gui.top.add{type="label", name="killcount", caption="TEST"}
 		end
-		player.gui.top.killcount.caption = "异星超级插件等级: " .. roundModuleLevel(3) .. " 消灭异虫数量: " .. global.killcount
+		
+		player.gui.top.killcount.caption = {'gui.label', roundModuleLevel(3), global.killcount}
     end
 end
 
@@ -170,7 +167,7 @@ script.on_event(defines.events.on_tick, function(event)
 				end
 			end
 			
-			pp("异星超级插件提升至: " .. global.modulelevel .. "级")
+			pp('gui.module-upgraded', global.modulelevel)
 		end
 	end
 end)

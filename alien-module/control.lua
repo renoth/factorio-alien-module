@@ -104,14 +104,15 @@ script.on_event(defines.events.on_entity_died, function(event)
 	end
 end)
 
+-- Every 0.5 seconds: calculate the module level and upgrade hyper modules if level floor value changed
 script.on_event(defines.events.on_tick, function(event)
-	-- Every 0.5 seconds
 	if event.tick%30 == 0 then
 		global.modulelevel = math.max(math.floor(modulelevel()), 1)
 		
 		update_gui()
 				
-		-- if the modulelevel is raised by the kill, increase the level of all hyper modules by finding and replacing them (future API of factorio might have more convenient methods of doing that)
+		-- if the modulelevel is raised by the kill, increase the level of all hyper modules by finding and replacing them
+		-- TODO: future API of factorio might have more convenient methods of doing that)
 		if (global.modulelevel > global.currentmodulelevel) then
 			global.currentmodulelevel = global.currentmodulelevel + 1
 			
@@ -156,7 +157,7 @@ script.on_event(defines.events.on_tick, function(event)
 			for _, player in pairs(game.players) do
 				local pinv = player.get_inventory(defines.inventory.player_main)
 				
-				for i=1,100,1 do 
+				for i=1,500,1 do
 					pcall(function () 
 						if string.find(pinv[i].name, "^alien%-hyper%-module") then
 							local stacksize = pinv[i].count

@@ -10,6 +10,12 @@ table.insert(data.raw["technology"]["military"].effects,
         recipe = "alien-magazine"
     })
 
+table.insert(data.raw["technology"]["military"].effects,
+    {
+        type = "unlock-recipe",
+        recipe = "alien-fuel"
+    })
+
 if data.raw["item"]["alien-artifact"] then
     table.insert(data.raw["technology"]["automation"].effects,
         {

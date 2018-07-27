@@ -188,6 +188,24 @@ data:extend({
     },
 })
 
+-- alien-fuel --
+
+data:extend({
+    {
+        type = "recipe",
+        name = "alien-fuel",
+        enabled = false,
+        energy_required = 5,
+        result = "alien-fuel",
+        result_count = 1,
+        ingredients =
+        {
+            { "alien-plate", 2 },
+            { "coal", 10 }
+        },
+    },
+})
+
 for i = 1, 100, 1 do
     data:extend({
         {

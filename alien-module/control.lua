@@ -11,10 +11,19 @@ script.on_load(function()
 	end
 end)
 
+function modulelevel()
+	return math.log(global.killcount * 0.1) * math.pow(global.killcount, 0.1)
+end
+
+function roundModuleLevel()
+	return math.floor(modulelevel() * 1000 + 0.5) / 1000
+end
+
 function init_gui()
 	for _, player in pairs(game.players) do
-        player.gui.top.add{type="label", name="killcount", caption="Killcount"}
-		player.gui.top.killcount.caption = {'gui.label', roundModuleLevel(3), global.killcount}
+		player.gui.top.add { type = "frame", name = "alienmodule", direction = "vertical" }
+		player.gui.top.alienmodule.add { type = "label", name = "killcount", caption = "TEST" }
+		player.gui.top.alienmodule.add { type = "progressbar", name = "killbar" }
     end
 end
 
@@ -29,33 +38,41 @@ end
 
 function update_gui()
 	for _, player in pairs(game.players) do
-		if player.gui.top.killcount == nil then
-			player.gui.top.add{type="label", name="killcount", caption="TEST"}
+		if player.gui.top.killcount ~= nil then
+			player.gui.top.killcount.destroy()
 		end
-		
-		player.gui.top.killcount.caption = {'gui.label', roundModuleLevel(3), global.killcount}
-    end
-end
 
-function modulelevel()
-	return math.log(global.killcount * 0.1) * math.pow(global.killcount, 0.1)
-end
+		if player.gui.top.killbar ~= nil then
+			player.gui.top.killbar.destroy()
+		end
 
-function roundModuleLevel(decimals)
-	local shift = 10^decimals
-	return math.floor(modulelevel() * shift + 0.5) / shift
+		if player.gui.top.alienmodule == nil then
+			player.gui.top.add { type = "frame", name = "alienmodule", direction = "vertical" }
+		end
+
+		if player.gui.top.alienmodule.killcount == nil then
+			player.gui.top.alienmodule.add { type = "label", name = "killcount", caption = "TEST" }
+		end
+
+		if player.gui.top.alienmodule.killbar == nil then
+			player.gui.top.alienmodule.add { type = "progressbar", name = "killbar" }
+		end
+
+		player.gui.top.alienmodule.killcount.caption = { 'gui.label', roundModuleLevel(), global.killcount }
+		player.gui.top.alienmodule.killbar.value = roundModuleLevel() - global.modulelevel
+	end
 end
 
 function update_modules_in_module_slot(entities, level)
 	for _, entity in ipairs(entities) do
 		local moduleInventory = entity.get_module_inventory()
-		
+
 		for i=1,6,1 do
-			local status, err = pcall(function () 
+			local status, err = pcall(function ()
 				if string.find(moduleInventory[i].name, "^alien%-hyper%-module") then
 					moduleInventory[i].clear()
 					moduleInventory[i].set_stack({name ="alien-hyper-module-" .. level})
-				end 
+				end
 			end)
 		end
 	end
@@ -108,14 +125,14 @@ end)
 script.on_event(defines.events.on_tick, function(event)
 	if event.tick%30 == 0 then
 		global.modulelevel = math.max(math.floor(modulelevel()), 1)
-		
+
 		update_gui()
-				
+
 		-- if the modulelevel is raised by the kill, increase the level of all hyper modules by finding and replacing them
 		-- TODO: future API of factorio might have more convenient methods of doing that)
 		if (global.modulelevel > global.currentmodulelevel) then
 			global.currentmodulelevel = global.currentmodulelevel + 1
-			
+
 			for _, force in pairs(game.forces) do
 				if force.technologies["automation"].researched then
 					force.recipes["alien-hyper-module-1"].enabled = false
@@ -153,12 +170,12 @@ script.on_event(defines.events.on_tick, function(event)
 				end
 
 			end
-			
+
 			for _, player in pairs(game.players) do
 				local pinv = player.get_inventory(defines.inventory.player_main)
-				
+
 				for i=1,500,1 do
-					pcall(function () 
+					pcall(function ()
 						if string.find(pinv[i].name, "^alien%-hyper%-module") then
 							local stacksize = pinv[i].count
 							pinv[i].clear()
@@ -167,7 +184,7 @@ script.on_event(defines.events.on_tick, function(event)
 					end)
 				end
 			end
-			
+
 			pp('gui.module-upgraded', global.modulelevel)
 		end
 	end

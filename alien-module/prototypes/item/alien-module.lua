@@ -107,6 +107,7 @@ data:extend({
 })
 
 for i = 1, 100, 1 do
+    local levelbonus = i * 0.01001
     data:extend({
         {
             type = "module",
@@ -121,9 +122,9 @@ for i = 1, 100, 1 do
             stack_size = 50,
             effect =
             {
-                consumption = { bonus = 0.01 * i },
-                speed = { bonus = 0.01 * i },
-                productivity = { bonus = 0.01 * i }
+                consumption = { bonus = levelbonus },
+                speed = { bonus = levelbonus },
+                productivity = { bonus = levelbonus }
             },
         },
     })

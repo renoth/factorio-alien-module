@@ -1,6 +1,6 @@
 script.on_init(function()
 	global.killcount = 0
-	global.modulelevel = 0
+	global.modulelevel = 1
 	global.currentmodulelevel = 1
 	init_gui()
 end)
@@ -9,10 +9,16 @@ script.on_load(function()
 	if global.currentmodulelevel == nil then
 		global.currentmodulelevel = 1
 	end
+    if global.modulelevel == nil then
+		global.modulelevel = 1
+	end
+    if global.killcount == nil then
+		global.killcount = 0
+	end
 end)
 
 function modulelevel()
-	return math.log(global.killcount * 0.1) * math.pow(global.killcount, 0.1)
+	return math.max(math.log((global.killcount + 19) * 0.1) * math.pow((global.killcount + 19), 0.1), 1)
 end
 
 function roundModuleLevel()
@@ -24,6 +30,8 @@ function init_gui()
 		player.gui.top.add { type = "frame", name = "alienmodule", direction = "vertical" }
 		player.gui.top.alienmodule.add { type = "label", name = "killcount", caption = "TEST" }
 		player.gui.top.alienmodule.add { type = "progressbar", name = "killbar" }
+
+		player.gui.top.alienmodule.killbar.value = math.max(roundModuleLevel() - global.modulelevel, 0)
     end
 end
 
@@ -59,7 +67,7 @@ function update_gui()
 		end
 
 		player.gui.top.alienmodule.killcount.caption = { 'gui.label', roundModuleLevel(), global.killcount }
-		player.gui.top.alienmodule.killbar.value = roundModuleLevel() - global.modulelevel
+		player.gui.top.alienmodule.killbar.value = math.max(roundModuleLevel() - global.modulelevel, 0)
 	end
 end
 

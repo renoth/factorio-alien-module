@@ -51,7 +51,7 @@ data:extend({
 })
 
 -- if bobs enemies is enabled, make conversion of alien artifacts possible
-if data.raw.item["alien-artifact"] then
+if data.raw["item"]["alien-artifact"] ~= nil then
     data:extend({
         {
             type = "recipe",

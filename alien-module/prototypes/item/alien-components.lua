@@ -9,7 +9,7 @@ data:extend({
         flags = { "goes-to-main-inventory" },
         subgroup = "component",
         category = "alien-module",
-        tier = 1,
+        tier = 0,
         order = "a-1",
         stack_size = 200,
     },

@@ -45,6 +45,8 @@ function AddLootToBiters()
     AddLootToEntity("turret", "big-worm-turret", 1, 1, 25)
 end
 
+AddLootToBiters()
+
 -- This is for the Natural Expansion Mod
 for i = 1, 20 do
     local loot_probability = math.min(i * 0.06, 1)
@@ -61,6 +63,18 @@ for i = 1, 20 do
     AddLootToEntity("unit", "ne-spitter-ulaunch-" .. i, loot_probability, loot_amount, loot_amount)
     AddLootToEntity("unit", "ne-spitter-webshooter-" .. i, loot_probability, loot_amount, loot_amount)
     AddLootToEntity("unit", "ne-spitter-mine-" .. i, loot_probability, loot_amount, loot_amount)
+end
+
+for i = 2, 3 do
+    local MEDIUM_LOOT_PROBABILITY = 0.5
+    local BIG_LOOT_PROBABILITY = 1
+
+    AddLootToEntity("unit", "small-spitter-Mk" .. i, MEDIUM_LOOT_PROBABILITY, 1, 1)
+    AddLootToEntity("unit", "small-biter-Mk" .. i, MEDIUM_LOOT_PROBABILITY, 1, 1)
+    AddLootToEntity("unit", "medium-spitter-Mk" .. i, BIG_LOOT_PROBABILITY, 1, 2)
+    AddLootToEntity("unit", "medium-biter-Mk" .. i, BIG_LOOT_PROBABILITY, 1, 2)
+    AddLootToEntity("unit", "big-spitter-Mk" .. i, BIG_LOOT_PROBABILITY, 1, 5)
+    AddLootToEntity("unit", "big-biter-Mk" .. i, BIG_LOOT_PROBABILITY, 1, 5)
 end
 
 -- boss unit from NE

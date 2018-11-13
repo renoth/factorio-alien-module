@@ -23,7 +23,7 @@ function AddLootToEntity(entityType, entityName, probability, countMin, countMax
     end
 end
 
-function AddLootToBiters()
+function AddLootToVanillaEnemies()
     local SMALL_LOOT_PROBABILITY = 0.2
     local MEDIUM_LOOT_PROBABILITY = 0.5
     local BIG_LOOT_PROBABILITY = 1
@@ -45,39 +45,88 @@ function AddLootToBiters()
     AddLootToEntity("turret", "big-worm-turret", 1, 1, 25)
 end
 
-AddLootToBiters()
-
 -- This is for the Natural Expansion Mod
-for i = 1, 20 do
-    local loot_probability = math.min(i * 0.06, 1)
-    local loot_amount = math.floor(math.max(i * 0.101, 1))
+function AddLootToNEEnemies()
+    for i = 1, 20 do
+        local loot_probability = math.min(i * 0.06, 1) -- 120 % at highest tier
+        local max_loot_amount = math.floor(math.max(i * 0.101, 1))
 
-    AddLootToEntity("unit", "ne-biter-breeder-" .. i, loot_probability, loot_amount, loot_amount)
-    AddLootToEntity("unit", "ne-biter-fire-" .. i, loot_probability, loot_amount, loot_amount)
-    AddLootToEntity("unit", "ne-biter-fast-" .. i, loot_probability, loot_amount, loot_amount)
-    AddLootToEntity("unit", "ne-biter-wallbreaker-" .. i, loot_probability, loot_amount, loot_amount)
-    AddLootToEntity("unit", "ne-biter-tank-" .. i, loot_probability, loot_amount, loot_amount)
+        AddLootToEntity("unit", "ne-biter-breeder-" .. i, loot_probability, 1, max_loot_amount)
+        AddLootToEntity("unit", "ne-biter-fire-" .. i, loot_probability, 1, max_loot_amount)
+        AddLootToEntity("unit", "ne-biter-fast-" .. i, loot_probability, 1, max_loot_amount)
+        AddLootToEntity("unit", "ne-biter-wallbreaker-" .. i, loot_probability, 1, max_loot_amount)
+        AddLootToEntity("unit", "ne-biter-tank-" .. i, loot_probability, 1, max_loot_amount)
 
-    AddLootToEntity("unit", "ne-spitter-breeder-" .. i, loot_probability, loot_amount, loot_amount)
-    AddLootToEntity("unit", "ne-spitter-fire-" .. i, loot_probability, loot_amount, loot_amount)
-    AddLootToEntity("unit", "ne-spitter-ulaunch-" .. i, loot_probability, loot_amount, loot_amount)
-    AddLootToEntity("unit", "ne-spitter-webshooter-" .. i, loot_probability, loot_amount, loot_amount)
-    AddLootToEntity("unit", "ne-spitter-mine-" .. i, loot_probability, loot_amount, loot_amount)
+        AddLootToEntity("unit", "ne-spitter-breeder-" .. i, loot_probability, 1, max_loot_amount)
+        AddLootToEntity("unit", "ne-spitter-fire-" .. i, loot_probability, 1, max_loot_amount)
+        AddLootToEntity("unit", "ne-spitter-ulaunch-" .. i, loot_probability, 1, max_loot_amount)
+        AddLootToEntity("unit", "ne-spitter-webshooter-" .. i, loot_probability, 1, max_loot_amount)
+        AddLootToEntity("unit", "ne-spitter-mine-" .. i, loot_probability, 1, max_loot_amount)
+    end
+
+    for i = 2, 3 do
+        local MEDIUM_LOOT_PROBABILITY = 0.5
+        local BIG_LOOT_PROBABILITY = 1
+
+        AddLootToEntity("unit", "small-spitter-Mk" .. i, MEDIUM_LOOT_PROBABILITY, 1, 1)
+        AddLootToEntity("unit", "small-biter-Mk" .. i, MEDIUM_LOOT_PROBABILITY, 1, 1)
+        AddLootToEntity("unit", "medium-spitter-Mk" .. i, BIG_LOOT_PROBABILITY, 1, 2)
+        AddLootToEntity("unit", "medium-biter-Mk" .. i, BIG_LOOT_PROBABILITY, 1, 2)
+        AddLootToEntity("unit", "big-spitter-Mk" .. i, BIG_LOOT_PROBABILITY, 1, 5)
+        AddLootToEntity("unit", "big-biter-Mk" .. i, BIG_LOOT_PROBABILITY, 1, 5)
+    end
+
+    -- boss unit from NE
+    AddLootToEntity("unit", "ne-biter-megladon", 1, 50, 200)
 end
 
-for i = 2, 3 do
-    local MEDIUM_LOOT_PROBABILITY = 0.5
-    local BIG_LOOT_PROBABILITY = 1
+-- Rampant mod enemies
+function AddLootToRampantEnemies()
+    for t = 1, 10 do
+        for v = 1, 20 do
+            local loot_probability = math.min(t * 0.1, 1) -- 100 % at highest tier
+            local max_loot_amount = 1
 
-    AddLootToEntity("unit", "small-spitter-Mk" .. i, MEDIUM_LOOT_PROBABILITY, 1, 1)
-    AddLootToEntity("unit", "small-biter-Mk" .. i, MEDIUM_LOOT_PROBABILITY, 1, 1)
-    AddLootToEntity("unit", "medium-spitter-Mk" .. i, BIG_LOOT_PROBABILITY, 1, 2)
-    AddLootToEntity("unit", "medium-biter-Mk" .. i, BIG_LOOT_PROBABILITY, 1, 2)
-    AddLootToEntity("unit", "big-spitter-Mk" .. i, BIG_LOOT_PROBABILITY, 1, 5)
-    AddLootToEntity("unit", "big-biter-Mk" .. i, BIG_LOOT_PROBABILITY, 1, 5)
+            AddLootToEntity("unit", "neutral-biter-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("unit", "neutral-spitter-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("unit", "acid-biter-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("unit", "acid-spitter-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("unit", "physical-biter-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("unit", "electric-biter-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("unit", "suicide-biter-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("unit", "nuclear-biter-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("unit", "fire-biter-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("unit", "fire-spitter-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("unit", "inferno-spitter-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("unit", "troll-biter-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("unit", "troll-spitter-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("unit", "fast-biter-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("unit", "fast-spitter-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("unit", "laser-biter-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("unit", "laser-spitter-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("unit", "wasp-spitter-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("unit", "spawner-spitter-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("unit", "spawner-biter-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+
+            AddLootToEntity("turret", "neutral-worm-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("turret", "acid-worm-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("turret", "physical-worm-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("turret", "electric-worm-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("turret", "suicide-worm-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("turret", "nuclear-worm-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("turret", "fire-worm-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("turret", "inferno-worm-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("turret", "troll-worm-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("turret", "fast-worm-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("turret", "laser-worm-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("turret", "wasp-worm-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+            AddLootToEntity("turret", "spawner-worm-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
+        end
+    end
 end
 
--- boss unit from NE
-AddLootToEntity("unit", "ne-biter-megladon", 1, 50, 200)
+AddLootToVanillaEnemies()
+AddLootToNEEnemies()
+AddLootToRampantEnemies()
 
 

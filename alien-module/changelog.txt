@@ -1,0 +1,6 @@
+Version: 0.4.11
+Date: 10.12.2018
+  Changes:
+    - Added Changelog-File
+    - Alien Fuel value 100MJ -> 200MJ
+    - Alien Fuel Acceleration 125% -> 140%

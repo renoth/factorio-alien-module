@@ -1,3 +1,10 @@
+Version: 0.4.12
+Date: 16.01.2019
+  Changes:
+    - Nerf alien ore drop rate for rampant and Natural Evolution
+    - Boost alien ore drop rate for small and medium vanilla biters and small and medium turrets
+    - Slightly nerf alien ore drop rate for big vanilla biters
+
 Version: 0.4.11
 Date: 10.12.2018
   Changes:

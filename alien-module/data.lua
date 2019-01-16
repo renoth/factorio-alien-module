@@ -24,9 +24,9 @@ function AddLootToEntity(entityType, entityName, probability, countMin, countMax
 end
 
 function AddLootToVanillaEnemies()
-    local SMALL_LOOT_PROBABILITY = 0.2
-    local MEDIUM_LOOT_PROBABILITY = 0.5
-    local BIG_LOOT_PROBABILITY = 1
+    local SMALL_LOOT_PROBABILITY = 0.33
+    local MEDIUM_LOOT_PROBABILITY = 0.66
+    local BIG_LOOT_PROBABILITY = 0.83
 
     AddLootToEntity("unit", "small-spitter", SMALL_LOOT_PROBABILITY, 1, 1)
     AddLootToEntity("unit", "small-biter", SMALL_LOOT_PROBABILITY, 1, 1)
@@ -40,15 +40,15 @@ function AddLootToVanillaEnemies()
     AddLootToEntity("unit", "behemoth-spitter", 1, 2, 20)
     AddLootToEntity("unit", "behemoth-biter", 1, 2, 20)
 
-    AddLootToEntity("turret", "little-worm-turret", MEDIUM_LOOT_PROBABILITY, 1, 5)
-    AddLootToEntity("turret", "medium-worm-turret", BIG_LOOT_PROBABILITY, 1, 10)
+    AddLootToEntity("turret", "little-worm-turret", 1, 1, 5)
+    AddLootToEntity("turret", "medium-worm-turret", 1, 1, 10)
     AddLootToEntity("turret", "big-worm-turret", 1, 1, 25)
 end
 
 -- This is for the Natural Expansion Mod
 function AddLootToNEEnemies()
     for i = 1, 20 do
-        local loot_probability = math.min(i * 0.06, 1) -- 120 % at highest tier
+        local loot_probability = math.min(i * 0.04, 1) -- 80 % at highest tier
         local max_loot_amount = math.floor(math.max(i * 0.101, 1))
 
         AddLootToEntity("unit", "ne-biter-breeder-" .. i, loot_probability, 1, max_loot_amount)
@@ -84,7 +84,7 @@ end
 function AddLootToRampantEnemies()
     for t = 1, 10 do
         for v = 1, 20 do
-            local loot_probability = math.min(t * 0.1, 1) -- 100 % at highest tier
+            local loot_probability = math.min(t * 0.08, 1) -- 80 % at highest tier
             local max_loot_amount = 1
 
             AddLootToEntity("unit", "neutral-biter-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)

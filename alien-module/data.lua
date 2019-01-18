@@ -43,6 +43,9 @@ function AddLootToVanillaEnemies()
     AddLootToEntity("turret", "little-worm-turret", 1, 1, 5)
     AddLootToEntity("turret", "medium-worm-turret", 1, 1, 10)
     AddLootToEntity("turret", "big-worm-turret", 1, 1, 25)
+
+    AddLootToEntity("unit-spawner", "biter-spawner", 1, 20, 50)
+    AddLootToEntity("unit-spawner", "spitter-spawner", 1, 20, 50)
 end
 
 -- This is for the Natural Expansion Mod

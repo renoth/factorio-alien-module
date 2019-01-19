@@ -99,7 +99,7 @@ data:extend({
         stack_size = 50,
         effect =
         {
-            consumption = { bonus = 0.6 },
+            consumption = { bonus = 0.75 },
             speed = { bonus = 0.25 },
             productivity = { bonus = 0.15 }
         },
@@ -122,7 +122,7 @@ for i = 1, 100, 1 do
             stack_size = 50,
             effect =
             {
-                consumption = { bonus = levelbonus },
+                consumption = { bonus = levelbonus * 2 },
                 speed = { bonus = levelbonus },
                 productivity = { bonus = levelbonus }
             },

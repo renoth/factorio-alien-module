@@ -1,3 +1,8 @@
+Version: 0.4.14
+Date: 19.01.2019
+  Fixes:
+    - Biter and Spitter spawner now drop alien ore loot (20 - 50 ore)
+
 Version: 0.4.13
 Date: 17.01.2019
   Changes:

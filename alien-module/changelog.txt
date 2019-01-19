@@ -1,7 +1,11 @@
 Version: 0.4.14
 Date: 19.01.2019
-  Fixes:
-    - Biter and Spitter spawner now drop alien ore loot (20 - 50 ore)
+  Balance:
+    - Hypermodules now incease consumption by LEVEL * 2 instead of LEVEL
+    - Module level 5 now increases energy consumption by 75% instead of 60%
+  Bugfixes:
+    - When loading game Hypermodule level 1 recipe should no longer be available when module level is higher
+    - Increased Number of checked modules slots from 6 to 10
 
 Version: 0.4.13
 Date: 17.01.2019

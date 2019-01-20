@@ -178,14 +178,3 @@ script.on_nth_tick(120, function(event)
         pp('gui.module-upgraded', global.modulelevel)
     end
 end)
-
--- every 10 seconds check if level 1 recipe is enabled when it should not be enabled
-script.on_nth_tick(600, function(event)
-    for _, force in pairs(game.forces) do
-        if force.technologies["automation"].researched then
-            if force.recipes["alien-hyper-module-1"].enabled == true and global.currentmodulelevel > 1 then
-                force.recipes["alien-hyper-module-1"].enabled = false
-            end
-        end
-    end
-end)

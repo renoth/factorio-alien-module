@@ -111,6 +111,18 @@ function update_recipes(assemblers, force)
 	end
 end
 
+function update_enabled_recipe()
+	for _, force in pairs(game.forces) do
+		if force.technologies["automation"].researched then
+			if global.currentmodulelevel > 1 then
+				force.recipes["alien-hyper-module-1"].enabled = false
+				force.recipes["alien-hyper-module-" .. global.currentmodulelevel - 1].enabled = false
+				force.recipes["alien-hyper-module-" .. global.currentmodulelevel].enabled = true
+			end
+		end
+	end
+end
+
 -- if an entity is killed, raise killcount
 script.on_event(defines.events.on_entity_died, function(event)
     if (event.entity.type == "unit") then
@@ -119,53 +131,61 @@ script.on_event(defines.events.on_entity_died, function(event)
 end)
 
 -- Every 2 seconds: calculate the module level and upgrade hyper modules if level floor value changed
-script.on_event(defines.events.on_tick, function(event)
-    if event.tick % 120 == 0 then
-        global.modulelevel = math.max(math.floor(modulelevel()), 1)
+script.on_nth_tick(120, function(event)
 
-        update_gui()
+	--every 10 seconds update what module recipe is enabled
+    if event.tick % 600 == 0 then
+		update_enabled_recipe()
+	end
 
-        -- if the modulelevel is raised by the kill, increase the level of all hyper modules by finding and replacing them
-        -- TODO: future API of factorio might have more convenient methods of doing that)
-        if (global.modulelevel > global.currentmodulelevel) then
-            global.currentmodulelevel = global.currentmodulelevel + 1
-			
+	global.modulelevel = math.max(math.floor(modulelevel()), 1)
+
+    update_gui()
+
+    -- if the modulelevel is raised by the kill, increase the level of all hyper modules by finding and replacing them
+    -- TODO: future API of factorio might have more convenient methods of doing that)
+    if (global.modulelevel > global.currentmodulelevel) then
+        global.currentmodulelevel = global.currentmodulelevel + 1
+		
+		--update what module recipe is enabled
+		update_enabled_recipe()
+
+        for _, surface in pairs(game.surfaces) do
+			local assemblers = surface.find_entities_filtered{type = "assembling-machine"}
+			local miners = surface.find_entities_filtered{type = "mining-drill"}
+			local labs = surface.find_entities_filtered{type = "lab"}
+			local furnaces = surface.find_entities_filtered{type = "furnace"}
+			local rocketSilos = surface.find_entities_filtered{name = "rocket-silo"}
+			local chests = surface.find_entities_filtered{type = "container"}
+			local logisticChests = surface.find_entities_filtered{type = "logistic-container"}
+				
+			update_modules(assemblers, "machine")
+			update_modules(miners, "machine")
+			update_modules(labs, "machine")
+			update_modules(furnaces, "machine")
+			update_modules(rocketSilos, "machine")
+			update_modules(chests, "chest")
+			update_modules(logisticChests, "chest")
+				
 			for _, force in pairs(game.forces) do
-				if force.technologies["automation"].researched then
-					if global.currentmodulelevel > 1 then
-						force.recipes["alien-hyper-module-1"].enabled = false
-						force.recipes["alien-hyper-module-" .. global.currentmodulelevel - 1].enabled = false
-						force.recipes["alien-hyper-module-" .. global.currentmodulelevel].enabled = true
-					end
-				end
+				update_recipes(assemblers, force)
 			end
+        end
 
-            for _, surface in pairs(game.surfaces) do
-				local assemblers = surface.find_entities_filtered{type = "assembling-machine"}
-				local miners = surface.find_entities_filtered{type = "mining-drill"}
-				local labs = surface.find_entities_filtered{type = "lab"}
-				local furnaces = surface.find_entities_filtered{type = "furnace"}
-				local rocketSilos = surface.find_entities_filtered{name = "rocket-silo"}
-				local chests = surface.find_entities_filtered{type = "container"}
-				local logisticChests = surface.find_entities_filtered{type = "logistic-container"}
-				
-				update_modules(assemblers, "machine")
-				update_modules(miners, "machine")
-				update_modules(labs, "machine")
-				update_modules(furnaces, "machine")
-				update_modules(rocketSilos, "machine")
-				update_modules(chests, "chest")
-				update_modules(logisticChests, "chest")
-				
-				for _, force in pairs(game.forces) do
-					update_recipes(assemblers, force)
-				end
+		local players = game.players
+		update_modules(players, "player")
+
+        pp('gui.module-upgraded', global.modulelevel)
+    end
+end)
+
+-- every 10 seconds check if level 1 recipe is enabled when it should not be enabled
+script.on_nth_tick(600, function(event)
+    for _, force in pairs(game.forces) do
+        if force.technologies["automation"].researched then
+            if force.recipes["alien-hyper-module-1"].enabled == true and global.currentmodulelevel > 1 then
+                force.recipes["alien-hyper-module-1"].enabled = false
             end
-
-			local players = game.players
-			update_modules(players, "player")
-
-            pp('gui.module-upgraded', global.modulelevel)
         end
     end
 end)

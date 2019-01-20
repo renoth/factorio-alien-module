@@ -74,41 +74,39 @@ function update_gui()
 end
 
 function update_modules(entities, entityType)
-	for _, entity in pairs(entities) do
-		local inventory--what type of inventory does this entity have?
-		
-		if entityType == "chest" then
-			inventory = entity.get_inventory(defines.inventory.chest)--grab a chest's inventory
-		elseif entityType == "machine" then
-			inventory = entity.get_module_inventory()--grab a machine's inventory
-		elseif entityType == "player" then
-			inventory = entity.get_inventory(defines.inventory.player_main)--grab a player's inventory
-		else
-			return--error entity type not defined
-		end
+    for _, entity in pairs(entities) do
+        local inventory --what type of inventory does this entity have?
 
-		for i=1,#inventory,1 do--loop through all of the entity's inventory slots
-			local status, err = pcall(
-				function ()
-					if string.find(inventory[i].name, "^alien%-hyper%-module") then--if theres a module in this inventory slot
-						local stacksize = inventory[i].count--record amount
-						inventory[i].clear()--clear the slot
-						inventory[i].set_stack({name = "alien-hyper-module-" .. level, count = stacksize})--add the updated level modules with whatever amount we recorded
-					end
-				end
-			)
-		end
-	end
+        if entityType == "chest" then
+            inventory = entity.get_inventory(defines.inventory.chest) --grab a chest's inventory
+        elseif entityType == "machine" then
+            inventory = entity.get_module_inventory() --grab a machine's inventory
+        elseif entityType == "player" then
+            inventory = entity.get_inventory(defines.inventory.player_main) --grab a player's inventory
+        else
+            return --error entity type not defined
+        end
+
+        for i = 1, #inventory, 1 do --loop through all of the entity's inventory slots
+            local status, err = pcall(function()
+                if string.find(inventory[i].name, "^alien%-hyper%-module") then --if theres a module in this inventory slot
+                    local stacksize = inventory[i].count --record amount
+                    inventory[i].clear() --clear the slot
+                    inventory[i].set_stack({ name = "alien-hyper-module-" .. level, count = stacksize }) --add the updated level modules with whatever amount we recorded
+                end
+            end)
+        end
+    end
 end
 
 function update_recipes(assemblers, force)
-	for _, entity in ipairs(assemblers) do
-		if entity.get_recipe() ~= nil then--if the assembler has a set recipe
-			if string.find(entity.get_recipe().name, "^alien%-hyper%-module") then--and its one of ours
-				entity.set_recipe(force.recipes["alien-hyper-module-" .. global.currentmodulelevel])--set it to the updated recipe
-			end
-		end
-	end
+    for _, entity in ipairs(assemblers) do
+        if entity.get_recipe() ~= nil then --if the assembler has a set recipe
+            if string.find(entity.get_recipe().name, "^alien%-hyper%-module") then --and its one of ours
+                entity.set_recipe(force.recipes["alien-hyper-module-" .. global.currentmodulelevel]) --set it to the updated recipe
+            end
+        end
+    end
 end
 
 -- if an entity is killed, raise killcount
@@ -129,43 +127,54 @@ script.on_event(defines.events.on_tick, function(event)
         -- TODO: future API of factorio might have more convenient methods of doing that)
         if (global.modulelevel > global.currentmodulelevel) then
             global.currentmodulelevel = global.currentmodulelevel + 1
-			
-			for _, force in pairs(game.forces) do
-				if force.technologies["automation"].researched then
-					if global.currentmodulelevel > 1 then
-						force.recipes["alien-hyper-module-1"].enabled = false
-						force.recipes["alien-hyper-module-" .. global.currentmodulelevel - 1].enabled = false
-						force.recipes["alien-hyper-module-" .. global.currentmodulelevel].enabled = true
-					end
-				end
-			end
 
-            for _, surface in pairs(game.surfaces) do
-				local assemblers = surface.find_entities_filtered{type = "assembling-machine"}
-				local miners = surface.find_entities_filtered{type = "mining-drill"}
-				local labs = surface.find_entities_filtered{type = "lab"}
-				local furnaces = surface.find_entities_filtered{type = "furnace"}
-				local rocketSilos = surface.find_entities_filtered{name = "rocket-silo"}
-				local chests = surface.find_entities_filtered{type = "container"}
-				local logisticChests = surface.find_entities_filtered{type = "logistic-container"}
-				
-				update_modules(assemblers, "machine")
-				update_modules(miners, "machine")
-				update_modules(labs, "machine")
-				update_modules(furnaces, "machine")
-				update_modules(rocketSilos, "machine")
-				update_modules(chests, "chest")
-				update_modules(logisticChests, "chest")
-				
-				for _, force in pairs(game.forces) do
-					update_recipes(assemblers, force)
-				end
+            for _, force in pairs(game.forces) do
+                if force.technologies["automation"].researched then
+                    if global.currentmodulelevel > 1 then
+                        force.recipes["alien-hyper-module-1"].enabled = false
+                        force.recipes["alien-hyper-module-" .. global.currentmodulelevel - 1].enabled = false
+                        force.recipes["alien-hyper-module-" .. global.currentmodulelevel].enabled = true
+                    end
+                end
             end
 
-			local players = game.players
-			update_modules(players, "player")
+            for _, surface in pairs(game.surfaces) do
+                local assemblers = surface.find_entities_filtered { type = "assembling-machine" }
+                local miners = surface.find_entities_filtered { type = "mining-drill" }
+                local labs = surface.find_entities_filtered { type = "lab" }
+                local furnaces = surface.find_entities_filtered { type = "furnace" }
+                local rocketSilos = surface.find_entities_filtered { name = "rocket-silo" }
+                local chests = surface.find_entities_filtered { type = "container" }
+                local logisticChests = surface.find_entities_filtered { type = "logistic-container" }
+
+                update_modules(assemblers, "machine")
+                update_modules(miners, "machine")
+                update_modules(labs, "machine")
+                update_modules(furnaces, "machine")
+                update_modules(rocketSilos, "machine")
+                update_modules(chests, "chest")
+                update_modules(logisticChests, "chest")
+
+                for _, force in pairs(game.forces) do
+                    update_recipes(assemblers, force)
+                end
+            end
+
+            local players = game.players
+            update_modules(players, "player")
 
             pp('gui.module-upgraded', global.modulelevel)
+        end
+    end
+end)
+
+-- every 10 seconds check if level 1 recipe is enabled when it should not be enabled
+script.on_nth_tick(600, function(event)
+    for _, force in pairs(game.forces) do
+        if force.technologies["automation"].researched then
+            if force.recipes["alien-hyper-module-1"].enabled == true and global.currentmodulelevel > 1 then
+                force.recipes["alien-hyper-module-1"].enabled = false
+            end
         end
     end
 end)

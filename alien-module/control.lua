@@ -91,9 +91,11 @@ function update_modules(entities, entityType)
 			local status, err = pcall(
 				function ()
 					if string.find(inventory[i].name, "^alien%-hyper%-module") then--if theres a module in this inventory slot
-						local stacksize = inventory[i].count--record amount
-						inventory[i].clear()--clear the slot
-						inventory[i].set_stack({name = "alien-hyper-module-" .. level, count = stacksize})--add the updated level modules with whatever amount we recorded
+						if tonumber(string.match(inventory[i].name, "%d+$")) < global.currentmodulelevel then--and its level is less than the "current" one
+							local stacksize = inventory[i].count--record amount
+							inventory[i].clear()--clear the slot
+							inventory[i].set_stack({name = "alien-hyper-module-" .. global.currentmodulelevel, count = stacksize})--add the updated level modules with whatever amount we recorded
+						end
 					end
 				end
 			)

@@ -8,7 +8,7 @@ script.on_load(function()
 end)
 
 function modulelevel()
-    return math.max(math.log((global.killcount + 19) * 0.1) * math.pow((global.killcount + 19), 0.1), 1)
+    return math.max(math.log((global.killcount + 1) * 0.1) * math.pow((global.killcount), 0.1) - 6, 1)
 end
 
 function roundModuleLevel()
@@ -123,6 +123,16 @@ function update_enabled_recipe()
     end
 end
 
+function update_modules_on_surface(surface)
+    local modulesOnGround = surface.find_entities_filtered { name = "alien-hyper-module-" .. global.currentmodulelevel - 1 }
+
+    for i = 1, #modulesOnGround, 1 do
+        for _, player in pairs(game.players) do
+            player.print("module" .. modulesOnGround[i].name)
+        end
+    end
+end
+
 -- if an entity is killed, raise killcount
 script.on_event(defines.events.on_entity_died, function(event)
     if (event.entity.type == "unit") then
@@ -164,6 +174,8 @@ script.on_nth_tick(120, function(event)
             for _, force in pairs(game.forces) do
                 update_recipes(assemblers, force)
             end
+
+            -- update_modules_on_surface(surface)
         end
 
         local players = game.players

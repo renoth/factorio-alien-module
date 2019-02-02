@@ -1,3 +1,12 @@
+Version: 0.5.1
+Date: 02.02.2019
+ - Play sound when leveling up
+ - Slower level-up for the first 10k kills, the resulting level at 10k kills is the same though
+
+Version: 0.5.0
+Date: 19.01.2019
+ - Refactoring upgrade code
+
 Version: 0.4.14
 Date: 19.01.2019
   Balance:

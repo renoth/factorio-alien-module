@@ -8,7 +8,11 @@ script.on_load(function()
 end)
 
 function modulelevel()
-    return math.max(math.log((global.killcount + 1) * 0.1) * math.pow((global.killcount), 0.1) - 6, 1)
+    if (global.killcount < 10000) then
+        return math.max(math.log((global.killcount + 1) * 0.1) * math.pow((global.killcount), 0.1), 1) * math.sqrt((global.killcount * 0.0001))
+    else
+        return math.max(math.log((global.killcount + 1) * 0.1) * math.pow((global.killcount), 0.1), 1)
+    end
 end
 
 function roundModuleLevel()
@@ -82,6 +86,7 @@ function update_modules(entities, entityType)
         elseif entityType == "machine" then
             inventory = entity.get_module_inventory() --grab a machine's inventory
         elseif entityType == "player" then
+            -- TODO does not work for players any more, reason unknown
             inventory = entity.get_inventory(defines.inventory.player_main) --grab a player's inventory
         else
             return --error entity type not defined
@@ -123,6 +128,7 @@ function update_enabled_recipe()
     end
 end
 
+-- not in use yet, prototype for later use
 function update_modules_on_surface(surface)
     local modulesOnGround = surface.find_entities_filtered { name = "alien-hyper-module-" .. global.currentmodulelevel - 1 }
 
@@ -182,6 +188,11 @@ script.on_nth_tick(120, function(event)
         update_modules(players, "player")
 
         pp('gui.module-upgraded', global.modulelevel)
+
+        -- play level up sound
+        for _, player in pairs(game.players) do
+            player.play_sound { path = 'alien-level-up' }
+        end
     else
         --every 10 seconds update what module recipe is enabled
         if event.tick % 600 == 0 then

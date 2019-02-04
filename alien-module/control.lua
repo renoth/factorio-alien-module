@@ -118,6 +118,8 @@ function update_recipes(assemblers, force)
                     entity.get_inventory(defines.inventory.assembling_machine_input).insert { name = "alien-plate", count = plates_to_refund }
                 end
 
+                -- TODO upgrade modules in the output of the assembler
+
                 entity.set_recipe(force.recipes["alien-hyper-module-" .. global.currentmodulelevel]) --set it to the updated recipe
             end
         end

@@ -8,7 +8,7 @@ Date: 04.02.2019
 
  Version: 0.5.2
 Date: 04.02.2019
- - Ingredients are no longer lost when upgrading an assembly machine currently crafting an alien hyper module
+ - Ingredients are no longer lost when upgrading an assembly machine currently crafting an alien hyper module (Thanks to unhott)
 
 Version: 0.5.1
 Date: 02.02.2019

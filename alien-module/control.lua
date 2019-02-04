@@ -110,7 +110,12 @@ function update_recipes(assemblers, force)
     for _, entity in ipairs(assemblers) do
         if entity.get_recipe() ~= nil then --if the assembler has a set recipe
             if string.find(entity.get_recipe().name, "^alien%-hyper%-module") then --and its one of ours
+                local plates_to_refund = 0
+                if entity.is_crafting() then
+                    plates_to_refund = (global.currentmodulelevel-1) * 20 
+                end
                 entity.set_recipe(force.recipes["alien-hyper-module-" .. global.currentmodulelevel]) --set it to the updated recipe
+                entity.get_inventory(defines.inventory.assembling_machine_input).insert(name = "alien-plate", count = plates_to_refund)
             end
         end
     end

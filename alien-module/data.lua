@@ -11,6 +11,7 @@ require("prototypes.recipe.alien-module")
 require("prototypes.recipe.alien-warfare")
 
 require("prototypes.technology.technology")
+require("prototypes.sounds")
 
 function AddLootToEntity(entityType, entityName, probability, countMin, countMax)
     if data.raw[entityType] ~= nil then

@@ -1,3 +1,28 @@
+Version: 0.5.4
+Date: 04.02.2019
+ - Finished Hyper modules in Assemblers are no longer cleared on level up
+
+Version: 0.5.3
+Date: 04.02.2019
+ - Added new recipe: 1 x Alien ore = 5 x Stone (Energy Cost 10)
+ - Added new recipe: 2 x Alien ore = 1 x Uranium Ore (Energy Cost 15)
+ - Changed recipe: 1 x Alien ore = 5 x Iron Ore (was 10) (Energy Cost 20 -> 10)
+ - Changed recipe: 1 x Alien ore = 5 x Copper Ore  (was 10) (Energy Cost 20 -> 10)
+ - Changed recipe: 1 x Alien ore = 5 x Coal (was 10) (Energy Cost 20 -> 10)
+
+ Version: 0.5.2
+Date: 04.02.2019
+ - Ingredients are no longer lost when upgrading an assembly machine currently crafting an alien hyper module (Thanks to unhott)
+
+Version: 0.5.1
+Date: 02.02.2019
+ - Play sound when leveling up
+ - Slower level-up for the first 10k kills, the resulting level at 10k kills is the same though
+
+Version: 0.5.0
+Date: 19.01.2019
+ - Refactoring upgrade code
+
 Version: 0.4.14
 Date: 19.01.2019
   Balance:

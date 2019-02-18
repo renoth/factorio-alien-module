@@ -17,10 +17,10 @@ data:extend({
         type = "recipe",
         name = "alien-ore-to-iron-ore",
         enabled = true,
-        energy_required = 20,
+        energy_required = 10,
         ingredients = { { "artifact-ore", 1 } },
         result = "iron-ore",
-        result_count = 10
+        result_count = 5
     }
 })
 
@@ -30,10 +30,36 @@ data:extend({
         type = "recipe",
         name = "alien-ore-to-copper-ore",
         enabled = true,
-        energy_required = 20,
+        energy_required = 10,
         ingredients = { { "artifact-ore", 1 } },
         result = "copper-ore",
-        result_count = 10
+        result_count = 5
+    }
+})
+
+-- make stone ore from alien ore --
+data:extend({
+    {
+        type = "recipe",
+        name = "alien-ore-to-stone",
+        enabled = true,
+        energy_required = 10,
+        ingredients = { { "artifact-ore", 1 } },
+        result = "stone",
+        result_count = 5
+    }
+})
+
+-- make uranium ore from alien ore --
+data:extend({
+    {
+        type = "recipe",
+        name = "alien-ore-to-uranium-ore",
+        enabled = true,
+        energy_required = 20,
+        ingredients = { { "artifact-ore", 2 } },
+        result = "uranium-ore",
+        result_count = 1
     }
 })
 
@@ -43,10 +69,10 @@ data:extend({
         type = "recipe",
         name = "alien-ore-to-coal",
         enabled = true,
-        energy_required = 20,
+        energy_required = 10,
         ingredients = { { "artifact-ore", 1 } },
         result = "coal",
-        result_count = 10
+        result_count = 5
     }
 })
 

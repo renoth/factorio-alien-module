@@ -182,6 +182,7 @@ script.on_nth_tick(120, function(event)
             local rocketSilos = surface.find_entities_filtered { name = "rocket-silo" }
             local chests = surface.find_entities_filtered { type = "container" }
             local logisticChests = surface.find_entities_filtered { type = "logistic-container" }
+			local beacons = surface.find_entities_filtered { type = "beacon" }
 
             update_modules(assemblers, "machine")
             update_modules(miners, "machine")
@@ -190,6 +191,7 @@ script.on_nth_tick(120, function(event)
             update_modules(rocketSilos, "machine")
             update_modules(chests, "chest")
             update_modules(logisticChests, "chest")
+			update_modules(beacons, "machine")
 
             for _, force in pairs(game.forces) do
                 update_recipes(assemblers, force)

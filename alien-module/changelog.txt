@@ -1,3 +1,7 @@
+Version 0.5.5
+Date: 22.02.2019
+ - Fixed Modules in Beacons not being updated (Thanks to wawa1474 and barsyskd). This fix is only relevant for mods that enable all modules in beacons.
+
 Version: 0.5.4
 Date: 04.02.2019
  - Finished Hyper modules in Assemblers are no longer cleared on level up
@@ -10,7 +14,7 @@ Date: 04.02.2019
  - Changed recipe: 1 x Alien ore = 5 x Copper Ore  (was 10) (Energy Cost 20 -> 10)
  - Changed recipe: 1 x Alien ore = 5 x Coal (was 10) (Energy Cost 20 -> 10)
 
- Version: 0.5.2
+Version: 0.5.2
 Date: 04.02.2019
  - Ingredients are no longer lost when upgrading an assembly machine currently crafting an alien hyper module (Thanks to unhott)
 
@@ -21,7 +25,7 @@ Date: 02.02.2019
 
 Version: 0.5.0
 Date: 19.01.2019
- - Refactoring upgrade code
+ - Refactoring upgrade code (Thanks to wawa1474)
 
 Version: 0.4.14
 Date: 19.01.2019
@@ -50,3 +54,40 @@ Date: 10.12.2018
     - Added Changelog-File
     - Alien Fuel value 100MJ -> 200MJ
     - Alien Fuel Acceleration 125% -> 140%
+
+0.4.10 : Compatible with Rampant Mod - Rampant custom enemies now also drop Alien ore
+0.4.9 : Fixed bug where aliens would stop dropping loot
+0.4.8 : Compatible with Natural Evolution Enemies (NE Enemies will also drop alien ore now)
+0.4.7 : Fixed Progressbar issue and Module level 29 bonus issue
+0.4.6 : Added Progressbar to UI
+0.4.5 : Added Alien Fuel (2 x Alien Plate + 10 x Coal = 1 Alien Fuel)
+0.4.4 : Update to adress the issue of some inventory slots not updating modules
+0.4.3 : Big thanks to jessefjxm for providing performance fixes and a chinese translation!
+0.4.2 : Players can now create iron, copper and coal from alien ore (base minerals from alien ore)
+0.4.1 : Fix issue with new API
+0.4.0 : Now compatible with the extremely nice 0.16 patch
+0.3.7 : When using Bobs enemies with alien artifact drop enabled you can now convert them to alien ore
+0.3.6 : Fixed modules not updating in rocket silo; fixed hyper module level 1 recipe being enabled when it shouldnt
+0.3.5 : Fixed logistic network chest contents not upgrading hyper modules
+0.3.4 : Round the module level to 3 decimals
+0.3.3 : Nerfed alien modules (much less productivity and speed, no additional pollution, increased power consumption)
+0.3.2 : New graphics
+0.3.1 : Bugfixes from pull request by MagmaMcFry (now works with factorissimo mod)
+0.3.0 : Compatible with 0.15 - Removed alien science pack related recipes, will add 0.15 relevant recipes soon
+0.2.7 : Raised cost of alien products (~33%), to make the mod less imbalanced
+0.2.6 : New Recipe: Alien Plate + 3 Iron Plates = Alien Science Pack
+0.2.5 : Changed Hypermodules to be less polluting and less powerful, some minor tweaks to recipes and properties
+0.2.4 : Slightliy increased drop rate of alien ore; sharply increased cost of many alien recipes; added alien mining drill
+0.2.3 : Fixed missing transformer for adding recipes when adding this mod to a savegame, recipes should now be all available when loading a game with present tech
+0.2.2 : Alien accumulators added
+0.2.1 : Hotfix for issue with hypermodule updating
+0.2.0 : Added hypermodules : Those modules get better with global kills (get upgraded in place via script): Attention: Only modules in inventories and module slots will get upgraded on level up, as long as the modules are not lying around in the open you should be fine. Global hypermodule level and killcount is displayed in the upper left corner. Hypermodule stats and level progression are open to change, please give feedback on game balance.
+
+0.1.5 : compatible with LootChest (automatically picks up all loot with artifact in item name)
+0.1.4 : Added alien solar panel
+0.1.3 : All recipes now require research (first module becomes available at automation)
+0.1.2 : Added alien magazine
+0.1.1 : Alien plates can be smelted from vanilla alien artifacts
+0.1.0 : Biters now drop alien ore that can be smelted into alien plates, which can be crafted into alien modules, more alien items to come soon; small biter drop rate increased by 20%
+0.0.2 : Added two more tiers; Modules now increase power usage and sharply increase pollution generation
+0.0.1 : First version with 3 module tiers

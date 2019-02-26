@@ -86,8 +86,7 @@ function update_modules(entities, entityType)
         elseif entityType == "machine" then
             inventory = entity.get_module_inventory() --grab a machine's inventory
         elseif entityType == "player" then
-            -- TODO does not work for players any more, reason unknown
-            inventory = entity.get_inventory(defines.inventory.player_main) --grab a player's inventory
+            inventory = entity.get_main_inventory(defines.inventory.player_main) --grab a player's inventory
         else
             return --error entity type not defined
         end
@@ -201,8 +200,8 @@ script.on_nth_tick(120, function(event)
         end
 
         -- TODO fix this in 0.6.1
-        -- local players = game.players
-        -- update_modules(players, "player")
+        local players = game.players
+        update_modules(players, "player")
 
         pp('gui.module-upgraded', global.modulelevel)
 

@@ -31,13 +31,12 @@ table.insert(data.raw["technology"]["automation"].effects,
     })
 
 table.insert(data.raw["technology"]["automation"].effects,
-
     {
         type = "unlock-recipe",
         recipe = "alien-hyper-module-1"
     })
 
-table.insert(data.raw["technology"]["electronics"].effects,
+table.insert(data.raw["technology"]["automation"].effects,
     {
         type = "unlock-recipe",
         recipe = "alien-module-2"

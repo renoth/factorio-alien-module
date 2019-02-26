@@ -1,3 +1,7 @@
+Version 0.6.0
+Date 25.02.2019
+ - Update to Factorio 0.17
+
 Version 0.5.5
 Date: 22.02.2019
  - Fixed Modules in Beacons not being updated (Thanks to wawa1474 and barsyskd). This fix is only relevant for mods that enable all modules in beacons.

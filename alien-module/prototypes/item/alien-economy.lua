@@ -6,7 +6,7 @@ data:extend({
         name = "alien-solarpanel",
         icon = "__alien-module__/graphics/alien-solarpanel.png",
         icon_size = 32,
-        flags = { "goes-to-quickbar" },
+
         subgroup = "economy",
         category = "alien-economy",
         place_result = "alien-solarpanel",
@@ -18,7 +18,7 @@ data:extend({
         name = "alien-accumulator",
         icon = "__alien-module__/graphics/alien-accumulator.png",
         icon_size = 32,
-        flags = { "goes-to-quickbar" },
+
         subgroup = "economy",
         category = "alien-economy",
         place_result = "alien-accumulator",
@@ -30,7 +30,7 @@ data:extend({
         name = "alien-mining-drill",
         icon = "__alien-module__/graphics/alien-mining-drill.png",
         icon_size = 32,
-        flags = { "goes-to-quickbar" },
+
         subgroup = "economy",
         category = "alien-economy",
         place_result = "alien-mining-drill",

@@ -6,7 +6,6 @@ data:extend({
         name = "alien-magazine",
         icon = "__alien-module__/graphics/alien-magazine.png",
         icon_size = 32,
-        flags = { "goes-to-main-inventory" },
         ammo_type =
         {
             category = "bullet",

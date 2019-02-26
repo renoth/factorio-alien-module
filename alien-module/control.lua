@@ -65,7 +65,7 @@ function update_gui()
         end
 
         if player.gui.top.alienmodule.killcount == nil then
-            player.gui.top.alienmodule.add { type = "label", name = "killcount", caption = "TEST" }
+            player.gui.top.alienmodule.add { type = "label", name = "killcount", caption = "0" }
         end
 
         if player.gui.top.alienmodule.killbar == nil then
@@ -200,8 +200,9 @@ script.on_nth_tick(120, function(event)
             -- update_modules_on_surface(surface)
         end
 
-        local players = game.players
-        update_modules(players, "player")
+        -- TODO fix this in 0.6.1
+        -- local players = game.players
+        -- update_modules(players, "player")
 
         pp('gui.module-upgraded', global.modulelevel)
 

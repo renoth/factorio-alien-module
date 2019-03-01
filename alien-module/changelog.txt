@@ -1,4 +1,12 @@
-Version 0.6.1
+Version 0.6.3
+Date 25.02.2019
+ - Natural Evolution decided to switch to a lower version, this made a change in the dependencies necessary
+
+ Version 0.6.2
+Date 25.02.2019
+ - Alien Hyper Modules now add 2*level % Pollution
+
+ Version 0.6.1
 Date 25.02.2019
  - Fixed Hyper Modules in player inventory not upgrading
 

@@ -118,7 +118,8 @@ for i = 1, 100, 1 do
             {
                 consumption = { bonus = levelbonus * 2 },
                 speed = { bonus = levelbonus },
-                productivity = { bonus = levelbonus }
+                productivity = { bonus = levelbonus },
+                pollution = { bonus = levelbonus * 2 }
             },
         },
     })

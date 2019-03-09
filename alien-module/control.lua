@@ -91,6 +91,10 @@ function update_modules(entities, entityType)
             return --error entity type not defined
         end
 
+        if inventory == nil then
+            return
+        end
+
         for i = 1, #inventory, 1 do --loop through all of the entity's inventory slots
             local status, err = pcall(function()
                 if string.find(inventory[i].name, "^alien%-hyper%-module") then --if theres a module in this inventory slot

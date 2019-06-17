@@ -1,12 +1,12 @@
 --***Debug Mode
 local debug_mode
 debug_mode = false
---debug_mode = true
+-- debug_mode = true
 --***
 -- Set the first pass variable (to be used in conjunction with debug_mode) 
 local first_pass = true
 -- Adds this many kills per update when debug_mode is enabled
-local kills_per_update = 50000
+local kills_per_update = 50
 -- Set tick frequency for updates
 local tick_freq = 1
 -- batch_size is the # of chunks per update that are scanned. 
@@ -115,29 +115,33 @@ function update_modules(entities, entityType)
     end
 end
 
-function update_recipes(assemblers, force)
-    for _, entity in pairs(assemblers) do
-        if entity.get_recipe() ~= nil then --if the assembler has a set recipe
-            if string.find(entity.get_recipe().name, "^alien%-hyper%-module") then --and its one of ours
-                local plates_to_refund = 0
 
-                if entity.is_crafting() then -- refund ingredients if hyper modules are being crafted
-                    plates_to_refund = (global.currentmodulelevel - 1) * 20 -- cost of currently crafting recipe
-                    plates_to_refund = math.max(plates_to_refund, 0) -- dont add negative amount
-                    entity.get_inventory(defines.inventory.assembling_machine_input).insert { name = "alien-plate", count = plates_to_refund }
-                end
-
-                local finished_module_count = entity.get_inventory(defines.inventory.assembling_machine_output).get_item_count() --Safe to assume it was a 1 item craft of our recipe
-
-                entity.set_recipe(force.recipes["alien-hyper-module-" .. math.min(global.currentmodulelevel, 100)]) --set it to the updated recipe
-
-                if finished_module_count > 0 then
-                    entity.get_inventory(defines.inventory.assembling_machine_output).insert { name = "alien-hyper-module-" .. global.currentmodulelevel, count = finished_module_count }
-                end
-            end
-        end
-    end
+function update_recipes(assemblers)
+	local current_module_name = 'alien-hyper-module-' .. tostring(math.min(global.currentmodulelevel,100))
+	for _, entity in pairs(assemblers) do
+		local force = entity.force
+		local input_inv = entity.get_inventory(defines.inventory.assembling_machine_input)
+		local output_inv = entity.get_inventory(defines.inventory.assembling_machine_output)
+		if force ~= nil then 
+			local recipe = entity.get_recipe()
+			if recipe ~= nil then
+				local ingredients = recipe.ingredients
+				local recipe_name = recipe.name
+				if recipe_name ~= current_module_name and string.find(recipe_name,"^alien%-hyper%-module") then
+					local finished_module_count = output_inv.get_item_count()
+					entity.set_recipe(current_module_name)
+					if finished_module_count > 0 then
+						output_inv.insert { name =  current_module_name, count = finished_module_count }
+					end
+					for __, ingredient in pairs(ingredients) do
+						input_inv.insert { name = ingredient.name, count = ingredient.amount }
+					end
+				end
+			end
+		end
+	end
 end
+
 
 function update_enabled_recipe()
     for _, force in pairs(game.forces) do
@@ -267,9 +271,7 @@ script.on_nth_tick(tick_freq, function(event)
 				update_modules(logisticChests, "chest")
 				update_modules(beacons, "machine")
 				
-				for _, force in pairs(game.forces) do
-					update_recipes(assemblers, force)
-				end
+				update_recipes(assemblers)
 				
 			end
 		end

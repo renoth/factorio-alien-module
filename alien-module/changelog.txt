@@ -1,3 +1,11 @@
+Version 0.6.6
+Date 04.07.2019
+ - Smoother updating of alien modules thanks to unhott!
+
+Version 0.6.5
+Date 1.4.2019
+ - Fixed error due to changed base entity
+
 Version 0.6.4
 Date 09.03.2019
  - Fixed possible nil error in control.lua

@@ -142,7 +142,6 @@ function update_recipes(assemblers)
 	end
 end
 
-
 function update_enabled_recipe()
     for _, force in pairs(game.forces) do
         if force.technologies["automation"].researched then
@@ -160,18 +159,18 @@ function update_modules_on_surface(surface, chunk_pos)
 	local names = {}
 	local modulesOnGround
 	local current_module_name = 'alien-hyper-module-' .. tostring(math.min(global.currentmodulelevel,100))
-	-- for i = 1, 100 do 
+	-- for i = 1, 100 do
 		-- names[i] = "alien-hyper-module-" .. tostring(i)
 	-- end
-	--***When debug_mode is enabled, only locations around the first player are scanned. 
-	if debug_mode then 
+	--***When debug_mode is enabled, only locations around the first player are scanned.
+	if debug_mode then
 		modulesOnGround = surface.find_entities_filtered { name = 'item-on-ground', position = game.players[1].position, radius = 16}
 	else
 		modulesOnGround = surface.find_entities_filtered { name = 'item-on-ground', position = chunk_pos, radius = 16}
 	end
 	--game.print(#modulesOnGround)
-	
-	
+
+
 	for index, module_on_ground in pairs(modulesOnGround) do
 		--game.print(module_on_ground.stack.name)
 		local real_name = module_on_ground.stack.name
@@ -182,7 +181,7 @@ function update_modules_on_surface(surface, chunk_pos)
 			surface.create_entity {name = 'item-on-ground' , position = module_pos , stack = {name = current_module_name, count = item_count}}
 		end
 	end
-	
+
 end
 
 
@@ -202,15 +201,14 @@ end
 script.on_init(init)
 
 
-
-
 -- Every 2 seconds: calculate the module level and upgrade hyper modules if level floor value changed
 script.on_nth_tick(tick_freq, function(event)
     global.modulelevel = math.max(math.floor(modulelevel()), 1)
     update_gui()
-	
+    update_enabled_recipe()
+
 	--***Debug Mode
-	if debug_mode then 
+	if debug_mode then
 		global.killcount = global.killcount + kills_per_update
 		if first_pass then
 			game.players[1].insert{name='alien-hyper-module-1', count=50}
@@ -221,34 +219,34 @@ script.on_nth_tick(tick_freq, function(event)
 		end
 	end
     --***
-	if global.surface_iterators == nil then 
+	if global.surface_iterators == nil then
 		global.surface_iterators = {}
 	end
 	for index, surface in pairs(game.surfaces) do
-		if global.surface_iterators[index] == nil then 
+		if global.surface_iterators[index] == nil then
 			global.surface_iterators[index] = surface.get_chunks()
 		end
 	end
-	
+
 	for index, surface_iterator in pairs(global.surface_iterators) do
-		for i=1, batch_size do 
+		for i=1, batch_size do
 			--***Want to get all the chunk logic in here so we can scan a surface more quickly per cycle.
-			
+
 			local chunk = surface_iterator()
-			if chunk == nil then 
+			if chunk == nil then
 				-- Disable the printing if not in debug mode
 				if debug_mode then
 					game.print('Rescanning chunks on surface # ' .. tostring(index))
 				end
-				global.surface_iterators[index] = game.surfaces[index].get_chunks()			
+				global.surface_iterators[index] = game.surfaces[index].get_chunks()
 			else
 				--game.print("x: " .. tostring(chunk.x).. "y: " .. tostring(chunk.y))
-				--include logic here to scan each surface @ chunk. 
+				--include logic here to scan each surface @ chunk.
 				local surface = game.surfaces[index]
 				local chunk_position = { x = chunk.x * 32, y = chunk.y*32 }
 				update_modules_on_surface(surface,chunk_position)
 				--game.print(serpent.block(chunk_position))
-				
+
 				local assemblers = surface.find_entities_filtered { type = "assembling-machine", position = chunk_position, radius = 16}
 				local miners = surface.find_entities_filtered { type = "mining-drill" , position = chunk_position, radius = 16}
 				local labs = surface.find_entities_filtered { type = "lab" , position = chunk_position, radius = 16}
@@ -257,11 +255,11 @@ script.on_nth_tick(tick_freq, function(event)
 				local chests = surface.find_entities_filtered { type = "container" , position = chunk_position, radius = 16}
 				local logisticChests = surface.find_entities_filtered { type = "logistic-container" , position = chunk_position, radius = 16}
 				local beacons = surface.find_entities_filtered { type = "beacon" , position = chunk_position, radius = 16}
-				
+
 				if debug_mode then
 					rendering.draw_circle{color = {r = 1, g = 0, b = 0, a = 0.5}, radius = 16, target = chunk_position, filled = true, surface = game.surfaces[index], time_to_live = 30}
 				end
-				
+
 				update_modules(assemblers, "machine")
 				update_modules(miners, "machine")
 				update_modules(labs, "machine")
@@ -270,28 +268,28 @@ script.on_nth_tick(tick_freq, function(event)
 				update_modules(chests, "chest")
 				update_modules(logisticChests, "chest")
 				update_modules(beacons, "machine")
-				
+
 				update_recipes(assemblers)
-				
+
 			end
 		end
-		
 
-		
-		
+
+
+
 		if (global.modulelevel > global.currentmodulelevel) then
 			global.currentmodulelevel = global.currentmodulelevel + 1
 			pp('gui.module-upgraded', global.modulelevel)
 			-- play level up sound
-			if debug_mode then 
-				
+			if debug_mode then
+
 			else
 				for _, player in pairs(game.players) do
 					player.play_sound { path = 'alien-level-up' }
 				end
 			end
 		end
-		-- TODO fix this in 0.6.1
+
 		local players = game.players
 		update_modules(players, "player")
 	end

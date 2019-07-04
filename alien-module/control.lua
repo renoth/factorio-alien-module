@@ -1,11 +1,17 @@
-script.on_init(function()
-    initVariables()
-    init_gui()
-end)
+--***Debug Mode
+local debug_mode
+debug_mode = false
+-- debug_mode = true
+--***
+-- Set the first pass variable (to be used in conjunction with debug_mode) 
+local first_pass = true
+-- Adds this many kills per update when debug_mode is enabled
+local kills_per_update = 50
+-- Set tick frequency for updates
+local tick_freq = 1
+-- batch_size is the # of chunks per update that are scanned. 
+local batch_size = 10
 
-script.on_load(function()
-    initVariables()
-end)
 
 function modulelevel()
     if (global.killcount < 10000) then
@@ -101,7 +107,7 @@ function update_modules(entities, entityType)
                     if tonumber(string.match(inventory[i].name, "%d+$")) < global.currentmodulelevel then --and its level is less than the "current" one
                         local stacksize = inventory[i].count --record amount
                         inventory[i].clear() --clear the slot
-                        inventory[i].set_stack({ name = "alien-hyper-module-" .. global.currentmodulelevel, count = stacksize }) --add the updated level modules with whatever amount we recorded
+                        inventory[i].set_stack({ name = "alien-hyper-module-" .. math.min(global.currentmodulelevel,100), count = stacksize }) --add the updated level modules with whatever amount we recorded
                     end
                 end
             end)
@@ -109,28 +115,31 @@ function update_modules(entities, entityType)
     end
 end
 
-function update_recipes(assemblers, force)
-    for _, entity in ipairs(assemblers) do
-        if entity.get_recipe() ~= nil then --if the assembler has a set recipe
-            if string.find(entity.get_recipe().name, "^alien%-hyper%-module") then --and its one of ours
-                local plates_to_refund = 0
 
-                if entity.is_crafting() then -- refund ingredients if hyper modules are being crafted
-                    plates_to_refund = (global.currentmodulelevel - 1) * 20 -- cost of currently crafting recipe
-                    plates_to_refund = math.max(plates_to_refund, 0) -- dont add negative amount
-                    entity.get_inventory(defines.inventory.assembling_machine_input).insert { name = "alien-plate", count = plates_to_refund }
-                end
-
-                local finished_module_count = entity.get_inventory(defines.inventory.assembling_machine_output).get_item_count("alien-hyper-module-" .. global.currentmodulelevel - 1)
-
-                entity.set_recipe(force.recipes["alien-hyper-module-" .. global.currentmodulelevel]) --set it to the updated recipe
-
-                if finished_module_count > 0 then
-                    entity.get_inventory(defines.inventory.assembling_machine_output).insert { name = "alien-hyper-module-" .. global.currentmodulelevel, count = finished_module_count }
-                end
-            end
-        end
-    end
+function update_recipes(assemblers)
+	local current_module_name = 'alien-hyper-module-' .. tostring(math.min(global.currentmodulelevel,100))
+	for _, entity in pairs(assemblers) do
+		local force = entity.force
+		local input_inv = entity.get_inventory(defines.inventory.assembling_machine_input)
+		local output_inv = entity.get_inventory(defines.inventory.assembling_machine_output)
+		if force ~= nil then 
+			local recipe = entity.get_recipe()
+			if recipe ~= nil then
+				local ingredients = recipe.ingredients
+				local recipe_name = recipe.name
+				if recipe_name ~= current_module_name and string.find(recipe_name,"^alien%-hyper%-module") then
+					local finished_module_count = output_inv.get_item_count()
+					entity.set_recipe(current_module_name)
+					if finished_module_count > 0 then
+						output_inv.insert { name =  current_module_name, count = finished_module_count }
+					end
+					for __, ingredient in pairs(ingredients) do
+						input_inv.insert { name = ingredient.name, count = ingredient.amount }
+					end
+				end
+			end
+		end
+	end
 end
 
 function update_enabled_recipe()
@@ -146,15 +155,35 @@ function update_enabled_recipe()
 end
 
 -- not in use yet, prototype for later use
-function update_modules_on_surface(surface)
-    local modulesOnGround = surface.find_entities_filtered { name = "alien-hyper-module-" .. global.currentmodulelevel - 1 }
+function update_modules_on_surface(surface, chunk_pos)
+	local names = {}
+	local modulesOnGround
+	local current_module_name = 'alien-hyper-module-' .. tostring(math.min(global.currentmodulelevel,100))
+	-- for i = 1, 100 do
+		-- names[i] = "alien-hyper-module-" .. tostring(i)
+	-- end
+	--***When debug_mode is enabled, only locations around the first player are scanned.
+	if debug_mode then
+		modulesOnGround = surface.find_entities_filtered { name = 'item-on-ground', position = game.players[1].position, radius = 16}
+	else
+		modulesOnGround = surface.find_entities_filtered { name = 'item-on-ground', position = chunk_pos, radius = 16}
+	end
+	--game.print(#modulesOnGround)
 
-    for i = 1, #modulesOnGround, 1 do
-        for _, player in pairs(game.players) do
-            player.print("module" .. modulesOnGround[i].name)
-        end
-    end
+
+	for index, module_on_ground in pairs(modulesOnGround) do
+		--game.print(module_on_ground.stack.name)
+		local real_name = module_on_ground.stack.name
+		local module_pos = module_on_ground.position
+		local item_count = module_on_ground.stack.count
+		if (string.find(real_name, "^alien%-hyper%-module") and real_name ~= current_module_name) then
+			module_on_ground.destroy()
+			surface.create_entity {name = 'item-on-ground' , position = module_pos , stack = {name = current_module_name, count = item_count}}
+		end
+	end
+
 end
+
 
 -- if an entity is killed, raise killcount
 script.on_event(defines.events.on_entity_died, function(event)
@@ -163,60 +192,105 @@ script.on_event(defines.events.on_entity_died, function(event)
     end
 end)
 
+
+local function init()
+    initVariables()
+    init_gui()
+end
+
+script.on_init(init)
+
+
 -- Every 2 seconds: calculate the module level and upgrade hyper modules if level floor value changed
-script.on_nth_tick(120, function(event)
+script.on_nth_tick(tick_freq, function(event)
     global.modulelevel = math.max(math.floor(modulelevel()), 1)
-
     update_gui()
+    update_enabled_recipe()
 
-    -- if the modulelevel is raised by the kill, increase the level of all hyper modules by finding and replacing them
-    -- TODO: future API of factorio might have more convenient methods of doing that)
-    if (global.modulelevel > global.currentmodulelevel) then
-        global.currentmodulelevel = global.currentmodulelevel + 1
+	--***Debug Mode
+	if debug_mode then
+		global.killcount = global.killcount + kills_per_update
+		if first_pass then
+			game.players[1].insert{name='alien-hyper-module-1', count=50}
+			game.players[1].insert{name='assembling-machine-3',count=50}
+			game.players[1].insert{name='solar-panel',count=100}
+			game.players[1].insert{name='medium-electric-pole',count=100}
+			first_pass = false
+		end
+	end
+    --***
+	if global.surface_iterators == nil then
+		global.surface_iterators = {}
+	end
+	for index, surface in pairs(game.surfaces) do
+		if global.surface_iterators[index] == nil then
+			global.surface_iterators[index] = surface.get_chunks()
+		end
+	end
 
-        --update what module recipe is enabled
-        update_enabled_recipe()
+	for index, surface_iterator in pairs(global.surface_iterators) do
+		for i=1, batch_size do
+			--***Want to get all the chunk logic in here so we can scan a surface more quickly per cycle.
 
-        for _, surface in pairs(game.surfaces) do
-            local assemblers = surface.find_entities_filtered { type = "assembling-machine" }
-            local miners = surface.find_entities_filtered { type = "mining-drill" }
-            local labs = surface.find_entities_filtered { type = "lab" }
-            local furnaces = surface.find_entities_filtered { type = "furnace" }
-            local rocketSilos = surface.find_entities_filtered { name = "rocket-silo" }
-            local chests = surface.find_entities_filtered { type = "container" }
-            local logisticChests = surface.find_entities_filtered { type = "logistic-container" }
-			local beacons = surface.find_entities_filtered { type = "beacon" }
+			local chunk = surface_iterator()
+			if chunk == nil then
+				-- Disable the printing if not in debug mode
+				if debug_mode then
+					game.print('Rescanning chunks on surface # ' .. tostring(index))
+				end
+				global.surface_iterators[index] = game.surfaces[index].get_chunks()
+			else
+				--game.print("x: " .. tostring(chunk.x).. "y: " .. tostring(chunk.y))
+				--include logic here to scan each surface @ chunk.
+				local surface = game.surfaces[index]
+				local chunk_position = { x = chunk.x * 32, y = chunk.y*32 }
+				update_modules_on_surface(surface,chunk_position)
+				--game.print(serpent.block(chunk_position))
 
-            update_modules(assemblers, "machine")
-            update_modules(miners, "machine")
-            update_modules(labs, "machine")
-            update_modules(furnaces, "machine")
-            update_modules(rocketSilos, "machine")
-            update_modules(chests, "chest")
-            update_modules(logisticChests, "chest")
-			update_modules(beacons, "machine")
+				local assemblers = surface.find_entities_filtered { type = "assembling-machine", position = chunk_position, radius = 16}
+				local miners = surface.find_entities_filtered { type = "mining-drill" , position = chunk_position, radius = 16}
+				local labs = surface.find_entities_filtered { type = "lab" , position = chunk_position, radius = 16}
+				local furnaces = surface.find_entities_filtered { type = "furnace" , position = chunk_position, radius = 16}
+				local rocketSilos = surface.find_entities_filtered { name = "rocket-silo" , position = chunk_position, radius = 16}
+				local chests = surface.find_entities_filtered { type = "container" , position = chunk_position, radius = 16}
+				local logisticChests = surface.find_entities_filtered { type = "logistic-container" , position = chunk_position, radius = 16}
+				local beacons = surface.find_entities_filtered { type = "beacon" , position = chunk_position, radius = 16}
 
-            for _, force in pairs(game.forces) do
-                update_recipes(assemblers, force)
-            end
+				if debug_mode then
+					rendering.draw_circle{color = {r = 1, g = 0, b = 0, a = 0.5}, radius = 16, target = chunk_position, filled = true, surface = game.surfaces[index], time_to_live = 30}
+				end
 
-            -- update_modules_on_surface(surface)
-        end
+				update_modules(assemblers, "machine")
+				update_modules(miners, "machine")
+				update_modules(labs, "machine")
+				update_modules(furnaces, "machine")
+				update_modules(rocketSilos, "machine")
+				update_modules(chests, "chest")
+				update_modules(logisticChests, "chest")
+				update_modules(beacons, "machine")
 
-        -- TODO fix this in 0.6.1
-        local players = game.players
-        update_modules(players, "player")
+				update_recipes(assemblers)
 
-        pp('gui.module-upgraded', global.modulelevel)
+			end
+		end
 
-        -- play level up sound
-        for _, player in pairs(game.players) do
-            player.play_sound { path = 'alien-level-up' }
-        end
-    else
-        --every 10 seconds update what module recipe is enabled
-        if event.tick % 600 == 0 then
-            update_enabled_recipe()
-        end
-    end
+
+
+
+		if (global.modulelevel > global.currentmodulelevel) then
+			global.currentmodulelevel = global.currentmodulelevel + 1
+			pp('gui.module-upgraded', global.modulelevel)
+			-- play level up sound
+			if debug_mode then
+
+			else
+				for _, player in pairs(game.players) do
+					player.play_sound { path = 'alien-level-up' }
+				end
+			end
+		end
+
+		local players = game.players
+		update_modules(players, "player")
+	end
 end)

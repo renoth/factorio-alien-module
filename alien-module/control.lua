@@ -142,7 +142,6 @@ function update_recipes(assemblers)
 	end
 end
 
-
 function update_enabled_recipe()
     for _, force in pairs(game.forces) do
         if force.technologies["automation"].researched then
@@ -202,12 +201,11 @@ end
 script.on_init(init)
 
 
-
-
 -- Every 2 seconds: calculate the module level and upgrade hyper modules if level floor value changed
 script.on_nth_tick(tick_freq, function(event)
     global.modulelevel = math.max(math.floor(modulelevel()), 1)
     update_gui()
+    update_enabled_recipe()
 	
 	--***Debug Mode
 	if debug_mode then 
@@ -291,7 +289,7 @@ script.on_nth_tick(tick_freq, function(event)
 				end
 			end
 		end
-		-- TODO fix this in 0.6.1
+
 		local players = game.players
 		update_modules(players, "player")
 	end

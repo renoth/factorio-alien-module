@@ -1,16 +1,17 @@
 --***Debug Mode
 local debug_mode
 debug_mode = false
--- debug_mode = true
 --***
 -- Set the first pass variable (to be used in conjunction with debug_mode) 
 local first_pass = true
 -- Adds this many kills per update when debug_mode is enabled
-local kills_per_update = 50
+local kills_per_update = 1
 -- Set tick frequency for updates
-local tick_freq = 1
+local tick_freq = 10
 -- batch_size is the # of chunks per update that are scanned. 
 local batch_size = 10
+-- radius for checking
+local chunk_radius = 24
 
 function modulelevel()
 	if (global.killcount < 10000) then
@@ -165,9 +166,9 @@ function update_modules_on_surface(surface, chunk_pos)
 	-- end
 	--***When debug_mode is enabled, only locations around the first player are scanned.
 	if debug_mode then
-		modulesOnGround = surface.find_entities_filtered { name = 'item-on-ground', position = game.players[1].position, radius = 16 }
+		modulesOnGround = surface.find_entities_filtered { name = 'item-on-ground', position = game.players[1].position, radius = chunk_radius }
 	else
-		modulesOnGround = surface.find_entities_filtered { name = 'item-on-ground', position = chunk_pos, radius = 16 }
+		modulesOnGround = surface.find_entities_filtered { name = 'item-on-ground', position = chunk_pos, radius = chunk_radius }
 	end
 	--game.print(#modulesOnGround)
 
@@ -235,30 +236,26 @@ script.on_nth_tick(tick_freq, function(event)
 
 			local chunk = surface_iterator()
 			if chunk == nil then
-				-- Disable the printing if not in debug mode
 				if debug_mode then
 					game.print('Rescanning chunks on surface # ' .. tostring(index))
 				end
 				global.surface_iterators[index] = game.surfaces[index].get_chunks()
 			else
-				--game.print("x: " .. tostring(chunk.x).. "y: " .. tostring(chunk.y))
-				--include logic here to scan each surface @ chunk.
 				local surface = game.surfaces[index]
 				local chunk_position = { x = chunk.x * 32, y = chunk.y * 32 }
 				update_modules_on_surface(surface, chunk_position)
-				--game.print(serpent.block(chunk_position))
 
-				local assemblers = surface.find_entities_filtered { type = "assembling-machine", position = chunk_position, radius = 16 }
-				local miners = surface.find_entities_filtered { type = "mining-drill", position = chunk_position, radius = 16 }
-				local labs = surface.find_entities_filtered { type = "lab", position = chunk_position, radius = 16 }
-				local furnaces = surface.find_entities_filtered { type = "furnace", position = chunk_position, radius = 16 }
-				local rocketSilos = surface.find_entities_filtered { name = "rocket-silo", position = chunk_position, radius = 16 }
-				local chests = surface.find_entities_filtered { type = "container", position = chunk_position, radius = 16 }
-				local logisticChests = surface.find_entities_filtered { type = "logistic-container", position = chunk_position, radius = 16 }
-				local beacons = surface.find_entities_filtered { type = "beacon", position = chunk_position, radius = 16 }
+				local assemblers = surface.find_entities_filtered { type = "assembling-machine", position = chunk_position, radius = chunk_radius }
+				local miners = surface.find_entities_filtered { type = "mining-drill", position = chunk_position, radius = chunk_radius }
+				local labs = surface.find_entities_filtered { type = "lab", position = chunk_position, radius = chunk_radius }
+				local furnaces = surface.find_entities_filtered { type = "furnace", position = chunk_position, radius = chunk_radius }
+				local rocketSilos = surface.find_entities_filtered { name = "rocket-silo", position = chunk_position, radius = chunk_radius }
+				local chests = surface.find_entities_filtered { type = "container", position = chunk_position, radius = chunk_radius }
+				local logisticChests = surface.find_entities_filtered { type = "logistic-container", position = chunk_position, radius = chunk_radius }
+				local beacons = surface.find_entities_filtered { type = "beacon", position = chunk_position, radius = chunk_radius }
 
 				if debug_mode then
-					rendering.draw_circle { color = { r = 1, g = 0, b = 0, a = 0.5 }, radius = 16, target = chunk_position, filled = true, surface = game.surfaces[index], time_to_live = 30 }
+					rendering.draw_circle { color = { r = 1, g = 0, b = 0, a = 0.15 }, radius = 16, target = chunk_position, filled = true, surface = game.surfaces[index], time_to_live = 30 }
 				end
 
 				update_modules(assemblers, "machine")

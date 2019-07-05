@@ -1,6 +1,8 @@
 {
-  "item":
-  [
-    ["alien-ore", "artifact-ore"]
+  "item": [
+    [
+      "alien-ore",
+      "artifact-ore"
+    ]
   ]
 }

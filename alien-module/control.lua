@@ -12,126 +12,127 @@ local tick_freq = 1
 -- batch_size is the # of chunks per update that are scanned. 
 local batch_size = 10
 
-
 function modulelevel()
-    if (global.killcount < 10000) then
-        return math.max(math.log((global.killcount + 1) * 0.1) * math.pow((global.killcount), 0.1), 1) * math.sqrt((global.killcount * 0.0001))
-    else
-        return math.max(math.log((global.killcount + 1) * 0.1) * math.pow((global.killcount), 0.1), 1)
-    end
+	if (global.killcount < 10000) then
+		return math.max(math.log((global.killcount + 1) * 0.1) * math.pow((global.killcount), 0.1), 1) * math.sqrt((global.killcount * 0.0001))
+	else
+		return math.max(math.log((global.killcount + 1) * 0.1) * math.pow((global.killcount), 0.1), 1)
+	end
 end
 
 function roundModuleLevel()
-    return math.floor(modulelevel() * 1000 + 0.5) / 1000
+	return math.floor(modulelevel() * 1000 + 0.5) / 1000
 end
 
 function initVariables()
-    if global.currentmodulelevel == nil then
-        global.currentmodulelevel = 1
-    end
-    if global.modulelevel == nil then
-        global.modulelevel = 1
-    end
-    if global.killcount == nil then
-        global.killcount = 0
-    end
+	if global.currentmodulelevel == nil then
+		global.currentmodulelevel = 1
+	end
+	if global.modulelevel == nil then
+		global.modulelevel = 1
+	end
+	if global.killcount == nil then
+		global.killcount = 0
+	end
 end
 
 function init_gui()
-    for _, player in pairs(game.players) do
-        player.gui.top.add { type = "frame", name = "alienmodule", direction = "vertical" }
-        player.gui.top.alienmodule.add { type = "label", name = "killcount", caption = "TEST" }
-        player.gui.top.alienmodule.add { type = "progressbar", name = "killbar" }
+	for _, player in pairs(game.players) do
+		player.gui.top.add { type = "frame", name = "alienmodule", direction = "vertical" }
+		player.gui.top.alienmodule.add { type = "label", name = "killcount", caption = "TEST" }
+		player.gui.top.alienmodule.add { type = "progressbar", name = "killbar" }
 
-        player.gui.top.alienmodule.killbar.value = math.max(roundModuleLevel() - global.modulelevel, 0)
-    end
+		player.gui.top.alienmodule.killbar.value = math.max(roundModuleLevel() - global.modulelevel, 0)
+	end
 end
 
 -- pretty print a variable var
 function pp(key, param)
-    for _, player in pairs(game.players) do
-        if type(key) == "string" then
-            player.print({ key, param })
-        end
-    end
+	for _, player in pairs(game.players) do
+		if type(key) == "string" then
+			player.print({ key, param })
+		end
+	end
 end
 
 function update_gui()
-    for _, player in pairs(game.players) do
-        if player.gui.top.killcount ~= nil then
-            player.gui.top.killcount.destroy()
-        end
+	for _, player in pairs(game.players) do
+		if player.gui.top.killcount ~= nil then
+			player.gui.top.killcount.destroy()
+		end
 
-        if player.gui.top.killbar ~= nil then
-            player.gui.top.killbar.destroy()
-        end
+		if player.gui.top.killbar ~= nil then
+			player.gui.top.killbar.destroy()
+		end
 
-        if player.gui.top.alienmodule == nil then
-            player.gui.top.add { type = "frame", name = "alienmodule", direction = "vertical" }
-        end
+		if player.gui.top.alienmodule == nil then
+			player.gui.top.add { type = "frame", name = "alienmodule", direction = "vertical" }
+		end
 
-        if player.gui.top.alienmodule.killcount == nil then
-            player.gui.top.alienmodule.add { type = "label", name = "killcount", caption = "0" }
-        end
+		if player.gui.top.alienmodule.killcount == nil then
+			player.gui.top.alienmodule.add { type = "label", name = "killcount", caption = "0" }
+		end
 
-        if player.gui.top.alienmodule.killbar == nil then
-            player.gui.top.alienmodule.add { type = "progressbar", name = "killbar" }
-        end
+		if player.gui.top.alienmodule.killbar == nil then
+			player.gui.top.alienmodule.add { type = "progressbar", name = "killbar" }
+		end
 
-        player.gui.top.alienmodule.killcount.caption = { 'gui.label', roundModuleLevel(), global.killcount }
-        player.gui.top.alienmodule.killbar.value = math.max(roundModuleLevel() - global.modulelevel, 0)
-    end
+		player.gui.top.alienmodule.killcount.caption = { 'gui.label', roundModuleLevel(), global.killcount }
+		player.gui.top.alienmodule.killbar.value = math.max(roundModuleLevel() - global.modulelevel, 0)
+	end
 end
 
 function update_modules(entities, entityType)
-    for _, entity in pairs(entities) do
-        local inventory --what type of inventory does this entity have?
+	for _, entity in pairs(entities) do
+		local inventory --what type of inventory does this entity have?
 
-        if entityType == "chest" then
-            inventory = entity.get_inventory(defines.inventory.chest) --grab a chest's inventory
-        elseif entityType == "machine" then
-            inventory = entity.get_module_inventory() --grab a machine's inventory
-        elseif entityType == "player" then
-            inventory = entity.get_main_inventory(defines.inventory.player_main) --grab a player's inventory
-        else
-            return --error entity type not defined
-        end
+		if entityType == "chest" then
+			inventory = entity.get_inventory(defines.inventory.chest) --grab a chest's inventory
+		elseif entityType == "machine" then
+			inventory = entity.get_module_inventory() --grab a machine's inventory
+		elseif entityType == "player" then
+			inventory = entity.get_main_inventory(defines.inventory.player_main) --grab a player's inventory
+		else
+			return --error entity type not defined
+		end
 
-        if inventory == nil then
-            return
-        end
+		if inventory == nil then
+			return
+		end
 
-        for i = 1, #inventory, 1 do --loop through all of the entity's inventory slots
-            local status, err = pcall(function()
-                if string.find(inventory[i].name, "^alien%-hyper%-module") then --if theres a module in this inventory slot
-                    if tonumber(string.match(inventory[i].name, "%d+$")) < global.currentmodulelevel then --and its level is less than the "current" one
-                        local stacksize = inventory[i].count --record amount
-                        inventory[i].clear() --clear the slot
-                        inventory[i].set_stack({ name = "alien-hyper-module-" .. math.min(global.currentmodulelevel,100), count = stacksize }) --add the updated level modules with whatever amount we recorded
-                    end
-                end
-            end)
-        end
-    end
+		for i = 1, #inventory, 1 do
+			--loop through all of the entity's inventory slots
+			local status, err = pcall(function()
+				if string.find(inventory[i].name, "^alien%-hyper%-module") then
+					--if theres a module in this inventory slot
+					if tonumber(string.match(inventory[i].name, "%d+$")) < global.currentmodulelevel then
+						--and its level is less than the "current" one
+						local stacksize = inventory[i].count --record amount
+						inventory[i].clear() --clear the slot
+						inventory[i].set_stack({ name = "alien-hyper-module-" .. math.min(global.currentmodulelevel, 100), count = stacksize }) --add the updated level modules with whatever amount we recorded
+					end
+				end
+			end)
+		end
+	end
 end
 
-
 function update_recipes(assemblers)
-	local current_module_name = 'alien-hyper-module-' .. tostring(math.min(global.currentmodulelevel,100))
+	local current_module_name = 'alien-hyper-module-' .. tostring(math.min(global.currentmodulelevel, 100))
 	for _, entity in pairs(assemblers) do
 		local force = entity.force
 		local input_inv = entity.get_inventory(defines.inventory.assembling_machine_input)
 		local output_inv = entity.get_inventory(defines.inventory.assembling_machine_output)
-		if force ~= nil then 
+		if force ~= nil then
 			local recipe = entity.get_recipe()
 			if recipe ~= nil then
 				local ingredients = recipe.ingredients
 				local recipe_name = recipe.name
-				if recipe_name ~= current_module_name and string.find(recipe_name,"^alien%-hyper%-module") then
+				if recipe_name ~= current_module_name and string.find(recipe_name, "^alien%-hyper%-module") then
 					local finished_module_count = output_inv.get_item_count()
 					entity.set_recipe(current_module_name)
 					if finished_module_count > 0 then
-						output_inv.insert { name =  current_module_name, count = finished_module_count }
+						output_inv.insert { name = current_module_name, count = finished_module_count }
 					end
 					for __, ingredient in pairs(ingredients) do
 						input_inv.insert { name = ingredient.name, count = ingredient.amount }
@@ -143,30 +144,30 @@ function update_recipes(assemblers)
 end
 
 function update_enabled_recipe()
-    for _, force in pairs(game.forces) do
-        if force.technologies["automation"].researched then
-            if global.currentmodulelevel > 1 then
-                force.recipes["alien-hyper-module-1"].enabled = false
-                force.recipes["alien-hyper-module-" .. global.currentmodulelevel - 1].enabled = false
-                force.recipes["alien-hyper-module-" .. global.currentmodulelevel].enabled = true
-            end
-        end
-    end
+	for _, force in pairs(game.forces) do
+		if force.technologies["automation"].researched then
+			if global.currentmodulelevel > 1 then
+				force.recipes["alien-hyper-module-1"].enabled = false
+				force.recipes["alien-hyper-module-" .. global.currentmodulelevel - 1].enabled = false
+				force.recipes["alien-hyper-module-" .. global.currentmodulelevel].enabled = true
+			end
+		end
+	end
 end
 
 -- not in use yet, prototype for later use
 function update_modules_on_surface(surface, chunk_pos)
 	local names = {}
 	local modulesOnGround
-	local current_module_name = 'alien-hyper-module-' .. tostring(math.min(global.currentmodulelevel,100))
+	local current_module_name = 'alien-hyper-module-' .. tostring(math.min(global.currentmodulelevel, 100))
 	-- for i = 1, 100 do
-		-- names[i] = "alien-hyper-module-" .. tostring(i)
+	-- names[i] = "alien-hyper-module-" .. tostring(i)
 	-- end
 	--***When debug_mode is enabled, only locations around the first player are scanned.
 	if debug_mode then
-		modulesOnGround = surface.find_entities_filtered { name = 'item-on-ground', position = game.players[1].position, radius = 16}
+		modulesOnGround = surface.find_entities_filtered { name = 'item-on-ground', position = game.players[1].position, radius = 16 }
 	else
-		modulesOnGround = surface.find_entities_filtered { name = 'item-on-ground', position = chunk_pos, radius = 16}
+		modulesOnGround = surface.find_entities_filtered { name = 'item-on-ground', position = chunk_pos, radius = 16 }
 	end
 	--game.print(#modulesOnGround)
 
@@ -178,7 +179,7 @@ function update_modules_on_surface(surface, chunk_pos)
 		local item_count = module_on_ground.stack.count
 		if (string.find(real_name, "^alien%-hyper%-module") and real_name ~= current_module_name) then
 			module_on_ground.destroy()
-			surface.create_entity {name = 'item-on-ground' , position = module_pos , stack = {name = current_module_name, count = item_count}}
+			surface.create_entity { name = 'item-on-ground', position = module_pos, stack = { name = current_module_name, count = item_count } }
 		end
 	end
 
@@ -187,15 +188,14 @@ end
 
 -- if an entity is killed, raise killcount
 script.on_event(defines.events.on_entity_died, function(event)
-    if (event.entity.type == "unit") then
-        global.killcount = global.killcount + 1
-    end
+	if (event.entity.type == "unit") then
+		global.killcount = global.killcount + 1
+	end
 end)
 
-
 local function init()
-    initVariables()
-    init_gui()
+	initVariables()
+	init_gui()
 end
 
 script.on_init(init)
@@ -203,25 +203,26 @@ script.on_init(init)
 
 -- Every 2 seconds: calculate the module level and upgrade hyper modules if level floor value changed
 script.on_nth_tick(tick_freq, function(event)
-    global.modulelevel = math.max(math.floor(modulelevel()), 1)
-    update_gui()
-    update_enabled_recipe()
+	global.modulelevel = math.max(math.floor(modulelevel()), 1)
+	update_gui()
+	update_enabled_recipe()
 
 	--***Debug Mode
 	if debug_mode then
 		global.killcount = global.killcount + kills_per_update
 		if first_pass then
-			game.players[1].insert{name='alien-hyper-module-1', count=50}
-			game.players[1].insert{name='assembling-machine-3',count=50}
-			game.players[1].insert{name='solar-panel',count=100}
-			game.players[1].insert{name='medium-electric-pole',count=100}
+			game.players[1].insert { name = 'alien-hyper-module-1', count = 50 }
+			game.players[1].insert { name = 'assembling-machine-3', count = 50 }
+			game.players[1].insert { name = 'solar-panel', count = 100 }
+			game.players[1].insert { name = 'medium-electric-pole', count = 100 }
 			first_pass = false
 		end
 	end
-    --***
+	--***
 	if global.surface_iterators == nil then
 		global.surface_iterators = {}
 	end
+
 	for index, surface in pairs(game.surfaces) do
 		if global.surface_iterators[index] == nil then
 			global.surface_iterators[index] = surface.get_chunks()
@@ -229,7 +230,7 @@ script.on_nth_tick(tick_freq, function(event)
 	end
 
 	for index, surface_iterator in pairs(global.surface_iterators) do
-		for i=1, batch_size do
+		for i = 1, batch_size do
 			--***Want to get all the chunk logic in here so we can scan a surface more quickly per cycle.
 
 			local chunk = surface_iterator()
@@ -243,21 +244,21 @@ script.on_nth_tick(tick_freq, function(event)
 				--game.print("x: " .. tostring(chunk.x).. "y: " .. tostring(chunk.y))
 				--include logic here to scan each surface @ chunk.
 				local surface = game.surfaces[index]
-				local chunk_position = { x = chunk.x * 32, y = chunk.y*32 }
-				update_modules_on_surface(surface,chunk_position)
+				local chunk_position = { x = chunk.x * 32, y = chunk.y * 32 }
+				update_modules_on_surface(surface, chunk_position)
 				--game.print(serpent.block(chunk_position))
 
-				local assemblers = surface.find_entities_filtered { type = "assembling-machine", position = chunk_position, radius = 16}
-				local miners = surface.find_entities_filtered { type = "mining-drill" , position = chunk_position, radius = 16}
-				local labs = surface.find_entities_filtered { type = "lab" , position = chunk_position, radius = 16}
-				local furnaces = surface.find_entities_filtered { type = "furnace" , position = chunk_position, radius = 16}
-				local rocketSilos = surface.find_entities_filtered { name = "rocket-silo" , position = chunk_position, radius = 16}
-				local chests = surface.find_entities_filtered { type = "container" , position = chunk_position, radius = 16}
-				local logisticChests = surface.find_entities_filtered { type = "logistic-container" , position = chunk_position, radius = 16}
-				local beacons = surface.find_entities_filtered { type = "beacon" , position = chunk_position, radius = 16}
+				local assemblers = surface.find_entities_filtered { type = "assembling-machine", position = chunk_position, radius = 16 }
+				local miners = surface.find_entities_filtered { type = "mining-drill", position = chunk_position, radius = 16 }
+				local labs = surface.find_entities_filtered { type = "lab", position = chunk_position, radius = 16 }
+				local furnaces = surface.find_entities_filtered { type = "furnace", position = chunk_position, radius = 16 }
+				local rocketSilos = surface.find_entities_filtered { name = "rocket-silo", position = chunk_position, radius = 16 }
+				local chests = surface.find_entities_filtered { type = "container", position = chunk_position, radius = 16 }
+				local logisticChests = surface.find_entities_filtered { type = "logistic-container", position = chunk_position, radius = 16 }
+				local beacons = surface.find_entities_filtered { type = "beacon", position = chunk_position, radius = 16 }
 
 				if debug_mode then
-					rendering.draw_circle{color = {r = 1, g = 0, b = 0, a = 0.5}, radius = 16, target = chunk_position, filled = true, surface = game.surfaces[index], time_to_live = 30}
+					rendering.draw_circle { color = { r = 1, g = 0, b = 0, a = 0.5 }, radius = 16, target = chunk_position, filled = true, surface = game.surfaces[index], time_to_live = 30 }
 				end
 
 				update_modules(assemblers, "machine")
@@ -273,9 +274,6 @@ script.on_nth_tick(tick_freq, function(event)
 
 			end
 		end
-
-
-
 
 		if (global.modulelevel > global.currentmodulelevel) then
 			global.currentmodulelevel = global.currentmodulelevel + 1

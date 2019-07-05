@@ -1,4 +1,8 @@
-Version 0.6.7
+Version 0.6.8
+Date 05.07.2019
+ - Reverted to Update Algorithm of Version 0.6.5 for now due to performance issues in savegames with Factorissimo (and lots of surfaces)
+
+ Version 0.6.7
 Date 05.07.2019
  - Fixed not all modules being updated (geometry error)
  - Slowed down rate of update by factor 10, maybe fixes performance issues with some users

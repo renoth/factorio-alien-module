@@ -154,17 +154,12 @@ function update_enabled_recipe()
     end
 end
 
--- Should be working now. 
+-- Should be working now. Scan around the chunk_pos argument. 
 function update_modules_on_surface(surface, chunk_pos)
 	local names = {}
 	local modulesOnGround
 	local current_module_name = 'alien-hyper-module-' .. tostring(math.min(global.currentmodulelevel,100))
-	--***When debug_mode is enabled, only locations around the first player are scanned.
-	if debug_mode then
-		modulesOnGround = surface.find_entities_filtered { name = 'item-on-ground', position = game.players[1].position, radius = 24}
-	else
-		modulesOnGround = surface.find_entities_filtered { name = 'item-on-ground', position = chunk_pos, radius = 24}
-	end
+	modulesOnGround = surface.find_entities_filtered { name = 'item-on-ground', position = chunk_pos, radius = 24}
 	
 	for index, module_on_ground in pairs(modulesOnGround) do
 		--game.print(module_on_ground.stack.name)
@@ -180,10 +175,12 @@ function update_modules_on_surface(surface, chunk_pos)
 end
 
 local function copy_surfaces()
+	--surfaces have to be cached because next() does not work on custom-dict ( game.surfaces )
 	global.surfaces = {}
 	for k,v in pairs(game.surfaces) do
 		global.surfaces[k] = v
 	end
+	-- global.surfaces should never be empty because Nauvis cannot be deleted; Get first index of this table
 	global.current_surface_iter_index = next(global.surfaces, nil)
 end
 
@@ -219,7 +216,9 @@ script.on_nth_tick(tick_freq, function(event)
     global.modulelevel = math.max(math.floor(modulelevel()), 1)
     update_gui()
 	
-	--***Debug Mode
+	--***Debug Mode 
+	--Trigger level-ups 
+	--Once per load give user some mod items to help with testing / debugging. 
 	if debug_mode then
 		global.killcount = global.killcount + kills_per_update
 		if first_pass then
@@ -230,9 +229,9 @@ script.on_nth_tick(tick_freq, function(event)
 			first_pass = false
 		end
 	end
-    --***
+    	--***
+		
 	--If current iterator index is nil, then we start with the first surface. 
-	
 	if global.surfaces == nil then copy_surfaces() end
 	
 	--The following if statement should only execute as true on the first pass
@@ -243,15 +242,18 @@ script.on_nth_tick(tick_freq, function(event)
 	--
 	for i=1, batch_size do
 		--***Want to get all the chunk logic in here so we can scan a surface more quickly per cycle.
-		--Use the next(table, cached_index) function to get the next surface to scan-- if chunk_iterator() returns nil then move to next surface index. 
-		local chunk = global.surface_iterator()
-		if chunk == nil then
-			-- Disable the printing if not in debug mode
-			if debug_mode then
-				game.print('Rescanning chunks on surface # ' .. tostring(global.current_surface_iter_index))
+		--Use the next(table, cached_index) function to get the next surface to scan
+		-- if chunk_iterator() returns nil then move to next surface index. 
+		local chunk = global.surface_iterator() 
+			--surface iterator returns nil when it reaches the last chunk on the surface OR if the surface is deleted (tested in 0.17.54) 
+		if chunk == nil then 
+			--Each tick_freq the game will evaluate a cached surface; if invalid it will cycle global.current_surface_iter_index 
+			update_surface_iter_index() 
+			global.surface_iterator = global.surfaces[global.current_surface_iter_index].get_chunks() 
+			-- Disable the printing if not in debug mode 
+			if debug_mode then 
+				game.print('Rescanning chunks on surface # ' .. tostring(global.current_surface_iter_index)) 
 			end
-			update_surface_iter_index()
-			global.surface_iterator = global.surfaces[global.current_surface_iter_index].get_chunks()
 		else
 			--include logic here to scan each surface @ chunk.
 			local surface = global.surfaces[global.current_surface_iter_index]
@@ -268,7 +270,10 @@ script.on_nth_tick(tick_freq, function(event)
 			local chests = surface.find_entities_filtered { type = "container" , position = chunk_position, radius = 24}
 			local logisticChests = surface.find_entities_filtered { type = "logistic-container" , position = chunk_position, radius = 24}
 			local beacons = surface.find_entities_filtered { type = "beacon" , position = chunk_position, radius = 24}
-
+			
+			--Draw a circle centered at the scanning point
+			--Note that the game should actually create a 'box' from the center point, 
+			--but the rendering object does not support a box using radius syntax and I am lazy. 
 			if debug_mode then
 				rendering.draw_circle{color = {r = 1, g = 0, b = 0, a = 0.5}, radius = 24, target = chunk_position, filled = true, surface = global.surfaces[global.current_surface_iter_index], time_to_live = 30}
 			end
@@ -298,9 +303,7 @@ script.on_nth_tick(tick_freq, function(event)
 		if debug_mode then
 
 		else
-			for _, player in pairs(game.players) do
-				player.play_sound { path = 'alien-level-up' }
-			end
+			game.play_sound { path = 'alien-level-up' }
 		end
 	end
 

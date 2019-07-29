@@ -11,70 +11,72 @@ data:extend({
 	}
 })
 
--- make iron ore from alien ore --
-data:extend({
-	{
-		type = "recipe",
-		name = "alien-ore-to-iron-ore",
-		enabled = true,
-		energy_required = 10,
-		ingredients = { { "artifact-ore", 1 } },
-		result = "iron-ore",
-		result_count = 5
-	}
-})
+if(settings.startup["alien-module-ore-conversion"].value) then
+	-- make iron ore from alien ore --
+	data:extend({
+		{
+			type = "recipe",
+			name = "alien-ore-to-iron-ore",
+			enabled = true,
+			energy_required = 10,
+			ingredients = { { "artifact-ore", 1 } },
+			result = "iron-ore",
+			result_count = 5
+		}
+	})
 
--- make copper ore from alien ore --
-data:extend({
-	{
-		type = "recipe",
-		name = "alien-ore-to-copper-ore",
-		enabled = true,
-		energy_required = 10,
-		ingredients = { { "artifact-ore", 1 } },
-		result = "copper-ore",
-		result_count = 5
-	}
-})
+	-- make copper ore from alien ore --
+	data:extend({
+		{
+			type = "recipe",
+			name = "alien-ore-to-copper-ore",
+			enabled = true,
+			energy_required = 10,
+			ingredients = { { "artifact-ore", 1 } },
+			result = "copper-ore",
+			result_count = 5
+		}
+	})
 
--- make stone ore from alien ore --
-data:extend({
-	{
-		type = "recipe",
-		name = "alien-ore-to-stone",
-		enabled = true,
-		energy_required = 10,
-		ingredients = { { "artifact-ore", 1 } },
-		result = "stone",
-		result_count = 5
-	}
-})
+	-- make stone ore from alien ore --
+	data:extend({
+		{
+			type = "recipe",
+			name = "alien-ore-to-stone",
+			enabled = true,
+			energy_required = 10,
+			ingredients = { { "artifact-ore", 1 } },
+			result = "stone",
+			result_count = 5
+		}
+	})
 
--- make uranium ore from alien ore --
-data:extend({
-	{
-		type = "recipe",
-		name = "alien-ore-to-uranium-ore",
-		enabled = true,
-		energy_required = 20,
-		ingredients = { { "artifact-ore", 2 } },
-		result = "uranium-ore",
-		result_count = 1
-	}
-})
+	-- make uranium ore from alien ore --
+	data:extend({
+		{
+			type = "recipe",
+			name = "alien-ore-to-uranium-ore",
+			enabled = true,
+			energy_required = 20,
+			ingredients = { { "artifact-ore", 2 } },
+			result = "uranium-ore",
+			result_count = 1
+		}
+	})
 
--- make coal from alien ore --
-data:extend({
-	{
-		type = "recipe",
-		name = "alien-ore-to-coal",
-		enabled = true,
-		energy_required = 10,
-		ingredients = { { "artifact-ore", 1 } },
-		result = "coal",
-		result_count = 5
-	}
-})
+	-- make coal from alien ore --
+	data:extend({
+		{
+			type = "recipe",
+			name = "alien-ore-to-coal",
+			enabled = true,
+			energy_required = 10,
+			ingredients = { { "artifact-ore", 1 } },
+			result = "coal",
+			result_count = 5
+		}
+	})
+end
 
 -- if bobs enemies is enabled, make conversion of alien artifacts possible
 if data.raw["item"]["alien-artifact"] ~= nil then

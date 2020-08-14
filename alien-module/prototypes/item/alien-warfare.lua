@@ -32,7 +32,7 @@ data:extend({
 		magazine_size = 10,
 		subgroup = "warfare",
 		category = "alien-module",
-		order = "a",
+		order = "ab",
 		stack_size = 100
 	}
 })
@@ -74,7 +74,7 @@ data:extend({
         magazine_size = 35,
         subgroup = "warfare",
         category = "alien-module",
-        order = "a",
+        order = "aa",
         stack_size = 100
     }
 })

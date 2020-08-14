@@ -227,6 +227,35 @@ data:extend({
 	},
 })
 
+data:extend({
+  {
+    type = "recipe",
+    name = "alien-steam-engine",
+	enabled = true,
+    normal =
+    {
+      ingredients =
+      {
+        {"iron-gear-wheel", 8},
+        {"pipe", 5},
+        {"alien-plate", 10}
+      },
+      result = "alien-steam-engine"
+    },
+    expensive =
+    {
+      ingredients =
+      {
+        {"iron-gear-wheel", 10},
+        {"pipe", 5},
+        {"alien-plate", 50}
+      },
+      result = "alien-steam-engine"
+    }
+  },
+})
+
+
 for i = 1, 100, 1 do
 	data:extend({
 		{

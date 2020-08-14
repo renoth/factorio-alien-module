@@ -31,12 +31,23 @@ data:extend({
 		icon = "__alien-module__/graphics/alien-mining-drill.png",
 		icon_size = 32,
 
+	        subgroup = "economy",
+	        category = "alien-economy",
+	        place_result = "alien-mining-drill",
+	        order = "c",
+	        stack_size = 50
+	},
+	{
+		type = "item",
+		name = "alien-steam-engine",
+		icon = "__alien-module__/graphics/steam-engine.png",
+		icon_size = 32,
 		subgroup = "economy",
 		category = "alien-economy",
-		place_result = "alien-mining-drill",
+		place_result = "alien-steam-engine",
 		order = "c",
 		stack_size = 50
-	}
+	},
 })
 
 

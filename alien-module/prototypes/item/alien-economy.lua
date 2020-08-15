@@ -4,9 +4,8 @@ data:extend({
 	{
 		type = "item",
 		name = "alien-solarpanel",
-		icon = "__alien-module__/graphics/alien-solarpanel.png",
-		icon_size = 32,
-
+		icons = { { icon = "__base__/graphics/icons/solar-panel.png", tint = { r = 0.8, g = 0.4, b = 0.8, a = 0.8 } } },
+		icon_size = 64,
 		subgroup = "economy",
 		category = "alien-economy",
 		place_result = "alien-solarpanel",
@@ -16,9 +15,8 @@ data:extend({
 	{
 		type = "item",
 		name = "alien-accumulator",
-		icon = "__alien-module__/graphics/alien-accumulator.png",
-		icon_size = 32,
-
+		icons = { { icon = "__base__/graphics/icons/accumulator.png", tint = { r = 0.8, g = 0.4, b = 0.8, a = 0.8 } } },
+		icon_size = 64,
 		subgroup = "economy",
 		category = "alien-economy",
 		place_result = "alien-accumulator",
@@ -28,14 +26,13 @@ data:extend({
 	{
 		type = "item",
 		name = "alien-mining-drill",
-		icon = "__alien-module__/graphics/alien-mining-drill.png",
-		icon_size = 32,
-
-	        subgroup = "economy",
-	        category = "alien-economy",
-	        place_result = "alien-mining-drill",
-	        order = "c",
-	        stack_size = 50
+		icons = { { icon = "__base__/graphics/icons/electric-mining-drill.png", tint = { r = 0.8, g = 0.4, b = 0.8, a = 0.8 } } },
+		icon_size = 64,
+		subgroup = "economy",
+		category = "alien-economy",
+		place_result = "alien-mining-drill",
+		order = "c",
+		stack_size = 50
 	},
 	{
 		type = "item",

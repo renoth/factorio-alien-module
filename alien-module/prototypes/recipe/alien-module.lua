@@ -11,6 +11,18 @@ data:extend({
 	}
 })
 
+data:extend({
+	{
+		type = "recipe",
+		name = "alien-steel-plate",
+		category = "smelting",
+		enabled = false,
+		energy_required = 25,
+		ingredients = { { "alien-plate", 2 }, { "iron-plate", 1 } },
+		result = "alien-steel-plate"
+	}
+})
+
 if(settings.startup["alien-module-ore-conversion"].value) then
 	-- make iron ore from alien ore --
 	data:extend({
@@ -238,7 +250,7 @@ data:extend({
       {
         {"iron-gear-wheel", 8},
         {"pipe", 5},
-        {"alien-plate", 10}
+        {"alien-steel-plate", 10}
       },
       result = "alien-steam-engine"
     },
@@ -246,9 +258,9 @@ data:extend({
     {
       ingredients =
       {
-        {"iron-gear-wheel", 10},
-        {"pipe", 5},
-        {"alien-plate", 50}
+        {"iron-gear-wheel", 15},
+        {"pipe", 8},
+        {"alien-steel-plate", 25}
       },
       result = "alien-steam-engine"
     }

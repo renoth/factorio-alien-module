@@ -31,6 +31,20 @@ data:extend({
 data:extend({
 	{
 		type = "item",
+		name = "alien-steel-plate",
+		icon = "__alien-module__/graphics/alien-steel-plate.png",
+		icon_size = 32,
+		subgroup = "component",
+		category = "alien-module",
+		tier = 2,
+		order = "a-2",
+		stack_size = 200,
+	},
+})
+
+data:extend({
+	{
+		type = "item",
 		name = "alien-fuel",
 		icon = "__alien-module__/graphics/alien-fuel.png",
 		icon_size = 32,

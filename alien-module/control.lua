@@ -171,7 +171,7 @@ end
 
 -- if an entity is killed, raise killcount
 script.on_event(defines.events.on_entity_died, function(event)
-	if (event.entity.type == "unit") then
+	if (event.entity.type == "unit" and event.entity.force.name == "enemy") then
 		global.killcount = global.killcount + 1
 	end
 end)

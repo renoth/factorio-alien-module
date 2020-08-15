@@ -139,6 +139,17 @@ function update_recipes(assemblers, force)
 	end
 end
 
+function update_quickbar(players)
+	for _, player in pairs(players) do
+		for i = 1, 100 do
+			local slot = player.get_quick_bar_slot(i)
+			if slot ~= nil and slot.name == "alien-hyper-module-" .. global.currentmodulelevel - 1 then
+				player.set_quick_bar_slot(i, "alien-hyper-module-" .. global.currentmodulelevel)
+			end
+		end
+	end
+end
+
 function update_enabled_recipe()
 	for _, force in pairs(game.forces) do
 		if force.technologies["automation"].researched then
@@ -217,6 +228,7 @@ script.on_nth_tick(120, function(event)
 
 		local players = game.players
 		update_modules(players, "player")
+		update_quickbar(players)
 
 		pp('gui.module-upgraded', global.modulelevel)
 

@@ -104,7 +104,13 @@ function update_modules(entities, entityType)
 						--and its level is less than the "current" one
 						local stacksize = inventory[i].count --record amount
 						inventory[i].clear() --clear the slot
+
+						if inventory.get_filter(i) ~= nil then -- check if slot is filtered
+							inventory.set_filter(i, "alien-hyper-module-" .. math.min(global.currentmodulelevel, 100)) --update filter
+						end
+
 						inventory[i].set_stack({ name = "alien-hyper-module-" .. math.min(global.currentmodulelevel, 100), count = stacksize }) --add the updated level modules with whatever amount we recorded
+
 					end
 				end
 
@@ -114,6 +120,11 @@ function update_modules(entities, entityType)
 						--and its level is less than the "current" one
 						local stacksize = inventory[i].count --record amount
 						inventory[i].clear() --clear the slot
+
+						if inventory.get_filter(i) ~= nil then -- check if slot is filtered
+							inventory.set_filter(i, "alien-hyper-magazine-" .. math.min(global.currentmodulelevel, 100)) --update filter
+						end
+
 						inventory[i].set_stack({ name = "alien-hyper-magazine-" .. math.min(global.currentmodulelevel, 100), count = stacksize })
 						--add the updated level modules with whatever amount we recorded
 					end

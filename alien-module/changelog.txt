@@ -1,3 +1,20 @@
+Version 1.0.7
+- Fix issue #35 for real now
+
+Version 1.0.6
+- New Alien Hyper Magazine (Prequisite: Military Tech)
+- Removed more own icons, use more base-graphics with tint
+- Alien Hyper Module changes color slightly with level
+
+Version 1.0.3
+- Fix #35 Filtered Slots (quickbar) gets also upgraded now
+
+Version 1.0.2
+- Fix #39 Mining drones should not generate kills when used
+
+Version 1.0.0
+- Release for the Factorio Version 1.0
+
 Version 0.6.8
 Date 05.07.2019
  - Reverted to Update Algorithm of Version 0.6.5 for now due to performance issues in savegames with Factorissimo (and lots of surfaces)

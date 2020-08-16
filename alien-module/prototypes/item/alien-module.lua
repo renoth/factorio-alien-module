@@ -101,8 +101,18 @@ for i = 1, 100, 1 do
 		{
 			type = "module",
 			name = "alien-hyper-module-" .. i,
-			icon = "__alien-module__/graphics/alien-hyper-module-1.png",
-			icon_size = 32,
+			icons = {
+				{
+					icon = "__base__/graphics/icons/speed-module-3.png",
+					tint = {
+						r = 0.5 + 0.5 * i * 0.01,
+						g = 0.55,
+						b = 0.8,
+						a = 1
+					}
+				}
+			},
+			icon_size = 64,
 			subgroup = "alien-hyper-module",
 			category = "alien-module",
 			tier = i,

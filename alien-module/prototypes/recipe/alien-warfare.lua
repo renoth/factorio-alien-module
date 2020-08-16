@@ -28,3 +28,19 @@ data:extend({
         },
     },
 })
+
+for i = 1, 100, 1 do
+    data:extend({
+        {
+            type = "recipe",
+            name = "alien-hyper-magazine-" .. i,
+            enabled = false,
+            energy_required = i,
+            result = "alien-hyper-magazine-" .. i,
+            result_count = 1,
+            ingredients = {
+                { "alien-plate", 2 }, { "iron-plate", 2 }, { "copper-plate", 1 },
+            },
+        },
+    })
+end

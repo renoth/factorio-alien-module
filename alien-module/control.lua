@@ -107,6 +107,42 @@ function update_modules(entities, entityType)
 						inventory[i].set_stack({ name = "alien-hyper-module-" .. math.min(global.currentmodulelevel, 100), count = stacksize }) --add the updated level modules with whatever amount we recorded
 					end
 				end
+
+				if string.find(inventory[i].name, "^alien%-hyper%-magazine") then
+					--if theres a module in this inventory slot
+					if tonumber(string.match(inventory[i].name, "%d+$")) < global.currentmodulelevel then
+						--and its level is less than the "current" one
+						local stacksize = inventory[i].count --record amount
+						inventory[i].clear() --clear the slot
+						inventory[i].set_stack({ name = "alien-hyper-magazine-" .. math.min(global.currentmodulelevel, 100), count = stacksize })
+						--add the updated level modules with whatever amount we recorded
+					end
+				end
+			end)
+		end
+	end
+end
+
+function update_ammo(turrets)
+	for _, entity in pairs(turrets) do
+		local inventory = entity.get_inventory(defines.inventory.chest) --grab a chest's inventory
+
+		if inventory == nil then
+			return
+		end
+
+		for i = 1, #inventory, 1 do
+			--loop through all of the entity's inventory slots
+			local status, err = pcall(function()
+				if string.find(inventory[i].name, "^alien%-hyper%-magazine") then
+					--if theres hyper ammo in the inventory slot
+					if tonumber(string.match(inventory[i].name, "%d+$")) < global.currentmodulelevel then
+						--and its level is less than the "current" one
+						local stacksize = inventory[i].count --record amount
+						inventory[i].clear() --clear the slot
+						inventory[i].set_stack({ name = "alien-hyper-magazine-" .. math.min(global.currentmodulelevel, 100), count = stacksize })
+					end
+				end
 			end)
 		end
 	end
@@ -135,6 +171,19 @@ function update_recipes(assemblers, force)
 					entity.get_inventory(defines.inventory.assembling_machine_output).insert { name = "alien-hyper-module-" .. global.currentmodulelevel, count = finished_module_count }
 				end
 			end
+
+			if string.find(entity.get_recipe().name, "^alien%-hyper%-magazine") then
+				local finished_module_count = entity.get_inventory(defines.inventory.assembling_machine_output).get_item_count("alien-hyper-module-" .. global.currentmodulelevel - 1)
+
+				entity.set_recipe(force.recipes["alien-hyper-magazine-" .. global.currentmodulelevel]) --set it to the updated recipe
+
+				if finished_module_count > 0 then
+					entity.get_inventory(defines.inventory.assembling_machine_output).insert {
+						name = "alien-hyper-magazine-" .. global.currentmodulelevel,
+						count = finished_module_count
+					}
+				end
+			end
 		end
 	end
 end
@@ -159,6 +208,16 @@ function update_enabled_recipe()
 				force.recipes["alien-hyper-module-" .. global.currentmodulelevel].enabled = true
 			end
 		end
+
+		if force.technologies["military"].researched then
+			if global.currentmodulelevel > 1 then
+				force.recipes["alien-hyper-magazine-1"].enabled = false
+				force.recipes["alien-hyper-magazine-" .. global.currentmodulelevel - 1].enabled = false
+				force.recipes["alien-hyper-magazine-" .. global.currentmodulelevel].enabled = true
+			else
+				force.recipes["alien-hyper-magazine-1"].enabled = true
+			end
+		end
 	end
 end
 
@@ -167,6 +226,7 @@ function update_modules_on_surface(surface)
 	local names = {}
 	local modulesOnGround = surface.find_entities_filtered { name = 'item-on-ground' }
 	local current_module_name = 'alien-hyper-module-' .. tostring(math.min(global.currentmodulelevel, 100))
+	local current_magazine_name = 'alien-hyper-magazine-' .. tostring(math.min(global.currentmodulelevel, 100))
 
 	for index, module_on_ground in pairs(modulesOnGround) do
 		--game.print(module_on_ground.stack.name)
@@ -176,6 +236,11 @@ function update_modules_on_surface(surface)
 		if (string.find(real_name, "^alien%-hyper%-module") and real_name ~= current_module_name) then
 			module_on_ground.destroy()
 			surface.create_entity { name = 'item-on-ground', position = module_pos, stack = { name = current_module_name, count = item_count } }
+		end
+
+		if (string.find(real_name, "^alien%-hyper%-magazine") and real_name ~= current_magazine_name) then
+			module_on_ground.destroy()
+			surface.create_entity { name = 'item-on-ground', position = module_pos, stack = { name = current_magazine_name, count = item_count } }
 		end
 	end
 end
@@ -209,6 +274,7 @@ script.on_nth_tick(120, function(event)
 			local chests = surface.find_entities_filtered { type = "container" }
 			local logisticChests = surface.find_entities_filtered { type = "logistic-container" }
 			local beacons = surface.find_entities_filtered { type = "beacon" }
+			local turrets = surface.find_entities_filtered { type = "ammo-turret" }
 
 			update_modules(assemblers, "machine")
 			update_modules(miners, "machine")
@@ -218,6 +284,8 @@ script.on_nth_tick(120, function(event)
 			update_modules(chests, "chest")
 			update_modules(logisticChests, "chest")
 			update_modules(beacons, "machine")
+
+			update_ammo(turrets)
 
 			for _, force in pairs(game.forces) do
 				update_recipes(assemblers, force)

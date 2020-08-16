@@ -13,6 +13,12 @@ table.insert(data.raw["technology"]["military"].effects,
 table.insert(data.raw["technology"]["military"].effects,
 		{
 			type = "unlock-recipe",
+			recipe = "alien-hyper-magazine-1"
+		})
+
+table.insert(data.raw["technology"]["military"].effects,
+		{
+			type = "unlock-recipe",
 			recipe = "alien-ore-magazine"
 		})
 

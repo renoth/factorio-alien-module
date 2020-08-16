@@ -4,8 +4,8 @@ data:extend({
 	{
 		type = "item",
 		name = "artifact-ore",
-		icon = "__alien-module__/graphics/artifact-ore.png",
-		icon_size = 32,
+		icons = { { icon = "__base__/graphics/icons/iron-ore.png", tint = { r = 0.8, g = 0.4, b = 0.8, a = 0.8 } } },
+		icon_size = 64,
 		subgroup = "component",
 		category = "alien-module",
 		tier = 0,
@@ -18,8 +18,8 @@ data:extend({
 	{
 		type = "item",
 		name = "alien-plate",
-		icon = "__alien-module__/graphics/alien-plate.png",
-		icon_size = 32,
+		icons = { { icon = "__base__/graphics/icons/iron-plate.png", tint = { r = 0.8, g = 0.4, b = 0.8, a = 0.8 } } },
+		icon_size = 64,
 		subgroup = "component",
 		category = "alien-module",
 		tier = 2,
@@ -32,8 +32,8 @@ data:extend({
 	{
 		type = "item",
 		name = "alien-steel-plate",
-		icon = "__alien-module__/graphics/alien-steel-plate.png",
-		icon_size = 32,
+		icons = { { icon = "__base__/graphics/icons/steel-plate.png", tint = { r = 0.8, g = 0.4, b = 0.8, a = 0.8 } } },
+		icon_size = 64,
 		subgroup = "component",
 		category = "alien-module",
 		tier = 2,
@@ -46,8 +46,8 @@ data:extend({
 	{
 		type = "item",
 		name = "alien-fuel",
-		icon = "__alien-module__/graphics/alien-fuel.png",
-		icon_size = 32,
+		icons = { { icon = "__base__/graphics/icons/solid-fuel.png", tint = { r = 0.8, g = 0.4, b = 0.8, a = 0.8 } } },
+		icon_size = 64,
 		fuel_category = "chemical",
 		fuel_value = "200MJ",
 		fuel_acceleration_multiplier = 1.4,

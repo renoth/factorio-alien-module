@@ -37,8 +37,8 @@ data:extend({
 	{
 		type = "item",
 		name = "alien-steam-engine",
-		icon = "__alien-module__/graphics/steam-engine.png",
-		icon_size = 32,
+		icons = { { icon = "__base__/graphics/icons/steam-engine.png", tint = { r = 0.8, g = 0.4, b = 0.8, a = 0.8 } } },
+		icon_size = 64,
 		subgroup = "economy",
 		category = "alien-economy",
 		place_result = "alien-steam-engine",

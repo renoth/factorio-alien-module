@@ -10,3 +10,7 @@ Biters now drop alien ore from which you can smelt alien plates that you can use
  `mvn assembly:assembly install`
  
  The target folder should now contain the mod zip file. All zipfiles from the target-folder will get copied to the configured factorio mod folder.
+ 
+ The factorio mod folder can be configured in
+ 
+ `src/config.properties`

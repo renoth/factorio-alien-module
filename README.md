@@ -1,5 +1,5 @@
 # factorio-alien-module
-A mod for factorio
+A mod for factorio [Link to mod portal](https://mods.factorio.com/mod/alien-module)
 
 Biters now drop alien ore from which you can smelt alien plates that you can use in alien recipes.
 

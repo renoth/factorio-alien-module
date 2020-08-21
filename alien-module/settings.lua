@@ -22,5 +22,13 @@ data:extend({
 		setting_type = "startup",
 		default_value = 0.01
 	},
+	{
+		type = "int-setting",
+		name = "alien-module-drop-amount",
+		order = "d",
+		minimum_value = 1, maximum_value = 10000,
+		setting_type = "startup",
+		default_value = 100
+	},
 
 })

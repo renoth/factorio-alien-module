@@ -1,6 +1,9 @@
+Version 1.0.11
+- Global mod option to set amount of dropped ore in %
+
 Version 1.0.10
-- Global option to set exponent for leveling (higher is faster leveling, lower is slower leveling, default is 0.1)
-- Global option for Hypermodule effect per level (default 0.01, min 0.001, max 0.1)
+- Global mod option to set exponent for leveling (higher is faster leveling, lower is slower leveling, default is 0.1)
+- Global mod option for Hypermodule effect per level (default 0.01, min 0.001, max 0.1)
 
 Version 1.0.9
 - New entity alien turret

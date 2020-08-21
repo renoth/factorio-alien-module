@@ -19,7 +19,7 @@ function AddLootToEntity(entityType, entityName, probability, countMin, countMax
 			if data.raw[entityType][entityName].loot == nil then
 				data.raw[entityType][entityName].loot = {}
 			end
-			table.insert(data.raw[entityType][entityName].loot, { item = "artifact-ore", probability = probability, count_min = countMin, count_max = countMax })
+			table.insert(data.raw[entityType][entityName].loot, { item = "artifact-ore", probability = probability, count_min = countMin, count_max = math.floor(countMax + 0.5) })
 		end
 	end
 end
@@ -29,31 +29,35 @@ function AddLootToVanillaEnemies()
 	local MEDIUM_LOOT_PROBABILITY = 0.66
 	local BIG_LOOT_PROBABILITY = 0.83
 
-	AddLootToEntity("unit", "small-spitter", SMALL_LOOT_PROBABILITY, 1, 1)
-	AddLootToEntity("unit", "small-biter", SMALL_LOOT_PROBABILITY, 1, 1)
+	local AMOUNT = settings.startup["alien-module-drop-amount"].value / 100
 
-	AddLootToEntity("unit", "medium-spitter", MEDIUM_LOOT_PROBABILITY, 1, 2)
-	AddLootToEntity("unit", "medium-biter", MEDIUM_LOOT_PROBABILITY, 1, 2)
+	AddLootToEntity("unit", "small-spitter", SMALL_LOOT_PROBABILITY, 1, 1 * AMOUNT)
+	AddLootToEntity("unit", "small-biter", SMALL_LOOT_PROBABILITY, 1, 1 * AMOUNT)
 
-	AddLootToEntity("unit", "big-spitter", BIG_LOOT_PROBABILITY, 1, 5)
-	AddLootToEntity("unit", "big-biter", BIG_LOOT_PROBABILITY, 1, 5)
+	AddLootToEntity("unit", "medium-spitter", MEDIUM_LOOT_PROBABILITY, 1, 2 * AMOUNT)
+	AddLootToEntity("unit", "medium-biter", MEDIUM_LOOT_PROBABILITY, 1, 2 * AMOUNT)
 
-	AddLootToEntity("unit", "behemoth-spitter", 1, 2, 20)
-	AddLootToEntity("unit", "behemoth-biter", 1, 2, 20)
+	AddLootToEntity("unit", "big-spitter", BIG_LOOT_PROBABILITY, 1, 5 * AMOUNT)
+	AddLootToEntity("unit", "big-biter", BIG_LOOT_PROBABILITY, 1, 5 * AMOUNT)
 
-	AddLootToEntity("turret", "little-worm-turret", 1, 1, 5)
-	AddLootToEntity("turret", "medium-worm-turret", 1, 1, 10)
-	AddLootToEntity("turret", "big-worm-turret", 1, 1, 25)
+	AddLootToEntity("unit", "behemoth-spitter", 1, 2, 20 * AMOUNT)
+	AddLootToEntity("unit", "behemoth-biter", 1, 2, 20 * AMOUNT)
 
-	AddLootToEntity("unit-spawner", "biter-spawner", 1, 20, 50)
-	AddLootToEntity("unit-spawner", "spitter-spawner", 1, 20, 50)
+	AddLootToEntity("turret", "little-worm-turret", 1, 1, 5 * AMOUNT)
+	AddLootToEntity("turret", "medium-worm-turret", 1, 1, 10 * AMOUNT)
+	AddLootToEntity("turret", "big-worm-turret", 1, 1, 25 * AMOUNT)
+
+	AddLootToEntity("unit-spawner", "biter-spawner", 1, 20, 50 * AMOUNT)
+	AddLootToEntity("unit-spawner", "spitter-spawner", 1, 20, 50 * AMOUNT)
 end
 
 -- This is for the Natural Expansion Mod
 function AddLootToNEEnemies()
+	local amount_setting = settings.startup["alien-module-drop-amount"].value / 100
+
 	for i = 1, 20 do
 		local loot_probability = math.min(i * 0.04, 1) -- 80 % at highest tier
-		local max_loot_amount = math.floor(math.max(i * 0.101, 1))
+		local max_loot_amount = math.floor(math.max(i * 0.101, 1)) * amount_setting
 
 		AddLootToEntity("unit", "ne-biter-breeder-" .. i, loot_probability, 1, max_loot_amount)
 		AddLootToEntity("unit", "ne-biter-fire-" .. i, loot_probability, 1, max_loot_amount)
@@ -72,12 +76,12 @@ function AddLootToNEEnemies()
 		local MEDIUM_LOOT_PROBABILITY = 0.5
 		local BIG_LOOT_PROBABILITY = 1
 
-		AddLootToEntity("unit", "small-spitter-Mk" .. i, MEDIUM_LOOT_PROBABILITY, 1, 1)
-		AddLootToEntity("unit", "small-biter-Mk" .. i, MEDIUM_LOOT_PROBABILITY, 1, 1)
-		AddLootToEntity("unit", "medium-spitter-Mk" .. i, BIG_LOOT_PROBABILITY, 1, 2)
-		AddLootToEntity("unit", "medium-biter-Mk" .. i, BIG_LOOT_PROBABILITY, 1, 2)
-		AddLootToEntity("unit", "big-spitter-Mk" .. i, BIG_LOOT_PROBABILITY, 1, 5)
-		AddLootToEntity("unit", "big-biter-Mk" .. i, BIG_LOOT_PROBABILITY, 1, 5)
+		AddLootToEntity("unit", "small-spitter-Mk" .. i, MEDIUM_LOOT_PROBABILITY, 1, 1 * amount_setting)
+		AddLootToEntity("unit", "small-biter-Mk" .. i, MEDIUM_LOOT_PROBABILITY, 1, 1 * amount_setting)
+		AddLootToEntity("unit", "medium-spitter-Mk" .. i, BIG_LOOT_PROBABILITY, 1, 2 * amount_setting)
+		AddLootToEntity("unit", "medium-biter-Mk" .. i, BIG_LOOT_PROBABILITY, 1, 2 * amount_setting)
+		AddLootToEntity("unit", "big-spitter-Mk" .. i, BIG_LOOT_PROBABILITY, 1, 5 * amount_setting)
+		AddLootToEntity("unit", "big-biter-Mk" .. i, BIG_LOOT_PROBABILITY, 1, 5 * amount_setting)
 	end
 
 	-- boss unit from NE
@@ -86,10 +90,12 @@ end
 
 -- Rampant mod enemies
 function AddLootToRampantEnemies()
+	local amount_setting = settings.startup["alien-module-drop-amount"].value / 100
+
 	for t = 1, 10 do
 		for v = 1, 20 do
 			local loot_probability = math.min(t * 0.08, 1) -- 80 % at highest tier
-			local max_loot_amount = 1
+			local max_loot_amount = 1 * amount_setting
 
 			AddLootToEntity("unit", "neutral-biter-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
 			AddLootToEntity("unit", "neutral-spitter-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)

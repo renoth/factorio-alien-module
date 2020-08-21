@@ -96,7 +96,8 @@ data:extend({
 })
 
 for i = 1, 100, 1 do
-	local levelbonus = i * 0.01001
+	local levelbonus = i * (settings.startup["alien-module-hyper-module-effect"].value + 0.00001)
+
 	data:extend({
 		{
 			type = "module",

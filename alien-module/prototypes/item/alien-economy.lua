@@ -42,7 +42,7 @@ data:extend({
 		subgroup = "economy",
 		category = "alien-economy",
 		place_result = "alien-steam-engine",
-		order = "c",
+		order = "d",
 		stack_size = 50
 	},
 })

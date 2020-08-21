@@ -28,6 +28,69 @@ table.insert(data.raw["technology"]["military"].effects,
 			recipe = "alien-fuel"
 		})
 
+table.insert(data.raw["technology"]["military"].effects,
+		{
+			type = "unlock-recipe",
+			recipe = "alien-gun-turret"
+		})
+
+table.insert(
+	data.raw["technology"]["physical-projectile-damage-1"].effects,
+	{
+		type = "turret-attack",
+		turret_id = "alien-gun-turret",
+		modifier = "0.1"
+	}
+)
+table.insert(
+	data.raw["technology"]["physical-projectile-damage-2"].effects,
+	{
+		type = "turret-attack",
+		turret_id = "alien-gun-turret",
+		modifier = "0.1"
+	}
+)
+table.insert(
+	data.raw["technology"]["physical-projectile-damage-3"].effects,
+	{
+		type = "turret-attack",
+		turret_id = "alien-gun-turret",
+		modifier = "0.2"
+	}
+)
+table.insert(
+	data.raw["technology"]["physical-projectile-damage-4"].effects,
+	{
+		type = "turret-attack",
+		turret_id = "alien-gun-turret",
+		modifier = "0.2"
+	}
+)
+table.insert(
+	data.raw["technology"]["physical-projectile-damage-5"].effects,
+	{
+		type = "turret-attack",
+		turret_id = "alien-gun-turret",
+		modifier = "0.2"
+	}
+)
+table.insert(
+	data.raw["technology"]["physical-projectile-damage-6"].effects,
+	{
+		type = "turret-attack",
+		turret_id = "alien-gun-turret",
+		modifier = "0.4"
+	}
+)
+table.insert(
+	data.raw["technology"]["physical-projectile-damage-7"].effects,
+	{
+		type = "turret-attack",
+		turret_id = "alien-gun-turret",
+		modifier = "0.7"
+	}
+)
+
 if data.raw["item"]["alien-artifact"] then
 	table.insert(data.raw["technology"]["automation"].effects,
 			{

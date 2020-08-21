@@ -37,7 +37,7 @@ data:extend({
 		subgroup = "component",
 		category = "alien-module",
 		tier = 2,
-		order = "a-2",
+		order = "a-3",
 		stack_size = 200,
 	},
 })
@@ -55,7 +55,7 @@ data:extend({
 		subgroup = "component",
 		category = "alien-module",
 		tier = 2,
-		order = "a-3",
+		order = "a-4",
 		stack_size = 200
 	},
 })

@@ -117,3 +117,17 @@ data:extend({
 		stack_size = 100
 	}
 })
+
+data:extend({
+	{
+		type = "item",
+		name = "alien-gun-turret",
+		icons = { { icon = "__base__/graphics/icons/gun-turret.png", tint = { r = 0.8, g = 0.4, b = 0.8, a = 0.8 } } },
+		icon_size = 64,
+		subgroup = "warfare",
+		category = "alien-module",
+		order = "ad",
+		place_result = "alien-gun-turret",
+		stack_size = 50
+	}
+})

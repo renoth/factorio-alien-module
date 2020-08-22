@@ -132,12 +132,12 @@ local alien_gun_turret = util.table.deepcopy(data.raw["ammo-turret"]["gun-turret
 
 alien_gun_turret.name = "alien-gun-turret"
 alien_gun_turret.icons = { { icon = "__base__/graphics/icons/gun-turret.png", tint = { r = 0.8, g = 0.4, b = 0.8, a = 0.8 } } }
-alien_gun_turret.minable.result = "alien-steam-engine"
+alien_gun_turret.minable.result = "alien-gun-turret"
 alien_gun_turret.max_health = 650
 alien_gun_turret.base_picture.layers[1].tint = alien_tint
 alien_gun_turret.base_picture.layers[1].hr_version.tint = alien_tint
 alien_gun_turret.base_picture.layers[2].tint = alien_tint
 alien_gun_turret.base_picture.layers[2].hr_version.tint = alien_tint
-alien_gun_turret.attack_parameters.range = 24
+alien_gun_turret.attack_parameters.range = 30
 
 data:extend({ alien_gun_turret })

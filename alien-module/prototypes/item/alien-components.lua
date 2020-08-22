@@ -4,8 +4,9 @@ data:extend({
 	{
 		type = "item",
 		name = "artifact-ore",
-		icons = { { icon = "__base__/graphics/icons/iron-ore.png", tint = { r = 0.8, g = 0.4, b = 0.8, a = 0.8 } } },
+		icons = { { icon = "__alien-module__/graphics/artifact-ore.png"} },
 		icon_size = 64,
+		icon_mipmaps = 4,
 		subgroup = "component",
 		category = "alien-module",
 		tier = 0,

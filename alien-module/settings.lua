@@ -7,6 +7,13 @@ data:extend({
 		default_value = true
 	},
 	{
+		type = "bool-setting",
+		name = "alien-module-hyper-ammo-enabled",
+		order = "aa",
+		setting_type = "startup",
+		default_value = true
+	},
+	{
 		type = "double-setting",
 		name = "alien-module-level-exponent",
 		order = "b",

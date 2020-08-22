@@ -18,7 +18,7 @@ data:extend({
 		category = "smelting",
 		enabled = false,
 		energy_required = 25,
-		ingredients = { { "alien-plate", 2 }, { "iron-plate", 1 } },
+		ingredients = { { "alien-plate", 5 } },
 		result = "alien-steel-plate"
 	}
 })

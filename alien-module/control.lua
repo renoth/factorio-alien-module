@@ -106,7 +106,8 @@ function update_modules(entities, entityType)
 						local stacksize = inventory[i].count --record amount
 						inventory[i].clear() --clear the slot
 
-						if entityType == "player" and inventory.get_filter(i) ~= nil then -- check if slot is filtered
+						if entityType == "player" and inventory.get_filter(i) ~= nil then
+							-- check if slot is filtered
 							inventory.set_filter(i, "alien-hyper-module-" .. math.min(global.currentmodulelevel, 100)) --update filter
 						end
 
@@ -122,7 +123,8 @@ function update_modules(entities, entityType)
 						local stacksize = inventory[i].count --record amount
 						inventory[i].clear() --clear the slot
 
-						if inventory.get_filter(i) ~= nil then -- check if slot is filtered
+						if inventory.get_filter(i) ~= nil then
+							-- check if slot is filtered
 							inventory.set_filter(i, "alien-hyper-magazine-" .. math.min(global.currentmodulelevel, 100)) --update filter
 						end
 
@@ -210,6 +212,42 @@ function update_quickbar(players)
 		end
 	end
 end
+
+function update_logistic_slots(players)
+	for _, player in pairs(players) do
+		for i = 1, player.character_logistic_slot_count do
+			local slot = player.get_personal_logistic_slot(i)
+			if slot ~= nil and slot.name == "alien-hyper-module-" .. global.currentmodulelevel - 1 then
+				player.set_personal_logistic_slot(i, { name = "alien-hyper-module-" .. global.currentmodulelevel, min = slot.min, max = slot.max })
+			end
+
+			if slot ~= nil and slot.name == "alien-hyper-magazine-" .. global.currentmodulelevel - 1 then
+				player.set_personal_logistic_slot(i, { name = "alien-hyper-magazine-" .. global.currentmodulelevel, min = slot.min, max = slot.max })
+			end
+		end
+	end
+end
+
+--[[function update_trash_slots(players)
+	for _, player in pairs(players) do
+		local old_trash = player.auto_trash_filters
+		local new_trash = {}
+
+		for key, value in ipairs(old_trash) do
+			player.print(key)
+			player.print(value)
+			if key ~= nil and key == "alien-hyper-module-" .. global.currentmodulelevel - 1 then
+				new_trash.insert("alien-hyper-module-" .. global.currentmodulelevel, value)
+			else
+				new_trash.insert(key, value)
+			end
+		end
+
+		player.print(new_trash)
+
+		player.auto_trash_filters = new_trash
+	end
+end]]
 
 function update_enabled_recipe()
 	for _, force in pairs(game.forces) do
@@ -309,6 +347,8 @@ script.on_nth_tick(120, function(event)
 		local players = game.players
 		update_modules(players, "player")
 		update_quickbar(players)
+		update_logistic_slots(players)
+		-- update_trash_slots(players)
 
 		pp('gui.module-upgraded', global.modulelevel)
 

@@ -186,7 +186,7 @@ function update_recipes(assemblers, force)
 				end
 			end
 
-			if string.find(entity.get_recipe().name, "^alien%-hyper%-magazine") then
+			if settings.startup["alien-module-hyper-ammo-enabled"].value and string.find(entity.get_recipe().name, "^alien%-hyper%-magazine") then
 				local finished_module_count = entity.get_inventory(defines.inventory.assembling_machine_output).get_item_count("alien-hyper-module-" .. global.currentmodulelevel - 1)
 
 				entity.set_recipe(force.recipes["alien-hyper-magazine-" .. global.currentmodulelevel]) --set it to the updated recipe
@@ -221,7 +221,7 @@ function update_logistic_slots(players)
 				player.set_personal_logistic_slot(i, { name = "alien-hyper-module-" .. global.currentmodulelevel, min = slot.min, max = slot.max })
 			end
 
-			if slot ~= nil and slot.name == "alien-hyper-magazine-" .. global.currentmodulelevel - 1 then
+			if settings.startup["alien-module-hyper-ammo-enabled"].value and slot ~= nil and slot.name == "alien-hyper-magazine-" .. global.currentmodulelevel - 1 then
 				player.set_personal_logistic_slot(i, { name = "alien-hyper-magazine-" .. global.currentmodulelevel, min = slot.min, max = slot.max })
 			end
 		end
@@ -259,7 +259,7 @@ function update_enabled_recipe()
 			end
 		end
 
-		if force.technologies["military"].researched then
+		if force.technologies["military"].researched and settings.startup["alien-module-hyper-ammo-enabled"].value then
 			if global.currentmodulelevel > 1 then
 				force.recipes["alien-hyper-magazine-1"].enabled = false
 				force.recipes["alien-hyper-magazine-" .. global.currentmodulelevel - 1].enabled = false
@@ -288,7 +288,7 @@ function update_modules_on_surface(surface)
 			surface.create_entity { name = 'item-on-ground', position = module_pos, stack = { name = current_module_name, count = item_count } }
 		end
 
-		if (string.find(real_name, "^alien%-hyper%-magazine") and real_name ~= current_magazine_name) then
+		if settings.startup["alien-module-hyper-ammo-enabled"].value and (string.find(real_name, "^alien%-hyper%-magazine") and real_name ~= current_magazine_name) then
 			module_on_ground.destroy()
 			surface.create_entity { name = 'item-on-ground', position = module_pos, stack = { name = current_magazine_name, count = item_count } }
 		end
@@ -335,7 +335,9 @@ script.on_nth_tick(120, function(event)
 			update_modules(logisticChests, "chest")
 			update_modules(beacons, "machine")
 
-			update_ammo(turrets)
+			if settings.startup["alien-module-hyper-ammo-enabled"].value then
+				update_ammo(turrets)
+			end
 
 			for _, force in pairs(game.forces) do
 				update_recipes(assemblers, force)

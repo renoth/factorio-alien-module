@@ -10,11 +10,13 @@ table.insert(data.raw["technology"]["military"].effects,
 			recipe = "alien-magazine"
 		})
 
-table.insert(data.raw["technology"]["military"].effects,
-		{
-			type = "unlock-recipe",
-			recipe = "alien-hyper-magazine-1"
-		})
+if settings.startup["alien-module-hyper-ammo-enabled"].value then
+	table.insert(data.raw["technology"]["military"].effects,
+			{
+				type = "unlock-recipe",
+				recipe = "alien-hyper-magazine-1"
+			})
+end
 
 table.insert(data.raw["technology"]["military"].effects,
 		{

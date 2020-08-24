@@ -1,3 +1,6 @@
+Version 1.0.15
+- Fix crash when hyper ammo is disabled
+
 Version 1.0.14
 - Fix Logistic Slots not upgrading
 

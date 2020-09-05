@@ -112,7 +112,6 @@ function update_modules(entities, entityType)
 						end
 
 						inventory[i].set_stack({ name = "alien-hyper-module-" .. math.min(global.currentmodulelevel, 100), count = stacksize }) --add the updated level modules with whatever amount we recorded
-
 					end
 				end
 
@@ -215,14 +214,16 @@ end
 
 function update_logistic_slots(players)
 	for _, player in pairs(players) do
-		for i = 1, player.character_logistic_slot_count do
-			local slot = player.get_personal_logistic_slot(i)
-			if slot ~= nil and slot.name == "alien-hyper-module-" .. global.currentmodulelevel - 1 then
-				player.set_personal_logistic_slot(i, { name = "alien-hyper-module-" .. global.currentmodulelevel, min = slot.min, max = slot.max })
-			end
+		if player.character ~= nil then
+			for i = 1, player.character_logistic_slot_count do
+				local slot = player.get_personal_logistic_slot(i)
+				if slot ~= nil and slot.name == "alien-hyper-module-" .. global.currentmodulelevel - 1 then
+					player.set_personal_logistic_slot(i, { name = "alien-hyper-module-" .. global.currentmodulelevel, min = slot.min, max = slot.max })
+				end
 
-			if settings.startup["alien-module-hyper-ammo-enabled"].value and slot ~= nil and slot.name == "alien-hyper-magazine-" .. global.currentmodulelevel - 1 then
-				player.set_personal_logistic_slot(i, { name = "alien-hyper-magazine-" .. global.currentmodulelevel, min = slot.min, max = slot.max })
+				if settings.startup["alien-module-hyper-ammo-enabled"].value and slot ~= nil and slot.name == "alien-hyper-magazine-" .. global.currentmodulelevel - 1 then
+					player.set_personal_logistic_slot(i, { name = "alien-hyper-magazine-" .. global.currentmodulelevel, min = slot.min, max = slot.max })
+				end
 			end
 		end
 	end

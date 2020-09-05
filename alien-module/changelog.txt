@@ -1,3 +1,6 @@
+Version 1.0.16
+- Fix #46 Crash on logistic slot update when player has no character
+
 Version 1.0.15
 - Fix crash when hyper ammo is disabled
 

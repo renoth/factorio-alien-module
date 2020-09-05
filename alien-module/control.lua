@@ -169,20 +169,20 @@ function update_recipes(assemblers, force)
 				--and its one of ours
 				local plates_to_refund = 0
 
-				if entity.is_crafting() then
-					-- refund ingredients if hyper modules are being crafted
-					plates_to_refund = (global.currentmodulelevel - 1) * 20 -- cost of currently crafting recipe
-					plates_to_refund = math.max(plates_to_refund, 0) -- dont add negative amount
-					entity.get_inventory(defines.inventory.assembling_machine_input).insert { name = "alien-plate", count = plates_to_refund }
-				end
-
+				-- Save the number of modules in the output slot, crafting progress and bonus progress
 				local finished_module_count = entity.get_inventory(defines.inventory.assembling_machine_output).get_item_count("alien-hyper-module-" .. global.currentmodulelevel - 1)
+				local crafting_progress = entity.crafting_progress
+				local bonus_progress = entity.bonus_progress
 
 				entity.set_recipe(force.recipes["alien-hyper-module-" .. global.currentmodulelevel]) --set it to the updated recipe
 
+				-- Add the modules back
 				if finished_module_count > 0 then
 					entity.get_inventory(defines.inventory.assembling_machine_output).insert { name = "alien-hyper-module-" .. global.currentmodulelevel, count = finished_module_count }
 				end
+				-- Restore previous progress
+				entity.crafting_progress = crafting_progress
+				entity.bonus_progress = bonus_progress
 			end
 
 			if settings.startup["alien-module-hyper-ammo-enabled"].value and string.find(entity.get_recipe().name, "^alien%-hyper%-magazine") then

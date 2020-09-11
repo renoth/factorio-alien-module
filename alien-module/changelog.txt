@@ -1,3 +1,6 @@
+Version 1.0.18
+- Fix alien turret not getting damage upgrades
+
 Version 1.0.17
 - Alien hyper module crafting progress is now persisted when a level-up happens (Thanks to BlueAgent!)
 

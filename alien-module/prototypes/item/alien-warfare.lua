@@ -12,6 +12,7 @@ data:extend({
 				type = "direct",
 				action_delivery = {
 					type = "instant",
+					max_range = 35,
 					source_effects = {
 						type = "create-explosion",
 						entity_name = "explosion-gunshot"
@@ -29,11 +30,11 @@ data:extend({
 				}
 			}
 		},
-		magazine_size = 20,
+		magazine_size = 25,
 		subgroup = "warfare",
 		category = "alien-module",
 		order = "ab",
-		stack_size = 100
+		stack_size = 200
 	}
 })
 
@@ -51,6 +52,7 @@ if (settings.startup["alien-module-hyper-ammo-enabled"].value) then
 						type = "direct",
 						action_delivery = {
 							type = "instant",
+							max_range = 35,
 							source_effects = {
 								type = "create-explosion",
 								entity_name = "explosion-gunshot"
@@ -62,7 +64,7 @@ if (settings.startup["alien-module-hyper-ammo-enabled"].value) then
 								},
 								{
 									type = "damage",
-									damage = { amount = 5 + 0.2 * i, type = "physical" }
+									damage = { amount = 14 + 0.2 * i, type = "physical" }
 								}
 							}
 						}
@@ -72,7 +74,7 @@ if (settings.startup["alien-module-hyper-ammo-enabled"].value) then
 				subgroup = "warfare",
 				category = "alien-module",
 				order = "ac",
-				stack_size = 100
+				stack_size = 200
 			}
 		})
 	end

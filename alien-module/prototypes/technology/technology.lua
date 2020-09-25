@@ -10,6 +10,12 @@ table.insert(data.raw["technology"]["military"].effects,
 			recipe = "alien-magazine"
 		})
 
+table.insert(data.raw["technology"]["military"].effects,
+		{
+			type = "unlock-recipe",
+			recipe = "alien-wall"
+		})
+
 if settings.startup["alien-module-hyper-ammo-enabled"].value then
 	table.insert(data.raw["technology"]["military"].effects,
 			{
@@ -73,6 +79,12 @@ table.insert(data.raw["technology"]["automation"].effects,
 		{
 			type = "unlock-recipe",
 			recipe = "alien-module-2"
+		})
+
+table.insert(data.raw["technology"]["automation"].effects,
+		{
+			type = "unlock-recipe",
+			recipe = "alien-mining-drill"
 		})
 
 table.insert(data.raw["technology"]["advanced-electronics"].effects,

@@ -119,12 +119,47 @@ alien_engine.horizontal_animation.layers[1].tint = alien_tint
 alien_engine.horizontal_animation.layers[1].hr_version.tint = alien_tint
 alien_engine.vertical_animation.layers[1].tint = alien_tint
 alien_engine.vertical_animation.layers[1].hr_version.tint = alien_tint
+alien_engine.fluid_usage_per_tick = 0.333,
 
 data:extend({ alien_engine })
 
 if data.raw["generator"]["steam-engine"].next_upgrade == nil then
 	data.raw["generator"]["steam-engine"].next_upgrade = "alien-steam-engine"
 end
+
+-- ### ALIEN WALL ### --
+
+local alien_wall = util.table.deepcopy(data.raw["wall"]["stone-wall"])
+
+alien_wall.name = "alien-wall"
+
+alien_wall.icons = { { icon = "__base__/graphics/icons/wall.png", tint = { r = 0.8, g = 0.4, b = 0.8, a = 0.8 } } }
+alien_wall.minable.result = "alien-wall"
+alien_wall.effectivity = 2
+alien_wall.max_health = 800
+alien_wall.minable = {mining_time = 0.1, result = "alien-wall"}
+alien_wall.resistances = { 
+      {type = "physical", decrease = 1, percent = 70}, 
+	  {type = "impact",   decrease = 25,percent = 90},
+      {type = "explosion",decrease = 1,percent =  70},
+      {type = "fire",     percent = 100},
+      {type = "acid",     percent = 100 },
+      {type = "laser",    percent = 70 }
+    }
+alien_wall.stack_size = 500
+alien_wall.visual_merge_group = 1
+alien_wall.pictures.single.layers[1].hr_version.tint = alien_tint
+alien_wall.pictures.straight_vertical.layers[1].hr_version.tint = alien_tint
+alien_wall.pictures.straight_horizontal.layers[1].hr_version.tint = alien_tint
+alien_wall.pictures.corner_right_down.layers[1].hr_version.tint = alien_tint
+alien_wall.pictures.corner_left_down.layers[1].hr_version.tint = alien_tint
+alien_wall.pictures.t_up.layers[1].hr_version.tint = alien_tint
+alien_wall.pictures.ending_right.layers[1].hr_version.tint = alien_tint
+alien_wall.pictures.ending_left.layers[1].hr_version.tint = alien_tint
+alien_wall.pictures.filling.hr_version.tint = alien_tint
+alien_wall.pictures.water_connection_patch.sheets[1].hr_version.tint = alien_tint
+alien_wall.pictures.gate_connection_patch.sheets[1].hr_version.tint = alien_tint
+data:extend({ alien_wall })
 
 -- ### Gun Turret ### --
 

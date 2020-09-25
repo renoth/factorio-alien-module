@@ -233,7 +233,7 @@ data:extend({
 		result = "alien-fuel",
 		result_count = 1,
 		ingredients = {
-			{ "alien-plate", 2 },
+			{ "artifact-ore", 2 },
 			{ "coal", 10 }
 		},
 	},
@@ -267,6 +267,31 @@ data:extend({
   },
 })
 
+data:extend({
+  {
+    type = "recipe",
+    name = "alien-wall",
+	enabled = true,
+    normal =
+    {
+      ingredients =
+      {
+        {"stone", 8},
+        {"alien-plate", 2},
+      },
+      result = "alien-wall"
+    },
+    expensive =
+    {
+      ingredients =
+      {
+        {"stone", 15},
+        {"alien-plate", 4},
+      },
+      result = "alien-wall"
+    }
+  },
+})
 
 for i = 1, 100, 1 do
 	data:extend({

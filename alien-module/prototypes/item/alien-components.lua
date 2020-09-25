@@ -11,7 +11,7 @@ data:extend({
 		category = "alien-module",
 		tier = 0,
 		order = "a-1",
-		stack_size = 200,
+		stack_size = 500,
 	},
 })
 
@@ -57,6 +57,6 @@ data:extend({
 		category = "alien-module",
 		tier = 2,
 		order = "a-4",
-		stack_size = 200
+		stack_size = 500
 	},
 })

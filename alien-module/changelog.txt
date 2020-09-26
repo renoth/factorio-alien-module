@@ -1,3 +1,6 @@
+Version 1.1.0
+- Fix crash when reaching level 101 (its now impossible to get to level 101 or more)
+
 Version 1.0.18
 - Fix alien turret not getting damage upgrades
 

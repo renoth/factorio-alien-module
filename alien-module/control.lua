@@ -7,12 +7,13 @@ script.on_load(function()
 	initVariables()
 end)
 
+-- Calculate module level, minimum 1 maximum 100
 function modulelevel()
 	local exponent = settings.startup["alien-module-level-exponent"].value
 	if (global.killcount < 10000) then
-		return math.max(math.log((global.killcount + 1) * 0.1) * math.pow((global.killcount), exponent), 1) * math.sqrt((global.killcount * 0.0001))
+		return math.min(math.max(math.log((global.killcount + 1) * 0.1) * math.pow((global.killcount), exponent), 1) * math.sqrt((global.killcount * 0.0001)), 100)
 	else
-		return math.max(math.log((global.killcount + 1) * 0.1) * math.pow((global.killcount), exponent), 1)
+		return math.min(math.max(math.log((global.killcount + 1) * 0.1) * math.pow((global.killcount), exponent), 1), 100)
 	end
 end
 

@@ -91,7 +91,7 @@ function update_modules(entities, entityType)
 			inventory = entity.get_main_inventory(defines.inventory.player_main) --grab a player's inventory
 
 			-- update currently held items
-			if entity.cursor_stack ~= nil then
+			if entity.cursor_stack ~= nil and entity.cursor_stack.valid then
 				if string.find(entity.cursor_stack.name, "^alien%-hyper%-module") then
 					--if theres a module in this inventory slot
 					if tonumber(string.match(entity.cursor_stack.name, "%d+$")) < global.currentmodulelevel then

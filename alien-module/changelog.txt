@@ -1,3 +1,6 @@
+Version 1.1.2
+- Fix #59 : Add validity check for cursor stack
+
 Version 1.1.1
 - Fix issue #54 : Currently held items are not updated
 

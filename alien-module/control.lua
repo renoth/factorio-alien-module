@@ -89,6 +89,29 @@ function update_modules(entities, entityType)
 			inventory = entity.get_module_inventory() --grab a machine's inventory
 		elseif entityType == "player" then
 			inventory = entity.get_main_inventory(defines.inventory.player_main) --grab a player's inventory
+
+			-- update currently held items
+			if entity.cursor_stack ~= nil then
+				if string.find(entity.cursor_stack.name, "^alien%-hyper%-module") then
+					--if theres a module in this inventory slot
+					if tonumber(string.match(entity.cursor_stack.name, "%d+$")) < global.currentmodulelevel then
+						--and its level is less than the "current" one
+						local stacksize = entity.cursor_stack.count --record amount
+						entity.cursor_stack.clear() --clear the slot
+						entity.cursor_stack.set_stack({ name = "alien-hyper-module-" .. math.min(global.currentmodulelevel, 100), count = stacksize }) --add the updated level modules with whatever amount we recorded
+					end
+				end
+
+				if string.find(entity.cursor_stack.name, "^alien%-hyper%-magazine") then
+					--if theres a module in this inventory slot
+					if tonumber(string.match(entity.cursor_stack.name, "%d+$")) < global.currentmodulelevel then
+						--and its level is less than the "current" one
+						local stacksize = entity.cursor_stack.count --record amount
+						entity.cursor_stack.clear() --clear the slot
+						entity.cursor_stack.set_stack({ name = "alien-hyper-magazine-" .. math.min(global.currentmodulelevel, 100), count = stacksize }) --add the updated level modules with whatever amount we recorded
+					end
+				end
+			end
 		else
 			return --error entity type not defined
 		end

@@ -1,3 +1,6 @@
+Version 1.1.4
+- Hopefully fix #59 for good (valid_for_read instead of just valid)
+
 Version 1.1.2
 - Fix #59 : Add validity check for cursor stack
 

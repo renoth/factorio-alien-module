@@ -3,6 +3,9 @@ for i, force in pairs(game.forces) do
 		force.recipes["alien-gun-turret"].enabled = true
 	end
 
+	if force.technologies["military"].researched then
+		force.recipes["alien-wall"].enabled = true
+	end
 
 	local modifier = 0
 

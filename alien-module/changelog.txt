@@ -1,5 +1,5 @@
 Version 1.1.5
-- Change how module drop amount works
+- Change how alien ore drop amount works (fixes max == 0 bug)
 - Added Schall Endgame Evolution enemies
 - Added behemoth-worm-turret
 

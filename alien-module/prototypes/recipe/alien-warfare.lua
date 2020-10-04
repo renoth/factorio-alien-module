@@ -8,7 +8,7 @@ data:extend({
 		result = "alien-magazine",
 		result_count = 1,
 		ingredients = {
-			{ "alien-plate", 2 }, { "iron-plate", 2 }, { "copper-plate", 1 },
+			{ "alien-plate", 1 }, { "iron-plate", 2 }, { "copper-plate", 2 },
 		},
 	},
 })
@@ -22,7 +22,7 @@ data:extend({
 		result = "alien-ore-magazine",
 		result_count = 1,
 		ingredients = {
-			{ "artifact-ore", 2 },
+			{ "artifact-ore", 1 },
 		},
 	},
 })

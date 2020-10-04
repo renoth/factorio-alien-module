@@ -1,3 +1,8 @@
+Version 1.1.5
+- Change how module drop amount works
+- Added Schall Endgame Evolution enemies
+- Added behemoth-worm-turret
+
 Version 1.1.4
 - Hopefully fix #59 for good (valid_for_read instead of just valid)
 

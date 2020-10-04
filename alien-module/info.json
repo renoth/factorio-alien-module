@@ -1,7 +1,7 @@
 {
   "name": "alien-module",
   "title": "Alien Loot Economy",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "author": "sensenmann",
   "contact": "berndnewsreader@gmail.com",
   "homepage": "https://github.com/renoth/factorio-alien-module",
@@ -11,6 +11,7 @@
     "base >= 1.0",
     "? bobenemies >= 0.15.2",
     "? Natural_Evolution_Enemies >= 0.17.0",
-    "? Rampant >= 0.16.34"
+    "? Rampant >= 0.16.34",
+    "? SchallEndgameEvolution >= 1.0.0"
   ]
 }

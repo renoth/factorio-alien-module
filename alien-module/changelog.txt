@@ -1,194 +1,350 @@
-Version 1.1.4
-- Hopefully fix #59 for good (valid_for_read instead of just valid)
-
-Version 1.1.2
-- Fix #59 : Add validity check for cursor stack
-
-Version 1.1.1
-- Fix issue #54 : Currently held items are not updated
-
-Version 1.1.0
-- Fix crash when reaching level 101 (its now impossible to get to level 101 or more)
-
-Version 1.0.18
-- Fix alien turret not getting damage upgrades
-
-Version 1.0.17
-- Alien hyper module crafting progress is now persisted when a level-up happens (Thanks to BlueAgent!)
-
-Version 1.0.16
-- Fix #46 Crash on logistic slot update when player has no character
-
-Version 1.0.15
-- Fix crash when hyper ammo is disabled
-
-Version 1.0.14
-- Fix Logistic Slots not upgrading
-
-Version 1.0.13
-- Fix Alien gun turret reclaim
-- Global mod option to disable Hyper Ammo
-
-Version 1.0.12
-- Fix alien steel recipe
-
-Version 1.0.11
-- Global mod option to set amount of dropped ore in %
-
-Version 1.0.10
-- Global mod option to set exponent for leveling (higher is faster leveling, lower is slower leveling, default is 0.1)
-- Global mod option for Hypermodule effect per level (default 0.01, min 0.001, max 0.1)
-
-Version 1.0.9
-- New entity alien turret
-
-Version 1.0.8
-- Fix Bug introduced in 1.0.7
-
-Version 1.0.7
-- Fix issue #35 for real now
-
-Version 1.0.6
-- New Alien Hyper Magazine (Prequisite: Military Tech)
-- Removed more own icons, use more base-graphics with tint
-- Alien Hyper Module changes color slightly with level
-
-Version 1.0.3
-- Fix #35 Filtered Slots (quickbar) gets also upgraded now
-
-Version 1.0.2
-- Fix #39 Mining drones should not generate kills when used
-
-Version 1.0.0
-- Release for the Factorio Version 1.0
-
-Version 0.6.8
-Date 05.07.2019
- - Reverted to Update Algorithm of Version 0.6.5 for now due to performance issues in savegames with Factorissimo (and lots of surfaces)
-
- Version 0.6.7
-Date 05.07.2019
- - Fixed not all modules being updated (geometry error)
- - Slowed down rate of update by factor 10, maybe fixes performance issues with some users
-
- Version 0.6.6
-Date 04.07.2019
- - Smoother updating of alien modules thanks to unhott!
-
-Version 0.6.5
-Date 1.4.2019
- - Fixed error due to changed base entity
-
-Version 0.6.4
-Date 09.03.2019
- - Fixed possible nil error in control.lua
-
-Version 0.6.3
-Date 25.02.2019
- - Natural Evolution decided to switch to a lower version, this made a change in the dependencies necessary
-
- Version 0.6.2
-Date 25.02.2019
- - Alien Hyper Modules now add 2*level % Pollution
-
- Version 0.6.1
-Date 25.02.2019
- - Fixed Hyper Modules in player inventory not upgrading
-
- Version 0.6.0
-Date 25.02.2019
- - Update to Factorio 0.17
-
-Version 0.5.5
+---------------------------------------------------------------------------------------------------
+Version: 1.1.6
+  Features:
+    - Changelog shows in-game
+---------------------------------------------------------------------------------------------------
+Version: 1.1.5
+  Bugfixes:
+    - Change how alien ore drop amount works (fixes max == 0 bug)
+  Features:
+    - Added Schall Endgame Evolution enemies
+    - Added behemoth-worm-turret
+---------------------------------------------------------------------------------------------------
+Version: 1.1.4
+  Bugfixes:
+    - Hopefully fix #59 for good (valid_for_read instead of just valid)
+---------------------------------------------------------------------------------------------------
+Version: 1.1.2
+  Bugfixes:
+    - Fix #59 : Add validity check for cursor stack
+---------------------------------------------------------------------------------------------------
+Version: 1.1.1
+  Bugfixes:
+    - Fix issue #54 : Currently held items are not updated
+---------------------------------------------------------------------------------------------------
+Version: 1.1.0
+  Bugfixes:
+    - Fix crash when reaching level 101 (its now impossible to get to level 101 or more)
+---------------------------------------------------------------------------------------------------
+Version: 1.0.18
+  Bugfixes:
+    - Fix alien turret not getting damage upgrades
+---------------------------------------------------------------------------------------------------
+Version: 1.0.17
+  Changes:
+    - Alien hyper module crafting progress is now persisted when a level-up happens (Thanks to BlueAgent!)
+---------------------------------------------------------------------------------------------------
+Version: 1.0.16
+  Bugfixes:
+    - Fix #46 Crash on logistic slot update when player has no character
+---------------------------------------------------------------------------------------------------
+Version: 1.0.15
+  Bugfixes:
+    - Fix crash when hyper ammo is disabled
+---------------------------------------------------------------------------------------------------
+Version: 1.0.14
+  Bugfixes:
+    - Fix Logistic Slots not upgrading
+---------------------------------------------------------------------------------------------------
+Version: 1.0.13
+  Bugfixes:
+    - Fix Alien gun turret reclaim
+  Features:
+    - Global mod option to disable Hyper Ammo
+---------------------------------------------------------------------------------------------------
+Version: 1.0.12
+  Bugfixes:
+    - Fix alien steel recipe
+---------------------------------------------------------------------------------------------------
+Version: 1.0.11
+  Features:
+    - Global mod option to set amount of dropped ore in %
+---------------------------------------------------------------------------------------------------
+Version: 1.0.10
+  Features:
+    - Global mod option to set exponent for leveling (higher is faster leveling, lower is slower leveling, default is 0.1)
+    - Global mod option for Hypermodule effect per level (default 0.01, min 0.001, max 0.1)
+---------------------------------------------------------------------------------------------------
+Version: 1.0.9
+  Features:
+    - New entity alien turret
+---------------------------------------------------------------------------------------------------
+Version: 1.0.8
+  Bugfixes:
+    - Fix Bug introduced in 1.0.7
+---------------------------------------------------------------------------------------------------
+Version: 1.0.7
+  Bugfixes:
+    - Fix issue #35 for real now
+---------------------------------------------------------------------------------------------------
+Version: 1.0.6
+  Features:
+    - New Alien Hyper Magazine (Prequisite: Military Tech)
+  Changes:
+    - Removed more own icons, use more base-graphics with tint
+    - Alien Hyper Module changes color slightly with level
+---------------------------------------------------------------------------------------------------
+Version: 1.0.3
+  Bugfixes:
+    - Fix #35 Filtered Slots (quickbar) gets also upgraded now
+---------------------------------------------------------------------------------------------------
+Version: 1.0.2
+  Bugfixes:
+    - Fix #39 Mining drones should not generate kills when used
+---------------------------------------------------------------------------------------------------
+Version: 1.0.0
+  Features:
+    - Release for the Factorio Version 1.0
+---------------------------------------------------------------------------------------------------
+Version: 0.6.8
+Date: 05.07.2019
+  Changes:
+    - Reverted to Update Algorithm of Version 0.6.5 for now due to performance issues in savegames with Factorissimo (and lots of surfaces)
+---------------------------------------------------------------------------------------------------
+Version: 0.6.7
+Date: 05.07.2019
+  Bugfixes:
+    - Fixed not all modules being updated (geometry error)
+  Changes:
+    - Slowed down rate of update by factor 10, maybe fixes performance issues with some users
+---------------------------------------------------------------------------------------------------
+Version: 0.6.6
+Date: 04.07.2019
+  Changes:
+    - Smoother updating of alien modules thanks to unhott!
+---------------------------------------------------------------------------------------------------
+Version: 0.6.5
+Date: 1.4.2019
+  Bugfixes:
+    - Fixed error due to changed base entity
+---------------------------------------------------------------------------------------------------
+Version: 0.6.4
+Date: 09.03.2019
+  Bugfixes:
+    - Fixed possible nil error in control.lua
+---------------------------------------------------------------------------------------------------
+Version: 0.6.3
+Date: 25.02.2019
+  Changes:
+    - Natural Evolution decided to switch to a lower version, this made a change in the dependencies necessary
+---------------------------------------------------------------------------------------------------
+Version: 0.6.2
+Date: 25.02.2019
+  Changes:
+    - Alien Hyper Modules now add 2*level % Pollution
+---------------------------------------------------------------------------------------------------
+Version: 0.6.1
+Date: 25.02.2019
+  Bugfixes:
+    - Fixed Hyper Modules in player inventory not upgrading
+---------------------------------------------------------------------------------------------------
+Version: 0.6.0
+Date: 25.02.2019
+  Features:
+    - Update to Factorio 0.17
+---------------------------------------------------------------------------------------------------
+Version: 0.5.5
 Date: 22.02.2019
- - Fixed Modules in Beacons not being updated (Thanks to wawa1474 and barsyskd). This fix is only relevant for mods that enable all modules in beacons.
-
+  Bugfixes:
+    - Fixed Modules in Beacons not being updated (Thanks to wawa1474 and barsyskd). This fix is only relevant for mods that enable all modules in beacons.
+---------------------------------------------------------------------------------------------------
 Version: 0.5.4
 Date: 04.02.2019
- - Finished Hyper modules in Assemblers are no longer cleared on level up
-
+  Changes:
+    - Finished Hyper modules in Assemblers are no longer cleared on level up
+---------------------------------------------------------------------------------------------------
 Version: 0.5.3
 Date: 04.02.2019
- - Added new recipe: 1 x Alien ore = 5 x Stone (Energy Cost 10)
- - Added new recipe: 2 x Alien ore = 1 x Uranium Ore (Energy Cost 15)
- - Changed recipe: 1 x Alien ore = 5 x Iron Ore (was 10) (Energy Cost 20 -> 10)
- - Changed recipe: 1 x Alien ore = 5 x Copper Ore  (was 10) (Energy Cost 20 -> 10)
- - Changed recipe: 1 x Alien ore = 5 x Coal (was 10) (Energy Cost 20 -> 10)
-
+  Features:
+    - Added new recipe: 1 x Alien ore = 5 x Stone (Energy Cost 10)
+    - Added new recipe: 2 x Alien ore = 1 x Uranium Ore (Energy Cost 15)
+  Changes:
+    - Changed recipe: 1 x Alien ore = 5 x Iron Ore (was 10) (Energy Cost 20 -> 10)
+    - Changed recipe: 1 x Alien ore = 5 x Copper Ore  (was 10) (Energy Cost 20 -> 10)
+    - Changed recipe: 1 x Alien ore = 5 x Coal (was 10) (Energy Cost 20 -> 10)
+---------------------------------------------------------------------------------------------------
 Version: 0.5.2
 Date: 04.02.2019
- - Ingredients are no longer lost when upgrading an assembly machine currently crafting an alien hyper module (Thanks to unhott)
-
+  Bugfixes:
+    - Ingredients are no longer lost when upgrading an assembly machine currently crafting an alien hyper module (Thanks to unhott)
+---------------------------------------------------------------------------------------------------
 Version: 0.5.1
 Date: 02.02.2019
- - Play sound when leveling up
- - Slower level-up for the first 10k kills, the resulting level at 10k kills is the same though
-
+  Features:
+    - Play sound when leveling up
+  Changes:
+    - Slower level-up for the first 10k kills, the resulting level at 10k kills is the same though
+---------------------------------------------------------------------------------------------------
 Version: 0.5.0
 Date: 19.01.2019
- - Refactoring upgrade code (Thanks to wawa1474)
-
+  Changes:
+    - Refactoring upgrade code (Thanks to wawa1474)
+---------------------------------------------------------------------------------------------------
 Version: 0.4.14
 Date: 19.01.2019
-  Balance:
+  Balancing:
     - Hypermodules now incease consumption by LEVEL * 2 instead of LEVEL
     - Module level 5 now increases energy consumption by 75% instead of 60%
   Bugfixes:
     - When loading game Hypermodule level 1 recipe should no longer be available when module level is higher
     - Increased Number of checked modules slots from 6 to 10
-
+---------------------------------------------------------------------------------------------------
 Version: 0.4.13
 Date: 17.01.2019
-  Changes:
-    - Biter and Spitter spawner now drop alien ore loot (20 - 50 ore)
-
+  Changes:
+    - Biter and Spitter spawner now drop alien ore loot (20 - 50 ore)
+---------------------------------------------------------------------------------------------------
 Version: 0.4.12
 Date: 16.01.2019
-  Changes:
-    - Nerf alien ore drop rate for rampant and Natural Evolution
-    - Boost alien ore drop rate for small and medium vanilla biters and small and medium turrets
-    - Slightly nerf alien ore drop rate for big vanilla biters
-
+  Changes:
+    - Nerf alien ore drop rate for rampant and Natural Evolution
+    - Boost alien ore drop rate for small and medium vanilla biters and small and medium turrets
+    - Slightly nerf alien ore drop rate for big vanilla biters
+---------------------------------------------------------------------------------------------------
 Version: 0.4.11
 Date: 10.12.2018
-  Changes:
+  Features:
     - Added Changelog-File
+  Changes:
     - Alien Fuel value 100MJ -> 200MJ
     - Alien Fuel Acceleration 125% -> 140%
-
-0.4.10 : Compatible with Rampant Mod - Rampant custom enemies now also drop Alien ore
-0.4.9 : Fixed bug where aliens would stop dropping loot
-0.4.8 : Compatible with Natural Evolution Enemies (NE Enemies will also drop alien ore now)
-0.4.7 : Fixed Progressbar issue and Module level 29 bonus issue
-0.4.6 : Added Progressbar to UI
-0.4.5 : Added Alien Fuel (2 x Alien Plate + 10 x Coal = 1 Alien Fuel)
-0.4.4 : Update to adress the issue of some inventory slots not updating modules
-0.4.3 : Big thanks to jessefjxm for providing performance fixes and a chinese translation!
-0.4.2 : Players can now create iron, copper and coal from alien ore (base minerals from alien ore)
-0.4.1 : Fix issue with new API
-0.4.0 : Now compatible with the extremely nice 0.16 patch
-0.3.7 : When using Bobs enemies with alien artifact drop enabled you can now convert them to alien ore
-0.3.6 : Fixed modules not updating in rocket silo; fixed hyper module level 1 recipe being enabled when it shouldnt
-0.3.5 : Fixed logistic network chest contents not upgrading hyper modules
-0.3.4 : Round the module level to 3 decimals
-0.3.3 : Nerfed alien modules (much less productivity and speed, no additional pollution, increased power consumption)
-0.3.2 : New graphics
-0.3.1 : Bugfixes from pull request by MagmaMcFry (now works with factorissimo mod)
-0.3.0 : Compatible with 0.15 - Removed alien science pack related recipes, will add 0.15 relevant recipes soon
-0.2.7 : Raised cost of alien products (~33%), to make the mod less imbalanced
-0.2.6 : New Recipe: Alien Plate + 3 Iron Plates = Alien Science Pack
-0.2.5 : Changed Hypermodules to be less polluting and less powerful, some minor tweaks to recipes and properties
-0.2.4 : Slightliy increased drop rate of alien ore; sharply increased cost of many alien recipes; added alien mining drill
-0.2.3 : Fixed missing transformer for adding recipes when adding this mod to a savegame, recipes should now be all available when loading a game with present tech
-0.2.2 : Alien accumulators added
-0.2.1 : Hotfix for issue with hypermodule updating
-0.2.0 : Added hypermodules : Those modules get better with global kills (get upgraded in place via script): Attention: Only modules in inventories and module slots will get upgraded on level up, as long as the modules are not lying around in the open you should be fine. Global hypermodule level and killcount is displayed in the upper left corner. Hypermodule stats and level progression are open to change, please give feedback on game balance.
-
-0.1.5 : compatible with LootChest (automatically picks up all loot with artifact in item name)
-0.1.4 : Added alien solar panel
-0.1.3 : All recipes now require research (first module becomes available at automation)
-0.1.2 : Added alien magazine
-0.1.1 : Alien plates can be smelted from vanilla alien artifacts
-0.1.0 : Biters now drop alien ore that can be smelted into alien plates, which can be crafted into alien modules, more alien items to come soon; small biter drop rate increased by 20%
-0.0.2 : Added two more tiers; Modules now increase power usage and sharply increase pollution generation
-0.0.1 : First version with 3 module tiers
+---------------------------------------------------------------------------------------------------
+Version: 0.4.10
+  Features:
+    - Compatible with Rampant Mod - Rampant custom enemies now also drop Alien ore
+---------------------------------------------------------------------------------------------------
+Version: 0.4.9
+  Bugfixes:
+    - Fixed bug where aliens would stop dropping loot
+---------------------------------------------------------------------------------------------------
+Version: 0.4.8
+  Features:
+    - Compatible with Natural Evolution Enemies (NE Enemies will also drop alien ore now)
+---------------------------------------------------------------------------------------------------
+Version: 0.4.7
+  Bugfixes:
+    - Fixed Progressbar issue and Module level 29 bonus issue
+---------------------------------------------------------------------------------------------------
+Version: 0.4.6
+  Features:
+    - Added Progressbar to UI
+---------------------------------------------------------------------------------------------------
+Version: 0.4.5
+  Features:
+    - Added Alien Fuel (2 x Alien Plate + 10 x Coal = 1 Alien Fuel)
+---------------------------------------------------------------------------------------------------
+Version: 0.4.4
+  Bugfixes:
+    - Update to adress the issue of some inventory slots not updating modules
+---------------------------------------------------------------------------------------------------
+Version: 0.4.3
+  Features:
+    - Big thanks to jessefjxm for providing performance fixes and a chinese translation!
+---------------------------------------------------------------------------------------------------
+Version: 0.4.2
+  Features:
+    - Players can now create iron, copper and coal from alien ore (base minerals from alien ore)
+---------------------------------------------------------------------------------------------------
+Version: 0.4.1
+  Bugfixes:
+    - Fix issue with new API
+---------------------------------------------------------------------------------------------------
+Version: 0.4.0
+  Features:
+    - Now compatible with the extremely nice 0.16 patch
+---------------------------------------------------------------------------------------------------
+Version: 0.3.7
+  Features:
+    - When using Bobs enemies with alien artifact drop enabled you can now convert them to alien ore
+---------------------------------------------------------------------------------------------------
+Version: 0.3.6
+  Bugfixes:
+    - Fixed modules not updating in rocket silo; fixed hyper module level 1 recipe being enabled when it shouldnt
+---------------------------------------------------------------------------------------------------
+Version: 0.3.5
+  Bugfixes:
+    - Fixed logistic network chest contents not upgrading hyper modules
+---------------------------------------------------------------------------------------------------
+Version: 0.3.4
+  Changes:
+    - Round the module level to 3 decimals
+---------------------------------------------------------------------------------------------------
+Version: 0.3.3
+  Changes:
+    - Nerfed alien modules (much less productivity and speed, no additional pollution, increased power consumption)
+---------------------------------------------------------------------------------------------------
+Version: 0.3.2
+  Features:
+    - New graphics
+---------------------------------------------------------------------------------------------------
+Version: 0.3.1
+  Bugfixes:
+    - Bugfixes from pull request by MagmaMcFry (now works with factorissimo mod)
+---------------------------------------------------------------------------------------------------
+Version: 0.3.0
+  Features:
+    - Compatible with 0.15 - Removed alien science pack related recipes, will add 0.15 relevant recipes soon
+---------------------------------------------------------------------------------------------------
+Version: 0.2.7
+  Balancing:
+    - Raised cost of alien products (~33%), to make the mod less imbalanced
+---------------------------------------------------------------------------------------------------
+Version: 0.2.6
+  Features:
+    - New Recipe: Alien Plate + 3 Iron Plates = Alien Science Pack
+---------------------------------------------------------------------------------------------------
+Version: 0.2.5
+  Changes:
+    - Changed Hypermodules to be less polluting and less powerful, some minor tweaks to recipes and properties
+---------------------------------------------------------------------------------------------------
+Version: 0.2.4
+  Changes:
+    - Slightliy increased drop rate of alien ore; sharply increased cost of many alien recipes; added alien mining drill
+---------------------------------------------------------------------------------------------------
+Version: 0.2.3
+  Bugfixes:
+    - Fixed missing transformer for adding recipes when adding this mod to a savegame, recipes should now be all available when loading a game with present tech
+---------------------------------------------------------------------------------------------------
+Version: 0.2.2
+  Features:
+    - Alien accumulators added
+---------------------------------------------------------------------------------------------------
+Version: 0.2.1
+  Bugfixes:
+    - Hotfix for issue with hypermodule updating
+---------------------------------------------------------------------------------------------------
+Version: 0.2.0
+  Features:
+    - Added hypermodules : Those modules get better with global kills (get upgraded in place via script): Attention: Only modules in inventories and module slots will get upgraded on level up, as long as the modules are not lying around in the open you should be fine. Global hypermodule level and killcount is displayed in the upper left corner. Hypermodule stats and level progression are open to change, please give feedback on game balance.
+---------------------------------------------------------------------------------------------------
+Version: 0.1.5
+  Features:
+    - compatible with LootChest (automatically picks up all loot with artifact in item name)
+---------------------------------------------------------------------------------------------------
+Version: 0.1.4
+  Features:
+    - Added alien solar panel
+---------------------------------------------------------------------------------------------------
+Version: 0.1.3
+  Changes:
+    - All recipes now require research (first module becomes available at automation)
+---------------------------------------------------------------------------------------------------
+Version: 0.1.2
+  Features:
+    - Added alien magazine
+---------------------------------------------------------------------------------------------------
+Version: 0.1.1
+  Features:
+    - Alien plates can be smelted from vanilla alien artifacts
+---------------------------------------------------------------------------------------------------
+Version: 0.1.0
+  Features:
+    - Biters now drop alien ore that can be smelted into alien plates, which can be crafted into alien modules, more alien items to come soon; small biter drop rate increased by 20%
+---------------------------------------------------------------------------------------------------
+Version: 0.0.2
+  Features:
+    - Added two more tiers; Modules now increase power usage and sharply increase pollution generation
+---------------------------------------------------------------------------------------------------
+Version: 0.0.1
+  Features:
+    - First version with 3 module tiers

@@ -157,7 +157,7 @@ function update_modules(entities, entityType)
 						local stacksize = inventory[i].count --record amount
 						inventory[i].clear() --clear the slot
 
-						if inventory.get_filter(i) ~= nil then
+						if entityType == "player" and inventory.get_filter(i) ~= nil then
 							-- check if slot is filtered
 							inventory.set_filter(i, "alien-hyper-magazine-" .. math.min(global.currentmodulelevel, 100)) --update filter
 						end

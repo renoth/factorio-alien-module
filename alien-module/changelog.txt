@@ -1,4 +1,8 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.4
+  Features:
+    - Fix Alien Hyper Magazines disappearing on levelup
+---------------------------------------------------------------------------------------------------
 Version: 1.2.3
   Features:
     - Logistic Chest requests also get upgraded now

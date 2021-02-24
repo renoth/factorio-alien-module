@@ -85,6 +85,17 @@ function update_modules(entities, entityType)
 
 		if entityType == "chest" then
 			inventory = entity.get_inventory(defines.inventory.chest) --grab a chest's inventory
+
+			for i = 1, entity.request_slot_count do
+				local slot = entity.get_request_slot(i)
+				if slot ~= nil and slot.name == "alien-hyper-module-" .. global.currentmodulelevel - 1 then
+					entity.set_request_slot({ name = "alien-hyper-module-" .. global.currentmodulelevel, count = slot.count }, i)
+				end
+
+				if settings.startup["alien-module-hyper-ammo-enabled"].value and slot ~= nil and slot.name == "alien-hyper-magazine-" .. global.currentmodulelevel - 1 then
+					entity.set_request_slot({ name = "alien-hyper-magazine-" .. global.currentmodulelevel, count = slot.count }, i)
+				end
+			end
 		elseif entityType == "machine" then
 			inventory = entity.get_module_inventory() --grab a machine's inventory
 		elseif entityType == "player" then

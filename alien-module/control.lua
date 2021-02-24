@@ -239,7 +239,7 @@ end
 function update_logistic_slots(players)
 	for _, player in pairs(players) do
 		if player.character ~= nil then
-			for i = 1, player.character_logistic_slot_count do
+			for i = 1, player.character.request_slot_count do
 				local slot = player.get_personal_logistic_slot(i)
 				if slot ~= nil and slot.name == "alien-hyper-module-" .. global.currentmodulelevel - 1 then
 					player.set_personal_logistic_slot(i, { name = "alien-hyper-module-" .. global.currentmodulelevel, min = slot.min, max = slot.max })

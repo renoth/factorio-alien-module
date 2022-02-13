@@ -21,7 +21,7 @@ function AddLootToEntity(entityType, entityName, probability, countMin, countMax
 			if data.raw[entityType][entityName].loot == nil then
 				data.raw[entityType][entityName].loot = {}
 			end
-			table.insert(data.raw[entityType][entityName].loot, { item = "artifact-ore", probability = probability, count_min = countMin, count_max = math.floor(countMax + 0.5) })
+			table.insert(data.raw[entityType][entityName].loot, { item = "artifact-ore", probability = probability, count_min = countMin, count_max = math.floor(countMax + 1) })
 		end
 	end
 end

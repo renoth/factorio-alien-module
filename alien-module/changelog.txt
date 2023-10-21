@@ -1,7 +1,7 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.3.0
   Features:
-    - Integrate Fixes from https://mods.factorio.com/mod/rampantfixed-alienmodule-compat and https://mods.factorio.com/mod/rampant-alienmodule-compat into this mod
+    - Integrate Fixes from rampantfixed-alienmodule-compat and rampant-alienmodule-compat into this mod
 ---------------------------------------------------------------------------------------------------
 Version: 1.2.4
   Features:

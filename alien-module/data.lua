@@ -116,20 +116,6 @@ local function AddLootToRampantEnemies()
 			AddLootToEntity("unit", "wasp-spitter-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
 			AddLootToEntity("unit", "spawner-spitter-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
 			AddLootToEntity("unit", "spawner-biter-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
-
-			AddLootToEntity("turret", "neutral-worm-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
-			AddLootToEntity("turret", "acid-worm-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
-			AddLootToEntity("turret", "physical-worm-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
-			AddLootToEntity("turret", "electric-worm-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
-			AddLootToEntity("turret", "suicide-worm-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
-			AddLootToEntity("turret", "nuclear-worm-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
-			AddLootToEntity("turret", "fire-worm-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
-			AddLootToEntity("turret", "inferno-worm-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
-			AddLootToEntity("turret", "troll-worm-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
-			AddLootToEntity("turret", "fast-worm-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
-			AddLootToEntity("turret", "laser-worm-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
-			AddLootToEntity("turret", "wasp-worm-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
-			AddLootToEntity("turret", "spawner-worm-v" .. v .. "-t" .. t .. "-rampant", loot_probability, 1, max_loot_amount)
 		end
 	end
 end

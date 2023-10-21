@@ -37,5 +37,23 @@ data:extend({
 		setting_type = "startup",
 		default_value = 100
 	},
+	{
+		type = "int-setting",
+		name = "rampant-alienmodule-compat-max-count-turret",
+		setting_type = "startup",
+		order = "2count-2-2",
+		default_value = 5,
+		minimum_value = 0,
+		maximum_value = 50
+	},
+	{
+		type = "int-setting",
+		name = "rampant-alienmodule-compat-max-count-spawner",
+		setting_type = "startup",
+		order = "2count-3-2",
+		default_value = 10,
+		minimum_value = 0,
+		maximum_value = 100
+	},
 
 })

@@ -137,15 +137,15 @@ alien_wall.icons = { { icon = "__base__/graphics/icons/wall.png", tint = { r = 0
 alien_wall.minable.result = "alien-wall"
 alien_wall.effectivity = 2
 alien_wall.max_health = 800
-alien_wall.minable = {mining_time = 0.1, result = "alien-wall"}
-alien_wall.resistances = { 
-      {type = "physical", decrease = 1, percent = 70}, 
-	  {type = "impact",   decrease = 25,percent = 90},
-      {type = "explosion",decrease = 1,percent =  70},
-      {type = "fire",     percent = 100},
-      {type = "acid",     percent = 100 },
-      {type = "laser",    percent = 70 }
-    }
+alien_wall.minable = { mining_time = 0.1, result = "alien-wall" }
+alien_wall.resistances = {
+    { type = "physical", decrease = 1, percent = 70 },
+    { type = "impact", decrease = 25, percent = 90 },
+    { type = "explosion", decrease = 1, percent = 70 },
+    { type = "fire", percent = 100 },
+    { type = "acid", percent = 100 },
+    { type = "laser", percent = 70 }
+}
 alien_wall.stack_size = 500
 alien_wall.visual_merge_group = 1
 alien_wall.pictures.single.layers[1].hr_version.tint = alien_tint

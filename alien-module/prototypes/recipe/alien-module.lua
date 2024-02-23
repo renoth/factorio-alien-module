@@ -23,7 +23,7 @@ data:extend({
 	}
 })
 
-if(settings.startup["alien-module-ore-conversion"].value) then
+if (settings.startup["alien-module-ore-conversion"].value) then
 	-- make iron ore from alien ore --
 	data:extend({
 		{
@@ -240,57 +240,49 @@ data:extend({
 })
 
 data:extend({
-  {
-    type = "recipe",
-    name = "alien-steam-engine",
-	enabled = true,
-    normal =
-    {
-      ingredients =
-      {
-        {"iron-gear-wheel", 8},
-        {"pipe", 5},
-        {"alien-steel-plate", 10}
-      },
-      result = "alien-steam-engine"
-    },
-    expensive =
-    {
-      ingredients =
-      {
-        {"iron-gear-wheel", 15},
-        {"pipe", 8},
-        {"alien-steel-plate", 25}
-      },
-      result = "alien-steam-engine"
-    }
-  },
+	{
+		type = "recipe",
+		name = "alien-steam-engine",
+		enabled = true,
+		normal = {
+			ingredients = {
+				{ "iron-gear-wheel", 8 },
+				{ "pipe", 5 },
+				{ "alien-steel-plate", 10 }
+			},
+			result = "alien-steam-engine"
+		},
+		expensive = {
+			ingredients = {
+				{ "iron-gear-wheel", 15 },
+				{ "pipe", 8 },
+				{ "alien-steel-plate", 25 }
+			},
+			result = "alien-steam-engine"
+		}
+	},
 })
 
 data:extend({
-  {
-    type = "recipe",
-    name = "alien-wall",
-	enabled = true,
-    normal =
-    {
-      ingredients =
-      {
-        {"stone", 8},
-        {"alien-plate", 2},
-      },
-      result = "alien-wall"
-    },
-    expensive =
-    {
-      ingredients =
-      {
-        {"stone", 15},
-        {"alien-plate", 4},
-      },
-      result = "alien-wall"
-    }
-  },
+	{
+		type = "recipe",
+		name = "alien-wall",
+		enabled = true,
+		normal = {
+			ingredients = {
+				{ "stone", 8 },
+				{ "alien-plate", 2 },
+			},
+			result = "alien-wall"
+		},
+		expensive = {
+			ingredients = {
+				{ "stone", 15 },
+				{ "alien-plate", 4 },
+			},
+			result = "alien-wall"
+		}
+	},
 })
 
 for i = 1, 100, 1 do

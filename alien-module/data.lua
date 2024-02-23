@@ -125,10 +125,10 @@ local function AddLootToSchallEndgameEnemies()
 	--category 5 to 15 (behemoth = 4)
 	local units = data.raw.unit
 	for n = 5, 15 do
-       	local loot_min = math.min(n * 1, 15)
+        local loot_min = math.min(n * 1, 15)
 		local loot_max = math.min(n * 4, 35)
-        local biter_name = "Schall-category-"..n.."-biter"
-        local spitter_name = "Schall-category-"..n.."-spitter"
+        local biter_name = "Schall-category-" .. n .. "-biter"
+        local spitter_name = "Schall-category-" .. n .. "-spitter"
 
 		if units[biter_name] then
 			AddLootToEntity("unit", biter_name, loot_probability, loot_min, loot_max)

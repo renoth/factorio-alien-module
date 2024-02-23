@@ -4,7 +4,7 @@ data:extend({
 	{
 		type = "item",
 		name = "artifact-ore",
-		icons = { { icon = "__alien-module__/graphics/artifact-ore.png"} },
+		icons = { { icon = "__alien-module__/graphics/artifact-ore.png" } },
 		icon_size = 64,
 		icon_mipmaps = 4,
 		subgroup = "component",

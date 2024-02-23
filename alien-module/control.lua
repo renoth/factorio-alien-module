@@ -10,7 +10,9 @@ end)
 -- Calculate module level, minimum 1 maximum 100
 function modulelevel(forceName)
 	local exponent = settings.startup["alien-module-level-exponent"].value
-	if (global.killcount[forceName] == nil) then global.killcount[forceName]=0 end
+	if (global.killcount[forceName] == nil) then
+		global.killcount[forceName] = 0
+	end
 	if (global.killcount[forceName] < 10000) then
 		return math.min(math.max(math.log((global.killcount[forceName] + 1) * 0.1) * math.pow((global.killcount[forceName]), exponent), 1) * math.sqrt((global.killcount[forceName] * 0.0001)), 100)
 	else
@@ -24,10 +26,10 @@ end
 
 function initVariables()
 	if global.currentmodulelevel == nil then
-		global.currentmodulelevel={}
+		global.currentmodulelevel = {}
 	end
 	if global.modulelevel == nil then
-		global.modulelevel={}
+		global.modulelevel = {}
 	end
 	if global.killcount == nil then
 		global.killcount = {}
@@ -35,7 +37,7 @@ function initVariables()
 end
 
 function init_gui()
-	for _, player in pairs(game.players) do	
+	for _, player in pairs(game.players) do
 		player.gui.top.add { type = "frame", name = "alienmodule", direction = "vertical" }
 		player.gui.top.alienmodule.add { type = "label", name = "killcount", caption = "TEST" }
 		player.gui.top.alienmodule.add { type = "progressbar", name = "killbar" }
@@ -54,9 +56,15 @@ function pp(force, key, param)
 end
 
 function verifyCountersForForce(forceName)
-	if not global.currentmodulelevel[forceName]  then global.currentmodulelevel	[forceName]=1 end
-	if not global.modulelevel[forceName]		 then global.modulelevel		[forceName]=1 end
-	if not global.killcount[forceName]			 then global.killcount			[forceName]=0 end
+	if not global.currentmodulelevel[forceName] then
+		global.currentmodulelevel[forceName] = 1
+	end
+	if not global.modulelevel[forceName] then
+		global.modulelevel[forceName] = 1
+	end
+	if not global.killcount[forceName] then
+		global.killcount[forceName] = 0
+	end
 end
 
 function update_gui()
@@ -85,7 +93,6 @@ function update_gui()
 		player.gui.top.alienmodule.killbar.value = math.max(roundModuleLevel(player.force.name) - global.modulelevel[player.force.name], 0)
 	end
 end
-
 
 function update_modules(forceName, entities, entityType)
 	for _, entity in pairs(entities) do
@@ -316,7 +323,7 @@ end
 -- not in use yet, prototype for later use
 function update_modules_on_surface(surface, force)
 	local names = {}
-	local modulesOnGround = surface.find_entities_filtered { force=force, name = 'item-on-ground' }
+	local modulesOnGround = surface.find_entities_filtered { force = force, name = 'item-on-ground' }
 	local current_module_name = 'alien-hyper-module-' .. tostring(math.min(global.currentmodulelevel[force.name], 100))
 	local current_magazine_name = 'alien-hyper-magazine-' .. tostring(math.min(global.currentmodulelevel[force.name], 100))
 
@@ -338,15 +345,21 @@ function update_modules_on_surface(surface, force)
 end
 
 script.on_event(defines.events.on_player_created, function(event)
-local forceName=game.players[event.player_index].force.name
-	if not global.currentmodulelevel[forceName]  then global.currentmodulelevel	[forceName]=1 end
-	if not global.modulelevel[forceName]		 then global.modulelevel		[forceName]=1 end
-	if not global.killcount[forceName]			 then global.killcount			[forceName]=0 end
+	local forceName = game.players[event.player_index].force.name
+	if not global.currentmodulelevel[forceName] then
+		global.currentmodulelevel[forceName] = 1
+	end
+	if not global.modulelevel[forceName] then
+		global.modulelevel[forceName] = 1
+	end
+	if not global.killcount[forceName] then
+		global.killcount[forceName] = 0
+	end
 end)
 
 -- if an entity is killed, raise killcount
 script.on_event(defines.events.on_entity_died, function(event)
-local forceName=event.force.name
+	local forceName = event.force.name
 	if (event.entity.type == "unit" and event.entity.force.name == "enemy") then
 		global.killcount[forceName] = global.killcount[forceName] + 1
 	end
@@ -360,12 +373,12 @@ script.on_nth_tick(600, function(event)
 
 	-- if the modulelevel is raised by the kill, increase the level of all hyper modules by finding and replacing them
 	for _, force in pairs(game.forces) do
-		if  force.name~="player" 
-		and force.name~="enemy" 
-		and force.name~="neutral" 
-		and force.name~="_ABANDONED_" 
-		and force.name~="_DESTROYED_" then	
-			local forceName=force.name
+		if force.name ~= "player"
+				and force.name ~= "enemy"
+				and force.name ~= "neutral"
+				and force.name ~= "_ABANDONED_"
+				and force.name ~= "_DESTROYED_" then
+			local forceName = force.name
 			global.modulelevel[forceName] = math.max(math.floor(modulelevel(forceName)), 1)
 			if (global.modulelevel[forceName] > global.currentmodulelevel[forceName]) then
 				global.currentmodulelevel[forceName] = global.currentmodulelevel[forceName] + 1
@@ -374,15 +387,15 @@ script.on_nth_tick(600, function(event)
 				update_enabled_recipe(force)
 
 				for _, surface in pairs(game.surfaces) do
-					local assemblers = surface.find_entities_filtered	{ force=forceName, type = "assembling-machine" }
-					local miners = surface.find_entities_filtered		{ force=forceName, type = "mining-drill" }
-					local labs = surface.find_entities_filtered			{ force=forceName, type = "lab" }
-					local furnaces = surface.find_entities_filtered		{ force=forceName, type = "furnace" }
-					local rocketSilos = surface.find_entities_filtered	{ force=forceName, name = "rocket-silo" }
-					local chests = surface.find_entities_filtered		{ force=forceName, type = "container" }
-					local logisticChests = surface.find_entities_filtered { force=forceName, type = "logistic-container" }
-					local beacons = surface.find_entities_filtered		{ force=forceName, type = "beacon" }
-					local turrets = surface.find_entities_filtered		{ force=forceName, type = "ammo-turret" }
+					local assemblers = surface.find_entities_filtered { force = forceName, type = "assembling-machine" }
+					local miners = surface.find_entities_filtered { force = forceName, type = "mining-drill" }
+					local labs = surface.find_entities_filtered { force = forceName, type = "lab" }
+					local furnaces = surface.find_entities_filtered { force = forceName, type = "furnace" }
+					local rocketSilos = surface.find_entities_filtered { force = forceName, name = "rocket-silo" }
+					local chests = surface.find_entities_filtered { force = forceName, type = "container" }
+					local logisticChests = surface.find_entities_filtered { force = forceName, type = "logistic-container" }
+					local beacons = surface.find_entities_filtered { force = forceName, type = "beacon" }
+					local turrets = surface.find_entities_filtered { force = forceName, type = "ammo-turret" }
 
 					update_modules(forceName, assemblers, "machine")
 					update_modules(forceName, miners, "machine")
@@ -398,7 +411,7 @@ script.on_nth_tick(600, function(event)
 					end
 
 					-- for _, force in pairs(game.forces) do
-						update_recipes(assemblers, force)
+					update_recipes(assemblers, force)
 					-- end
 
 					update_modules_on_surface(surface, force)
@@ -412,7 +425,7 @@ script.on_nth_tick(600, function(event)
 				update_logistic_slots(force)
 				-- update_trash_slots(players)
 				pp(force, 'gui.module-upgraded', global.modulelevel[force.name])
-				else
+			else
 				--every 10 seconds update what module recipe is enabled
 				if event.tick % 600 == 0 then
 					update_enabled_recipe(force)
@@ -424,5 +437,7 @@ end)
 
 -- Commands 
 commands.add_command("log_am", nil, function(command)
-  for name,player in pairs(game.players) do   log(name .. "  Player: " .. player.name .. ", force: " .. player.force.name .. ", module level: " .. global.currentmodulelevel[player.force.name] .. ", current module level: " .. modulelevel(player.force.name) .. ", kill count: " .. global.killcount[player.force.name] ) end
+	for name, player in pairs(game.players) do
+		log(name .. "  Player: " .. player.name .. ", force: " .. player.force.name .. ", module level: " .. global.currentmodulelevel[player.force.name] .. ", current module level: " .. modulelevel(player.force.name) .. ", kill count: " .. global.killcount[player.force.name])
+	end
 end)

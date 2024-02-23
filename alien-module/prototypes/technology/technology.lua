@@ -42,7 +42,6 @@ table.insert(data.raw["technology"]["military"].effects,
 			recipe = "alien-gun-turret"
 		})
 
-
 if data.raw["item"]["alien-artifact"] then
 	table.insert(data.raw["technology"]["automation"].effects,
 			{

@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.4.0
+  Features:
+    - Modifications to support force based escalation
+    - log_am dumps the players killcount/module level to the log file
+    - tick check every 10 seconds instead of every 2 to reduce lag
+---------------------------------------------------------------------------------------------------
 Version: 1.3.0
   Features:
     - Integrate Fixes from rampantfixed-alienmodule-compat and rampant-alienmodule-compat into this mod

@@ -1,6 +1,7 @@
 script.on_init(function()
 	initVariables()
 	init_gui()
+	verifyCountersForForce("player") -- initialize single player
 end)
 
 script.on_load(function()
@@ -373,8 +374,7 @@ script.on_nth_tick(600, function(event)
 
 	-- if the modulelevel is raised by the kill, increase the level of all hyper modules by finding and replacing them
 	for _, force in pairs(game.forces) do
-		if force.name ~= "player"
-				and force.name ~= "enemy"
+		if force.name ~= "enemy"
 				and force.name ~= "neutral"
 				and force.name ~= "_ABANDONED_"
 				and force.name ~= "_DESTROYED_" then

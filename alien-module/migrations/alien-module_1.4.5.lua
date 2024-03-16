@@ -1,0 +1,1 @@
+global.ignoredalienmodulefactions = { enemy = true, neutral = true, _ABANDONED_ = true, _DESTROYED_ = true }

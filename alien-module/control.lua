@@ -1,4 +1,7 @@
 script.on_init(function()
+	if global.ignoredalienmodulefactions == nil then
+		global.ignoredalienmodulefactions = { enemy = true, neutral = true, _ABANDONED_ = true, _DESTROYED_ = true }
+	end
 	initVariables()
 	init_gui()
 	verifyCountersForForce("player") -- initialize single player
@@ -43,7 +46,7 @@ function init_gui()
 		player.gui.top.alienmodule.add { type = "label", name = "killcount", caption = "TEST" }
 		player.gui.top.alienmodule.add { type = "progressbar", name = "killbar" }
 
-		player.gui.top.alienmodule.killbar.value = math.max(roundModuleLevel(player.forceName) - global.modulelevel[player.forceName], 0)
+		player.gui.top.alienmodule.killbar.value = math.max(roundModuleLevel(player.force.name) - global.modulelevel[player.force.name], 0)
 	end
 end
 
@@ -374,11 +377,11 @@ script.on_nth_tick(600, function(event)
 
 	-- if the modulelevel is raised by the kill, increase the level of all hyper modules by finding and replacing them
 	for _, force in pairs(game.forces) do
-		if force.name ~= "enemy"
-				and force.name ~= "neutral"
-				and force.name ~= "_ABANDONED_"
-				and force.name ~= "_DESTROYED_" then
+		if not global.ignoredalienmodulefactions[force.name] then
 			local forceName = force.name
+			-- check for force if not present
+			verifyCountersForForce(forceName)
+
 			global.modulelevel[forceName] = math.max(math.floor(modulelevel(forceName)), 1)
 			if (global.modulelevel[forceName] > global.currentmodulelevel[forceName]) then
 				global.currentmodulelevel[forceName] = global.currentmodulelevel[forceName] + 1

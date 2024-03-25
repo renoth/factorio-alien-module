@@ -1,4 +1,8 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.4.8
+  Features:
+    - Remove buggy migration script
+---------------------------------------------------------------------------------------------------
 Version: 1.4.7
   Features:
     - Fix bug in control lua when killcount for force is nil

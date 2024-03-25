@@ -3,20 +3,23 @@ script.on_init(function()
 		global.ignoredalienmodulefactions = { enemy = true, neutral = true, _ABANDONED_ = true, _DESTROYED_ = true }
 	end
 	initVariables()
-	init_gui()
 	verifyCountersForForce("player") -- initialize single player
+	init_gui()
 end)
 
 script.on_load(function()
+	verifyCountersForForce("player") -- initialize single player
 	initVariables()
 end)
 
 -- Calculate module level, minimum 1 maximum 100
 function modulelevel(forceName)
 	local exponent = settings.startup["alien-module-level-exponent"].value
+
 	if (global.killcount[forceName] == nil) then
 		global.killcount[forceName] = 0
 	end
+
 	if (global.killcount[forceName] < 10000) then
 		return math.min(math.max(math.log((global.killcount[forceName] + 1) * 0.1) * math.pow((global.killcount[forceName]), exponent), 1) * math.sqrt((global.killcount[forceName] * 0.0001)), 100)
 	else

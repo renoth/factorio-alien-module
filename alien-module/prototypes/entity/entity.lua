@@ -119,7 +119,7 @@ alien_engine.horizontal_animation.layers[1].tint = alien_tint
 alien_engine.horizontal_animation.layers[1].hr_version.tint = alien_tint
 alien_engine.vertical_animation.layers[1].tint = alien_tint
 alien_engine.vertical_animation.layers[1].hr_version.tint = alien_tint
-alien_engine.fluid_usage_per_tick = 0.333,
+alien_engine.fluid_usage_per_tick = 0.333
 
 data:extend({ alien_engine })
 

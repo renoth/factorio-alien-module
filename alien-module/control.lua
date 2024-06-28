@@ -49,6 +49,7 @@ function init_gui()
 		player.gui.top.alienmodule.add { type = "label", name = "killcount", caption = "TEST" }
 		player.gui.top.alienmodule.add { type = "progressbar", name = "killbar" }
 
+		verifyCountersForForce(player.force.name)
 		player.gui.top.alienmodule.killbar.value = math.max(roundModuleLevel(player.force.name) - global.modulelevel[player.force.name], 0)
 	end
 end
@@ -63,6 +64,12 @@ function pp(force, key, param)
 end
 
 function verifyCountersForForce(forceName)
+	if (tonumber(global.currentmodulelevel) ~= nil) then
+		global.currentmodulelevel = {}
+		global.modulelevel = {}
+		global.killcount = {}
+	end
+
 	if not global.currentmodulelevel[forceName] then
 		global.currentmodulelevel[forceName] = 1
 	end

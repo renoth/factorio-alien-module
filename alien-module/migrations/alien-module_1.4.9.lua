@@ -1,17 +1,17 @@
-if (tonumber(global.killcount) ~= nil) then
+if (tonumber(storage.killcount) ~= nil) then
 	-- store counters from singleplayer
-	local killcount_cache = global.killcount
-	local currentmodulelevel_cache = global.currentmodulelevel
-	local modulelevel_cache = global.modulelevel
+	local killcount_cache = storage.killcount
+	local currentmodulelevel_cache = storage.currentmodulelevel
+	local modulelevel_cache = storage.modulelevel
 
 	-- make global counters lists
-	global.killcount = {}
-	global.currentmodulelevel = {}
-	global.modulelevel = {}
+	storage.killcount = {}
+	storage.currentmodulelevel = {}
+	storage.modulelevel = {}
 
-	global.killcount["player"] = killcount_cache
-	global.currentmodulelevel["player"] = currentmodulelevel_cache
-	global.modulelevel["player"] = modulelevel_cache
+	storage.killcount["player"] = killcount_cache
+	storage.currentmodulelevel["player"] = currentmodulelevel_cache
+	storage.modulelevel["player"] = modulelevel_cache
 end
 
 

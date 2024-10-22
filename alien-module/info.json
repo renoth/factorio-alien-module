@@ -1,14 +1,13 @@
 {
   "name": "alien-module",
   "title": "Alien Loot Economy",
-  "version": "1.4.10",
+  "version": "2.0.0",
   "author": "sensenmann",
-  "contact": "berndnewsreader@gmail.com",
   "homepage": "https://github.com/renoth/factorio-alien-module",
   "description": "Makes alien units drop alien ore that can be smelted into alien metal, which can be used for all sorts of alien empowered items.",
-  "factorio_version": "1.1",
+  "factorio_version": "2.0",
   "dependencies": [
-    "base >= 1.1",
+    "base >= 2.0",
     "? bobenemies >= 0.15.2",
     "? Natural_Evolution_Enemies >= 0.17.0",
     "? Rampant >= 0.16.34",

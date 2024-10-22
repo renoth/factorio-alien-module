@@ -1,4 +1,12 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.0.0
+  Features:
+    - Compatibility with Factorio 2.0
+    - Removed Alien Modules 2-5
+    - Removed Alien Gun Turret
+    - Removed Alien Wall
+    - Removed Alien Steam Engine
+---------------------------------------------------------------------------------------------------
 Version: 1.4.10
   Features:
     - Fix Bug in Multiteam mode

@@ -1,6 +1,6 @@
 script.on_init(function()
-	if global.ignoredalienmodulefactions == nil then
-		global.ignoredalienmodulefactions = { enemy = true, neutral = true, _ABANDONED_ = true, _DESTROYED_ = true }
+	if storage.ignoredalienmodulefactions == nil then
+		storage.ignoredalienmodulefactions = { enemy = true, neutral = true, _ABANDONED_ = true, _DESTROYED_ = true }
 	end
 	initVariables()
 	verifyCountersForForce("player") -- initialize single player
@@ -16,14 +16,14 @@ end)
 function modulelevel(forceName)
 	local exponent = settings.startup["alien-module-level-exponent"].value
 
-	if (global.killcount[forceName] == nil) then
-		global.killcount[forceName] = 0
+	if (storage.killcount[forceName] == nil) then
+		storage.killcount[forceName] = 0
 	end
 
-	if (global.killcount[forceName] < 10000) then
-		return math.min(math.max(math.log((global.killcount[forceName] + 1) * 0.1) * math.pow((global.killcount[forceName]), exponent), 1) * math.sqrt((global.killcount[forceName] * 0.0001)), 100)
+	if (storage.killcount[forceName] < 10000) then
+		return math.min(math.max(math.log((storage.killcount[forceName] + 1) * 0.1) * math.pow((storage.killcount[forceName]), exponent), 1) * math.sqrt((storage.killcount[forceName] * 0.0001)), 100)
 	else
-		return math.min(math.max(math.log((global.killcount[forceName] + 1) * 0.1) * math.pow((global.killcount[forceName]), exponent), 1), 100)
+		return math.min(math.max(math.log((storage.killcount[forceName] + 1) * 0.1) * math.pow((storage.killcount[forceName]), exponent), 1), 100)
 	end
 end
 
@@ -32,14 +32,14 @@ function roundModuleLevel(forceName)
 end
 
 function initVariables()
-	if global.currentmodulelevel == nil then
-		global.currentmodulelevel = {}
+	if storage.currentmodulelevel == nil then
+		storage.currentmodulelevel = {}
 	end
-	if global.modulelevel == nil then
-		global.modulelevel = {}
+	if storage.modulelevel == nil then
+		storage.modulelevel = {}
 	end
-	if global.killcount == nil then
-		global.killcount = {}
+	if storage.killcount == nil then
+		storage.killcount = {}
 	end
 end
 
@@ -50,7 +50,7 @@ function init_gui()
 		player.gui.top.alienmodule.add { type = "progressbar", name = "killbar" }
 
 		verifyCountersForForce(player.force.name)
-		player.gui.top.alienmodule.killbar.value = math.max(roundModuleLevel(player.force.name) - global.modulelevel[player.force.name], 0)
+		player.gui.top.alienmodule.killbar.value = math.max(roundModuleLevel(player.force.name) - storage.modulelevel[player.force.name], 0)
 	end
 end
 
@@ -64,20 +64,20 @@ function pp(force, key, param)
 end
 
 function verifyCountersForForce(forceName)
-	if (tonumber(global.currentmodulelevel) ~= nil) then
-		global.currentmodulelevel = {}
-		global.modulelevel = {}
-		global.killcount = {}
+	if (tonumber(storage.currentmodulelevel) ~= nil) then
+		storage.currentmodulelevel = {}
+		storage.modulelevel = {}
+		storage.killcount = {}
 	end
 
-	if not global.currentmodulelevel[forceName] then
-		global.currentmodulelevel[forceName] = 1
+	if not storage.currentmodulelevel[forceName] then
+		storage.currentmodulelevel[forceName] = 1
 	end
-	if not global.modulelevel[forceName] then
-		global.modulelevel[forceName] = 1
+	if not storage.modulelevel[forceName] then
+		storage.modulelevel[forceName] = 1
 	end
-	if not global.killcount[forceName] then
-		global.killcount[forceName] = 0
+	if not storage.killcount[forceName] then
+		storage.killcount[forceName] = 0
 	end
 end
 
@@ -103,8 +103,8 @@ function update_gui()
 			player.gui.top.alienmodule.add { type = "progressbar", name = "killbar" }
 		end
 		verifyCountersForForce(player.force.name)
-		player.gui.top.alienmodule.killcount.caption = { 'gui.label', roundModuleLevel(player.force.name), global.killcount[player.force.name] }
-		player.gui.top.alienmodule.killbar.value = math.max(roundModuleLevel(player.force.name) - global.modulelevel[player.force.name], 0)
+		player.gui.top.alienmodule.killcount.caption = { 'gui.label', roundModuleLevel(player.force.name), storage.killcount[player.force.name] }
+		player.gui.top.alienmodule.killbar.value = math.max(roundModuleLevel(player.force.name) - storage.modulelevel[player.force.name], 0)
 	end
 end
 
@@ -117,12 +117,12 @@ function update_modules(forceName, entities, entityType)
 
 			for i = 1, entity.request_slot_count do
 				local slot = entity.get_request_slot(i)
-				if slot ~= nil and slot.name == "alien-hyper-module-" .. global.currentmodulelevel[forceName] - 1 then
-					entity.set_request_slot({ name = "alien-hyper-module-" .. global.currentmodulelevel[forceName], count = slot.count }, i)
+				if slot ~= nil and slot.name == "alien-hyper-module-" .. storage.currentmodulelevel[forceName] - 1 then
+					entity.set_request_slot({ name = "alien-hyper-module-" .. storage.currentmodulelevel[forceName], count = slot.count }, i)
 				end
 
-				if settings.startup["alien-module-hyper-ammo-enabled"].value and slot ~= nil and slot.name == "alien-hyper-magazine-" .. global.currentmodulelevel[forceName] - 1 then
-					entity.set_request_slot({ name = "alien-hyper-magazine-" .. global.currentmodulelevel[forceName], count = slot.count }, i)
+				if settings.startup["alien-module-hyper-ammo-enabled"].value and slot ~= nil and slot.name == "alien-hyper-magazine-" .. storage.currentmodulelevel[forceName] - 1 then
+					entity.set_request_slot({ name = "alien-hyper-magazine-" .. storage.currentmodulelevel[forceName], count = slot.count }, i)
 				end
 			end
 		elseif entityType == "machine" then
@@ -134,21 +134,21 @@ function update_modules(forceName, entities, entityType)
 			if entity.cursor_stack ~= nil and entity.cursor_stack.valid_for_read then
 				if string.find(entity.cursor_stack.name, "^alien%-hyper%-module") then
 					--if theres a module in this inventory slot
-					if tonumber(string.match(entity.cursor_stack.name, "%d+$")) < global.currentmodulelevel[forceName] then
+					if tonumber(string.match(entity.cursor_stack.name, "%d+$")) < storage.currentmodulelevel[forceName] then
 						--and its level is less than the "current" one
 						local stacksize = entity.cursor_stack.count --record amount
 						entity.cursor_stack.clear() --clear the slot
-						entity.cursor_stack.set_stack({ name = "alien-hyper-module-" .. math.min(global.currentmodulelevel[forceName], 100), count = stacksize }) --add the updated level modules with whatever amount we recorded
+						entity.cursor_stack.set_stack({ name = "alien-hyper-module-" .. math.min(storage.currentmodulelevel[forceName], 100), count = stacksize }) --add the updated level modules with whatever amount we recorded
 					end
 				end
 
 				if string.find(entity.cursor_stack.name, "^alien%-hyper%-magazine") then
 					--if theres a module in this inventory slot
-					if tonumber(string.match(entity.cursor_stack.name, "%d+$")) < global.currentmodulelevel[forceName] then
+					if tonumber(string.match(entity.cursor_stack.name, "%d+$")) < storage.currentmodulelevel[forceName] then
 						--and its level is less than the "current" one
 						local stacksize = entity.cursor_stack.count --record amount
 						entity.cursor_stack.clear() --clear the slot
-						entity.cursor_stack.set_stack({ name = "alien-hyper-magazine-" .. math.min(global.currentmodulelevel[forceName], 100), count = stacksize }) --add the updated level modules with whatever amount we recorded
+						entity.cursor_stack.set_stack({ name = "alien-hyper-magazine-" .. math.min(storage.currentmodulelevel[forceName], 100), count = stacksize }) --add the updated level modules with whatever amount we recorded
 					end
 				end
 			end
@@ -165,33 +165,33 @@ function update_modules(forceName, entities, entityType)
 			local status, err = pcall(function()
 				if string.find(inventory[i].name, "^alien%-hyper%-module") then
 					--if theres a module in this inventory slot
-					if tonumber(string.match(inventory[i].name, "%d+$")) < global.currentmodulelevel[forceName] then
+					if tonumber(string.match(inventory[i].name, "%d+$")) < storage.currentmodulelevel[forceName] then
 						--and its level is less than the "current" one
 						local stacksize = inventory[i].count --record amount
 						inventory[i].clear() --clear the slot
 
 						if entityType == "player" and inventory.get_filter(i) ~= nil then
 							-- check if slot is filtered
-							inventory.set_filter(i, "alien-hyper-module-" .. math.min(global.currentmodulelevel[forceName], 100)) --update filter
+							inventory.set_filter(i, "alien-hyper-module-" .. math.min(storage.currentmodulelevel[forceName], 100)) --update filter
 						end
 
-						inventory[i].set_stack({ name = "alien-hyper-module-" .. math.min(global.currentmodulelevel[forceName], 100), count = stacksize }) --add the updated level modules with whatever amount we recorded
+						inventory[i].set_stack({ name = "alien-hyper-module-" .. math.min(storage.currentmodulelevel[forceName], 100), count = stacksize }) --add the updated level modules with whatever amount we recorded
 					end
 				end
 
 				if string.find(inventory[i].name, "^alien%-hyper%-magazine") then
 					--if theres a module in this inventory slot
-					if tonumber(string.match(inventory[i].name, "%d+$")) < global.currentmodulelevel[forceName] then
+					if tonumber(string.match(inventory[i].name, "%d+$")) < storage.currentmodulelevel[forceName] then
 						--and its level is less than the "current" one
 						local stacksize = inventory[i].count --record amount
 						inventory[i].clear() --clear the slot
 
 						if entityType == "player" and inventory.get_filter(i) ~= nil then
 							-- check if slot is filtered
-							inventory.set_filter(i, "alien-hyper-magazine-" .. math.min(global.currentmodulelevel[forceName], 100)) --update filter
+							inventory.set_filter(i, "alien-hyper-magazine-" .. math.min(storage.currentmodulelevel[forceName], 100)) --update filter
 						end
 
-						inventory[i].set_stack({ name = "alien-hyper-magazine-" .. math.min(global.currentmodulelevel[forceName], 100), count = stacksize })
+						inventory[i].set_stack({ name = "alien-hyper-magazine-" .. math.min(storage.currentmodulelevel[forceName], 100), count = stacksize })
 						--add the updated level modules with whatever amount we recorded
 					end
 				end
@@ -213,11 +213,11 @@ function update_ammo(forceName, turrets)
 			local status, err = pcall(function()
 				if string.find(inventory[i].name, "^alien%-hyper%-magazine") then
 					--if theres hyper ammo in the inventory slot
-					if tonumber(string.match(inventory[i].name, "%d+$")) < global.currentmodulelevel[forceName] then
+					if tonumber(string.match(inventory[i].name, "%d+$")) < storage.currentmodulelevel[forceName] then
 						--and its level is less than the "current" one
 						local stacksize = inventory[i].count --record amount
 						inventory[i].clear() --clear the slot
-						inventory[i].set_stack({ name = "alien-hyper-magazine-" .. math.min(global.currentmodulelevel[forceName], 100), count = stacksize })
+						inventory[i].set_stack({ name = "alien-hyper-magazine-" .. math.min(storage.currentmodulelevel[forceName], 100), count = stacksize })
 					end
 				end
 			end)
@@ -234,15 +234,15 @@ function update_recipes(assemblers, force)
 				local plates_to_refund = 0
 
 				-- Save the number of modules in the output slot, crafting progress and bonus progress
-				local finished_module_count = entity.get_inventory(defines.inventory.assembling_machine_output).get_item_count("alien-hyper-module-" .. global.currentmodulelevel[force.name] - 1)
+				local finished_module_count = entity.get_inventory(defines.inventory.assembling_machine_output).get_item_count("alien-hyper-module-" .. storage.currentmodulelevel[force.name] - 1)
 				local crafting_progress = entity.crafting_progress
 				local bonus_progress = entity.bonus_progress
 
-				entity.set_recipe(force.recipes["alien-hyper-module-" .. global.currentmodulelevel[force.name]]) --set it to the updated recipe
+				entity.set_recipe(force.recipes["alien-hyper-module-" .. storage.currentmodulelevel[force.name]]) --set it to the updated recipe
 
 				-- Add the modules back
 				if finished_module_count > 0 then
-					entity.get_inventory(defines.inventory.assembling_machine_output).insert { name = "alien-hyper-module-" .. global.currentmodulelevel[force.name], count = finished_module_count }
+					entity.get_inventory(defines.inventory.assembling_machine_output).insert { name = "alien-hyper-module-" .. storage.currentmodulelevel[force.name], count = finished_module_count }
 				end
 				-- Restore previous progress
 				entity.crafting_progress = crafting_progress
@@ -250,13 +250,13 @@ function update_recipes(assemblers, force)
 			end
 
 			if settings.startup["alien-module-hyper-ammo-enabled"].value and string.find(entity.get_recipe().name, "^alien%-hyper%-magazine") then
-				local finished_module_count = entity.get_inventory(defines.inventory.assembling_machine_output).get_item_count("alien-hyper-module-" .. global.currentmodulelevel[force.name] - 1)
+				local finished_module_count = entity.get_inventory(defines.inventory.assembling_machine_output).get_item_count("alien-hyper-module-" .. storage.currentmodulelevel[force.name] - 1)
 
-				entity.set_recipe(force.recipes["alien-hyper-magazine-" .. global.currentmodulelevel[force.name]]) --set it to the updated recipe
+				entity.set_recipe(force.recipes["alien-hyper-magazine-" .. storage.currentmodulelevel[force.name]]) --set it to the updated recipe
 
 				if finished_module_count > 0 then
 					entity.get_inventory(defines.inventory.assembling_machine_output).insert {
-						name = "alien-hyper-magazine-" .. global.currentmodulelevel[force.name],
+						name = "alien-hyper-magazine-" .. storage.currentmodulelevel[force.name],
 						count = finished_module_count
 					}
 				end
@@ -269,8 +269,8 @@ function update_quickbar(force)
 	for _, player in pairs(force.players) do
 		for i = 1, 100 do
 			local slot = player.get_quick_bar_slot(i)
-			if slot ~= nil and slot.name == "alien-hyper-module-" .. global.currentmodulelevel[force.name] - 1 then
-				player.set_quick_bar_slot(i, "alien-hyper-module-" .. global.currentmodulelevel[force.name])
+			if slot ~= nil and slot.name == "alien-hyper-module-" .. storage.currentmodulelevel[force.name] - 1 then
+				player.set_quick_bar_slot(i, "alien-hyper-module-" .. storage.currentmodulelevel[force.name])
 			end
 		end
 	end
@@ -281,12 +281,12 @@ function update_logistic_slots(force)
 		if player.character ~= nil then
 			for i = 1, player.character.request_slot_count do
 				local slot = player.get_personal_logistic_slot(i)
-				if slot ~= nil and slot.name == "alien-hyper-module-" .. global.currentmodulelevel[force.name] - 1 then
-					player.set_personal_logistic_slot(i, { name = "alien-hyper-module-" .. global.currentmodulelevel[force.name], min = slot.min, max = slot.max })
+				if slot ~= nil and slot.name == "alien-hyper-module-" .. storage.currentmodulelevel[force.name] - 1 then
+					player.set_personal_logistic_slot(i, { name = "alien-hyper-module-" .. storage.currentmodulelevel[force.name], min = slot.min, max = slot.max })
 				end
 
-				if settings.startup["alien-module-hyper-ammo-enabled"].value and slot ~= nil and slot.name == "alien-hyper-magazine-" .. global.currentmodulelevel[force.name] - 1 then
-					player.set_personal_logistic_slot(i, { name = "alien-hyper-magazine-" .. global.currentmodulelevel[force.name], min = slot.min, max = slot.max })
+				if settings.startup["alien-module-hyper-ammo-enabled"].value and slot ~= nil and slot.name == "alien-hyper-magazine-" .. storage.currentmodulelevel[force.name] - 1 then
+					player.set_personal_logistic_slot(i, { name = "alien-hyper-magazine-" .. storage.currentmodulelevel[force.name], min = slot.min, max = slot.max })
 				end
 			end
 		end
@@ -301,8 +301,8 @@ end
 		for key, value in ipairs(old_trash) do
 			player.print(key)
 			player.print(value)
-			if key ~= nil and key == "alien-hyper-module-" .. global.currentmodulelevel - 1 then
-				new_trash.insert("alien-hyper-module-" .. global.currentmodulelevel, value)
+			if key ~= nil and key == "alien-hyper-module-" .. storage.currentmodulelevel - 1 then
+				new_trash.insert("alien-hyper-module-" .. storage.currentmodulelevel, value)
 			else
 				new_trash.insert(key, value)
 			end
@@ -316,18 +316,18 @@ end]]
 
 function update_enabled_recipe(force)
 	if force.technologies["automation"].researched then
-		if global.currentmodulelevel[force.name] > 1 then
+		if storage.currentmodulelevel[force.name] > 1 then
 			force.recipes["alien-hyper-module-1"].enabled = false
-			force.recipes["alien-hyper-module-" .. global.currentmodulelevel[force.name] - 1].enabled = false
-			force.recipes["alien-hyper-module-" .. global.currentmodulelevel[force.name]].enabled = true
+			force.recipes["alien-hyper-module-" .. storage.currentmodulelevel[force.name] - 1].enabled = false
+			force.recipes["alien-hyper-module-" .. storage.currentmodulelevel[force.name]].enabled = true
 		end
 	end
 
 	if force.technologies["military"].researched and settings.startup["alien-module-hyper-ammo-enabled"].value then
-		if global.currentmodulelevel[force.name] > 1 then
+		if storage.currentmodulelevel[force.name] > 1 then
 			force.recipes["alien-hyper-magazine-1"].enabled = false
-			force.recipes["alien-hyper-magazine-" .. global.currentmodulelevel[force.name] - 1].enabled = false
-			force.recipes["alien-hyper-magazine-" .. global.currentmodulelevel[force.name]].enabled = true
+			force.recipes["alien-hyper-magazine-" .. storage.currentmodulelevel[force.name] - 1].enabled = false
+			force.recipes["alien-hyper-magazine-" .. storage.currentmodulelevel[force.name]].enabled = true
 		else
 			force.recipes["alien-hyper-magazine-1"].enabled = true
 		end
@@ -338,8 +338,8 @@ end
 function update_modules_on_surface(surface, force)
 	local names = {}
 	local modulesOnGround = surface.find_entities_filtered { force = force, name = 'item-on-ground' }
-	local current_module_name = 'alien-hyper-module-' .. tostring(math.min(global.currentmodulelevel[force.name], 100))
-	local current_magazine_name = 'alien-hyper-magazine-' .. tostring(math.min(global.currentmodulelevel[force.name], 100))
+	local current_module_name = 'alien-hyper-module-' .. tostring(math.min(storage.currentmodulelevel[force.name], 100))
+	local current_magazine_name = 'alien-hyper-magazine-' .. tostring(math.min(storage.currentmodulelevel[force.name], 100))
 
 	for index, module_on_ground in pairs(modulesOnGround) do
 		--game.print(module_on_ground.stack.name)
@@ -360,26 +360,26 @@ end
 
 script.on_event(defines.events.on_player_created, function(event)
 	local forceName = game.players[event.player_index].force.name
-	if not global.currentmodulelevel[forceName] then
-		global.currentmodulelevel[forceName] = 1
+	if not storage.currentmodulelevel[forceName] then
+		storage.currentmodulelevel[forceName] = 1
 	end
-	if not global.modulelevel[forceName] then
-		global.modulelevel[forceName] = 1
+	if not storage.modulelevel[forceName] then
+		storage.modulelevel[forceName] = 1
 	end
-	if not global.killcount[forceName] then
-		global.killcount[forceName] = 0
+	if not storage.killcount[forceName] then
+		storage.killcount[forceName] = 0
 	end
 end)
 
 -- if an entity is killed, raise killcount
 script.on_event(defines.events.on_entity_died, function(event)
 	local forceName = event.force.name
-	if not global.killcount[forceName] then
-		global.killcount[forceName] = 0
+	if not storage.killcount[forceName] then
+		storage.killcount[forceName] = 0
 	end
 
 	if (event.entity.type == "unit" and event.entity.force.name == "enemy") then
-		global.killcount[forceName] = global.killcount[forceName] + 1
+		storage.killcount[forceName] = storage.killcount[forceName] + 1
 	end
 end)
 
@@ -391,14 +391,14 @@ script.on_nth_tick(600, function(event)
 
 	-- if the modulelevel is raised by the kill, increase the level of all hyper modules by finding and replacing them
 	for _, force in pairs(game.forces) do
-		if not global.ignoredalienmodulefactions[force.name] then
+		if not storage.ignoredalienmodulefactions[force.name] then
 			local forceName = force.name
 			-- check for force if not present
 			verifyCountersForForce(forceName)
 
-			global.modulelevel[forceName] = math.max(math.floor(modulelevel(forceName)), 1)
-			if (global.modulelevel[forceName] > global.currentmodulelevel[forceName]) then
-				global.currentmodulelevel[forceName] = global.currentmodulelevel[forceName] + 1
+			storage.modulelevel[forceName] = math.max(math.floor(modulelevel(forceName)), 1)
+			if (storage.modulelevel[forceName] > storage.currentmodulelevel[forceName]) then
+				storage.currentmodulelevel[forceName] = storage.currentmodulelevel[forceName] + 1
 
 				--update what module recipe is enabled
 				update_enabled_recipe(force)
@@ -441,7 +441,7 @@ script.on_nth_tick(600, function(event)
 				update_quickbar(force)
 				update_logistic_slots(force)
 				-- update_trash_slots(players)
-				pp(force, 'gui.module-upgraded', global.modulelevel[force.name])
+				pp(force, 'gui.module-upgraded', storage.modulelevel[force.name])
 			else
 				--every 10 seconds update what module recipe is enabled
 				if event.tick % 600 == 0 then
@@ -455,6 +455,6 @@ end)
 -- Commands 
 commands.add_command("log_am", nil, function(command)
 	for name, player in pairs(game.players) do
-		log(name .. "  Player: " .. player.name .. ", force: " .. player.force.name .. ", module level: " .. global.currentmodulelevel[player.force.name] .. ", current module level: " .. modulelevel(player.force.name) .. ", kill count: " .. global.killcount[player.force.name])
+		log(name .. "  Player: " .. player.name .. ", force: " .. player.force.name .. ", module level: " .. storage.currentmodulelevel[player.force.name] .. ", current module level: " .. modulelevel(player.force.name) .. ", kill count: " .. storage.killcount[player.force.name])
 	end
 end)

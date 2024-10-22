@@ -6,8 +6,8 @@ data:extend({
 		category = "smelting",
 		enabled = false,
 		energy_required = 10,
-		ingredients = { { "artifact-ore", 1 } },
-		result = "alien-plate"
+		ingredients = { { type = "item", name = "artifact-ore", amount = 1 } },
+		results = { { type = "item", name = "alien-plate", amount = 1 } }
 	}
 })
 
@@ -18,8 +18,8 @@ data:extend({
 		category = "smelting",
 		enabled = false,
 		energy_required = 25,
-		ingredients = { { "alien-plate", 5 } },
-		result = "alien-steel-plate"
+		ingredients = { { type = "item", name = "alien-plate", amount = 5 } },
+		results = { { type = "item", name = "alien-steel-plate", amount = 1 } }
 	}
 })
 
@@ -31,9 +31,8 @@ if (settings.startup["alien-module-ore-conversion"].value) then
 			name = "alien-ore-to-iron-ore",
 			enabled = true,
 			energy_required = 10,
-			ingredients = { { "artifact-ore", 1 } },
-			result = "iron-ore",
-			result_count = 5
+			ingredients = { { type = "item", name = "artifact-ore", amount = 1 } },
+			results = { { type = "item", name = "iron-ore", amount = 5 } }
 		}
 	})
 
@@ -44,9 +43,8 @@ if (settings.startup["alien-module-ore-conversion"].value) then
 			name = "alien-ore-to-copper-ore",
 			enabled = true,
 			energy_required = 10,
-			ingredients = { { "artifact-ore", 1 } },
-			result = "copper-ore",
-			result_count = 5
+			ingredients = { { type = "item", name = "artifact-ore", amount = 1 } },
+			results = { { type = "item", name = "copper-ore", amount = 5 } }
 		}
 	})
 
@@ -57,9 +55,8 @@ if (settings.startup["alien-module-ore-conversion"].value) then
 			name = "alien-ore-to-stone",
 			enabled = true,
 			energy_required = 10,
-			ingredients = { { "artifact-ore", 1 } },
-			result = "stone",
-			result_count = 5
+			ingredients = { { type = "item", name = "artifact-ore", amount = 1 } },
+			results = { { type = "item", name = "stone", amount = 5 } }
 		}
 	})
 
@@ -70,9 +67,8 @@ if (settings.startup["alien-module-ore-conversion"].value) then
 			name = "alien-ore-to-uranium-ore",
 			enabled = true,
 			energy_required = 20,
-			ingredients = { { "artifact-ore", 2 } },
-			result = "uranium-ore",
-			result_count = 1
+			ingredients = { { type = "item", name = "artifact-ore", amount = 2 } },
+			results = { { type = "item", name = "uranium-ore", amount = 1 } }
 		}
 	})
 
@@ -83,9 +79,8 @@ if (settings.startup["alien-module-ore-conversion"].value) then
 			name = "alien-ore-to-coal",
 			enabled = true,
 			energy_required = 10,
-			ingredients = { { "artifact-ore", 1 } },
-			result = "coal",
-			result_count = 5
+			ingredients = { { type = "item", name = "artifact-ore", amount = 1 } },
+			results = { { type = "item", name = "coal", amount = 5 } }
 		}
 	})
 end
@@ -98,9 +93,8 @@ if data.raw["item"]["alien-artifact"] ~= nil then
 			name = "alien-artifact-to-ore",
 			enabled = true,
 			energy_required = 25,
-			result_count = 5,
-			ingredients = { { "alien-artifact", 1 }, { "stone", 5 }, { "iron-ore", 5 } },
-			result = "artifact-ore"
+			ingredients = { { type = "item", name = "alien-artifact", amount = 1 }, { type = "item", name = "stone", amount = 5 }, { type = "item", name = "iron-ore", amount = 5 } },
+			results = { { type = "item", name = "artifact-ore", amount = 5 } }
 		}
 	})
 end
@@ -112,10 +106,10 @@ data:extend({
 		energy_required = 10,
 		enabled = false,
 		ingredients = {
-			{ "alien-plate", 5 },
-			{ "battery", 10 }
+			{ type = "item", name = "alien-plate", amount = 5 },
+			{ type = "item", name = "battery", amount = 10 }
 		},
-		result = "alien-accumulator"
+		results = { { type = "item", name = "alien-accumulator", amount = 1 } }
 	}
 })
 
@@ -125,9 +119,8 @@ data:extend({
 		name = "alien-solarpanel",
 		enabled = false,
 		energy_required = 8,
-		result_count = 1,
-		ingredients = { { "alien-plate", 10 }, { "electronic-circuit", 10 }, { "steel-plate", 5 } },
-		result = "alien-solarpanel"
+		ingredients = { { type = "item", name = "alien-plate", amount = 10 }, { type = "item", name = "electronic-circuit", amount = 10 }, { type = "item", name = "steel-plate", amount = 5 } },
+		results = { { type = "item", name = "alien-solarpanel", amount = 1 } }
 	}
 })
 
@@ -137,9 +130,8 @@ data:extend({
 		name = "alien-mining-drill",
 		enabled = true,
 		energy_required = 8,
-		result_count = 1,
-		ingredients = { { "alien-plate", 50 }, { "electronic-circuit", 10 }, { "iron-gear-wheel", 10 } },
-		result = "alien-mining-drill"
+		ingredients = { { type = "item", name = "alien-plate", amount = 50 }, { type = "item", name = "electronic-circuit", amount = 10 }, { type = "item", name = "iron-gear-wheel", amount = 10 } },
+		results = { { type = "item", name = "alien-mining-drill", amount = 1 } }
 	}
 })
 
@@ -150,75 +142,10 @@ data:extend({
 		name = "alien-module-1",
 		enabled = false,
 		energy_required = 20,
-		result = "alien-module-1",
-		result_count = 1,
+		results = { { type = "item", name = "alien-module-1", amount = 1 } },
 		ingredients = {
-			{ "alien-plate", 50 }
-		},
-	},
-})
-
--- alien-module-2 --
-data:extend({
-	{
-		type = "recipe",
-		name = "alien-module-2",
-		enabled = false,
-		energy_required = 40,
-		result = "alien-module-2",
-		result_count = 1,
-		ingredients = {
-			{ "alien-module-1", 3 },
-			{ "electronic-circuit", 20 }
-		},
-	},
-})
-
--- alien-module-3 --
-data:extend({
-	{
-		type = "recipe",
-		name = "alien-module-3",
-		enabled = false,
-		energy_required = 60,
-		result = "alien-module-3",
-		result_count = 1,
-		ingredients = {
-			{ "alien-module-2", 3 },
-			{ "advanced-circuit", 20 }
-		},
-	},
-})
-
--- alien-module-4 --
-data:extend({
-	{
-		type = "recipe",
-		name = "alien-module-4",
-		enabled = false,
-		energy_required = 80,
-		result = "alien-module-4",
-		result_count = 1,
-		ingredients = {
-			{ "alien-module-3", 3 },
-			{ "processing-unit", 10 }
-		},
-	},
-})
-
--- alien-module-5 --
-data:extend({
-	{
-		type = "recipe",
-		name = "alien-module-5",
-		enabled = false,
-		energy_required = 100,
-		result = "alien-module-5",
-		result_count = 1,
-		ingredients = {
-			{ "alien-module-4", 3 },
-			{ "processing-unit", 20 }
-		},
+			{ type = "item", name = "alien-plate", amount = 50 }
+		}
 	},
 })
 
@@ -230,58 +157,11 @@ data:extend({
 		name = "alien-fuel",
 		enabled = false,
 		energy_required = 5,
-		result = "alien-fuel",
-		result_count = 1,
+		results = { { type = "item", name = "alien-fuel", amount = 1 } },
 		ingredients = {
-			{ "artifact-ore", 2 },
-			{ "coal", 10 }
+			{ type = "item", name = "artifact-ore", amount = 2 },
+			{ type = "item", name = "coal", amount = 10 }
 		},
-	},
-})
-
-data:extend({
-	{
-		type = "recipe",
-		name = "alien-steam-engine",
-		enabled = true,
-		normal = {
-			ingredients = {
-				{ "iron-gear-wheel", 8 },
-				{ "pipe", 5 },
-				{ "alien-steel-plate", 10 }
-			},
-			result = "alien-steam-engine"
-		},
-		expensive = {
-			ingredients = {
-				{ "iron-gear-wheel", 15 },
-				{ "pipe", 8 },
-				{ "alien-steel-plate", 25 }
-			},
-			result = "alien-steam-engine"
-		}
-	},
-})
-
-data:extend({
-	{
-		type = "recipe",
-		name = "alien-wall",
-		enabled = true,
-		normal = {
-			ingredients = {
-				{ "stone", 8 },
-				{ "alien-plate", 2 },
-			},
-			result = "alien-wall"
-		},
-		expensive = {
-			ingredients = {
-				{ "stone", 15 },
-				{ "alien-plate", 4 },
-			},
-			result = "alien-wall"
-		}
 	},
 })
 
@@ -292,10 +172,9 @@ for i = 1, 100, 1 do
 			name = "alien-hyper-module-" .. i,
 			enabled = false,
 			energy_required = i,
-			result = "alien-hyper-module-" .. i,
-			result_count = 1,
+			results = { { type = "item", name = "alien-hyper-module-" .. i, amount = 1 } },
 			ingredients = {
-				{ "alien-plate", 20 * i }
+				{ type = "item", name = "alien-plate", amount = 20 * i }
 			},
 		},
 	})

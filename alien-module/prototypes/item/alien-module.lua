@@ -48,7 +48,7 @@ for i = 1, 100, 1 do
 				speed = levelbonus,
 				productivity = levelbonus,
 				pollution = levelbonus * 2,
-				quality = levelbonus * 0.1
+				quality = levelbonus * 0.5
 			},
 		},
 	})

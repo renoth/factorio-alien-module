@@ -13,5 +13,3 @@ if (tonumber(storage.killcount) ~= nil) then
 	storage.currentmodulelevel["player"] = currentmodulelevel_cache
 	storage.modulelevel["player"] = modulelevel_cache
 end
-
-

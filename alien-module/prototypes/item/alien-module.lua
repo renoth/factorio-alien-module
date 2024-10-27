@@ -21,6 +21,12 @@ data:extend({
 
 for i = 1, 100, 1 do
 	local levelbonus = i * (settings.startup["alien-module-hyper-module-effect"].value + 0.00001)
+	local qualityenabled = settings.startup["alien-module-hyper-quality-enabled"]
+	local quality_base_bonus = 0.5
+
+	if qualityenabled then
+		quality_base_bonus = 0
+	end
 
 	data:extend({
 		{
@@ -48,7 +54,7 @@ for i = 1, 100, 1 do
 				speed = levelbonus,
 				productivity = levelbonus,
 				pollution = levelbonus * 2,
-				quality = levelbonus * 0.5
+				quality = levelbonus * quality_base_bonus
 			},
 		},
 	})

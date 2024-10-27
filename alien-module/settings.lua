@@ -30,6 +30,13 @@ data:extend({
 		default_value = 0.01
 	},
 	{
+		type = "bool-setting",
+		name = "alien-module-hyper-quality-enabled",
+		order = "d",
+		setting_type = "startup",
+		default_value = true
+	},
+	{
 		type = "int-setting",
 		name = "alien-module-drop-amount",
 		order = "d",

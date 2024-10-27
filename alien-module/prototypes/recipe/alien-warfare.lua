@@ -32,6 +32,7 @@ if (settings.startup["alien-module-hyper-ammo-enabled"].value) then
 				type = "recipe",
 				name = "alien-hyper-magazine-" .. i,
 				enabled = false,
+				hidden_in_factoriopedia = true,
 				energy_required = i,
 				results = { { type = "item", name = "alien-hyper-magazine-" .. i, amount = 1 } },
 				ingredients = {

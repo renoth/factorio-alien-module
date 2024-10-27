@@ -171,6 +171,7 @@ for i = 1, 100, 1 do
 			type = "recipe",
 			name = "alien-hyper-module-" .. i,
 			enabled = false,
+			hidden_in_factoriopedia = true,
 			energy_required = i,
 			results = { { type = "item", name = "alien-hyper-module-" .. i, amount = 1 } },
 			ingredients = {

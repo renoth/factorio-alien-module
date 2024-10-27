@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.0.3
+  Features:
+	- Make Quality configurable on startup
+	- Hide Hyperstuff in Factoriopedia to prevent clutter
+---------------------------------------------------------------------------------------------------
 Version: 2.0.2
   Features:
 	- Fix bug in alien-module_1.0.1.lua

@@ -1,4 +1,8 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.0.4
+  Features:
+	- Make https://mods.factorio.com/mod/Productivity a necessary dependency because of the productivity changes in 2.0.11
+---------------------------------------------------------------------------------------------------
 Version: 2.0.3
   Features:
 	- Make Quality configurable on startup

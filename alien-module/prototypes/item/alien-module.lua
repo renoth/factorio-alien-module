@@ -19,14 +19,17 @@ data:extend({
 	},
 })
 
+local qualityenabled = settings.startup["alien-module-hyper-quality-enabled"].value
+local quality_base_bonus = 0
+
+if qualityenabled == true then
+	quality_base_bonus = 1
+end
+
+log("Quality Base bonus is " .. quality_base_bonus)
+
 for i = 1, 100, 1 do
 	local levelbonus = i * (settings.startup["alien-module-hyper-module-effect"].value + 0.00001)
-	local qualityenabled = settings.startup["alien-module-hyper-quality-enabled"]
-	local quality_base_bonus = 0.5
-
-	if qualityenabled then
-		quality_base_bonus = 0
-	end
 
 	data:extend({
 		{

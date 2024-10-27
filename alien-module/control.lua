@@ -115,16 +115,14 @@ function update_modules(forceName, entities, entityType)
 		if entityType == "chest" then
 			inventory = entity.get_inventory(defines.inventory.chest) --grab a chest's inventory
 
-			local logistics_point = entity.get_requester_point()
-
 			-- upgrade logistc requests
+			local logistics_point = entity.get_requester_point()
 			if logistics_point ~= nil then
 				for i = 1, logistics_point.sections_count do
 					local section = logistics_point.get_section(i)
 					for ii = 1, section.filters_count do
 						if section.get_slot(ii).value.name == "alien-hyper-module-" .. storage.currentmodulelevel[forceName] - 1 then
 							local current_filter = section.get_slot(ii)
-							current_filter.name = "alien-hyper-module-" .. storage.currentmodulelevel[forceName]
 							section.set_slot(ii, { value = { name = "alien-hyper-module-" .. storage.currentmodulelevel[forceName], quality = current_filter.value.quality, comparator = current_filter.value.comparator },
 												   min = current_filter.min,
 												   max = current_filter.max })
@@ -172,7 +170,6 @@ function update_modules(forceName, entities, entityType)
 					for ii = 1, section.filters_count do
 						if section.get_slot(ii).value.name == "alien-hyper-module-" .. storage.currentmodulelevel[forceName] - 1 then
 							local current_filter = section.get_slot(ii)
-							current_filter.name = "alien-hyper-module-" .. storage.currentmodulelevel[forceName]
 							section.set_slot(ii, { value = { name = "alien-hyper-module-" .. storage.currentmodulelevel[forceName], quality = current_filter.value.quality, comparator = current_filter.value.comparator },
 												   min = current_filter.min,
 												   max = current_filter.max })

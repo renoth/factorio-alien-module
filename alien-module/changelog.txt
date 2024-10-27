@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.0.5
+  Features:
+	- Reenable upgrading logistic slots again (after migrating to new API)
+	- Preserve quality on upgrading Hyper Modules
+---------------------------------------------------------------------------------------------------
 Version: 2.0.4
   Features:
 	- Make https://mods.factorio.com/mod/Productivity a necessary dependency because of the productivity changes in 2.0.11

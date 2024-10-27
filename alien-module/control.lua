@@ -115,16 +115,24 @@ function update_modules(forceName, entities, entityType)
 		if entityType == "chest" then
 			inventory = entity.get_inventory(defines.inventory.chest) --grab a chest's inventory
 
-			--for i = 1, entity.request_slot_count do
-			--	local slot = entity.get_request_slot(i)
-			--	if slot ~= nil and slot.name == "alien-hyper-module-" .. storage.currentmodulelevel[forceName] - 1 then
-			--		entity.set_request_slot({ name = "alien-hyper-module-" .. storage.currentmodulelevel[forceName], count = slot.count }, i)
-			--	end
-			--
-			--	if settings.startup["alien-module-hyper-ammo-enabled"].value and slot ~= nil and slot.name == "alien-hyper-magazine-" .. storage.currentmodulelevel[forceName] - 1 then
-			--		entity.set_request_slot({ name = "alien-hyper-magazine-" .. storage.currentmodulelevel[forceName], count = slot.count }, i)
-			--	end
-			--end
+			local logistics_point = entity.get_requester_point()
+
+			-- upgrade logistc requests
+			if logistics_point ~= nil then
+				for i = 1, logistics_point.sections_count do
+					local section = logistics_point.get_section(i)
+					for ii = 1, section.filters_count do
+						if section.get_slot(ii).value.name == "alien-hyper-module-" .. storage.currentmodulelevel[forceName] - 1 then
+							local current_filter = section.get_slot(ii)
+							current_filter.name = "alien-hyper-module-" .. storage.currentmodulelevel[forceName]
+							section.set_slot(ii, { value = { name = "alien-hyper-module-" .. storage.currentmodulelevel[forceName], quality = current_filter.value.quality, comparator = current_filter.value.comparator },
+												   min = current_filter.min,
+												   max = current_filter.max })
+						end
+					end
+				end
+			end
+
 		elseif entityType == "machine" then
 			inventory = entity.get_module_inventory() --grab a machine's inventory
 		elseif entityType == "player" then
@@ -136,9 +144,10 @@ function update_modules(forceName, entities, entityType)
 					--if theres a module in this inventory slot
 					if tonumber(string.match(entity.cursor_stack.name, "%d+$")) < storage.currentmodulelevel[forceName] then
 						--and its level is less than the "current" one
-						local stacksize = entity.cursor_stack.count --record amount
+						local old_count = entity.cursor_stack.count
+						local old_quality = entity.cursor_stack.quality
 						entity.cursor_stack.clear() --clear the slot
-						entity.cursor_stack.set_stack({ name = "alien-hyper-module-" .. math.min(storage.currentmodulelevel[forceName], 100), count = stacksize }) --add the updated level modules with whatever amount we recorded
+						entity.cursor_stack.set_stack({ name = "alien-hyper-module-" .. math.min(storage.currentmodulelevel[forceName], 100), count = old_count, quality = old_quality }) --add the updated level modules with whatever amount we recorded
 					end
 				end
 
@@ -146,9 +155,28 @@ function update_modules(forceName, entities, entityType)
 					--if theres a module in this inventory slot
 					if tonumber(string.match(entity.cursor_stack.name, "%d+$")) < storage.currentmodulelevel[forceName] then
 						--and its level is less than the "current" one
-						local stacksize = entity.cursor_stack.count --record amount
+						local old_count = entity.cursor_stack.count
+						local old_quality = entity.cursor_stack.quality
+
 						entity.cursor_stack.clear() --clear the slot
-						entity.cursor_stack.set_stack({ name = "alien-hyper-magazine-" .. math.min(storage.currentmodulelevel[forceName], 100), count = stacksize }) --add the updated level modules with whatever amount we recorded
+						entity.cursor_stack.set_stack({ name = "alien-hyper-magazine-" .. math.min(storage.currentmodulelevel[forceName], 100), count = old_count, quality = old_quality }) --add the updated level modules with whatever amount we recorded
+					end
+				end
+			end
+
+			-- upgrade logistc requests
+			local logistics_point = entity.get_requester_point()
+			if logistics_point ~= nil then
+				for i = 1, logistics_point.sections_count do
+					local section = logistics_point.get_section(i)
+					for ii = 1, section.filters_count do
+						if section.get_slot(ii).value.name == "alien-hyper-module-" .. storage.currentmodulelevel[forceName] - 1 then
+							local current_filter = section.get_slot(ii)
+							current_filter.name = "alien-hyper-module-" .. storage.currentmodulelevel[forceName]
+							section.set_slot(ii, { value = { name = "alien-hyper-module-" .. storage.currentmodulelevel[forceName], quality = current_filter.value.quality, comparator = current_filter.value.comparator },
+												   min = current_filter.min,
+												   max = current_filter.max })
+						end
 					end
 				end
 			end
@@ -167,15 +195,17 @@ function update_modules(forceName, entities, entityType)
 					--if theres a module in this inventory slot
 					if tonumber(string.match(inventory[i].name, "%d+$")) < storage.currentmodulelevel[forceName] then
 						--and its level is less than the "current" one
-						local stacksize = inventory[i].count --record amount
+						local old_count = inventory[i].count --record amount
+						local old_quality = inventory[i].quality --record quality
+
 						inventory[i].clear() --clear the slot
 
 						if entityType == "player" and inventory.get_filter(i) ~= nil then
 							-- check if slot is filtered
-							inventory.set_filter(i, "alien-hyper-module-" .. math.min(storage.currentmodulelevel[forceName], 100)) --update filter
+							inventory.set_filter(i, { name = "alien-hyper-module-" .. math.min(storage.currentmodulelevel[forceName], 100), quality = old_quality }) --update filter
 						end
 
-						inventory[i].set_stack({ name = "alien-hyper-module-" .. math.min(storage.currentmodulelevel[forceName], 100), count = stacksize }) --add the updated level modules with whatever amount we recorded
+						inventory[i].set_stack({ name = "alien-hyper-module-" .. math.min(storage.currentmodulelevel[forceName], 100), count = old_count, quality = old_quality }) --add the updated level modules with whatever amount we recorded
 					end
 				end
 
@@ -183,7 +213,9 @@ function update_modules(forceName, entities, entityType)
 					--if theres a module in this inventory slot
 					if tonumber(string.match(inventory[i].name, "%d+$")) < storage.currentmodulelevel[forceName] then
 						--and its level is less than the "current" one
-						local stacksize = inventory[i].count --record amount
+						local old_count = inventory[i].count --record amount
+						local old_quality = inventory[i].quality --record quality
+
 						inventory[i].clear() --clear the slot
 
 						if entityType == "player" and inventory.get_filter(i) ~= nil then
@@ -191,7 +223,7 @@ function update_modules(forceName, entities, entityType)
 							inventory.set_filter(i, "alien-hyper-magazine-" .. math.min(storage.currentmodulelevel[forceName], 100)) --update filter
 						end
 
-						inventory[i].set_stack({ name = "alien-hyper-magazine-" .. math.min(storage.currentmodulelevel[forceName], 100), count = stacksize })
+						inventory[i].set_stack({ name = "alien-hyper-magazine-" .. math.min(storage.currentmodulelevel[forceName], 100), count = old_count, quality = old_quality })
 						--add the updated level modules with whatever amount we recorded
 					end
 				end

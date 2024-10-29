@@ -121,7 +121,10 @@ function update_modules(forceName, entities, entityType)
 				for i = 1, logistics_point.sections_count do
 					local section = logistics_point.get_section(i)
 					for ii = 1, section.filters_count do
-						if section.get_slot(ii).value.name == "alien-hyper-module-" .. storage.currentmodulelevel[forceName] - 1 then
+						local slot = section.get_slot(ii)
+						if slot ~= nil
+								and slot.value ~= nil
+								and slot.value.name == "alien-hyper-module-" .. storage.currentmodulelevel[forceName] - 1 then
 							local current_filter = section.get_slot(ii)
 							section.set_slot(ii, { value = { name = "alien-hyper-module-" .. storage.currentmodulelevel[forceName], quality = current_filter.value.quality, comparator = current_filter.value.comparator },
 												   min = current_filter.min,

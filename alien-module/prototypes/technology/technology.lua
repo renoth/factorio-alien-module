@@ -38,12 +38,6 @@ if data.raw["item"]["alien-artifact"] then
 			})
 end
 
-table.insert(data.raw["technology"]["advanced-material-processing"].effects,
-		{
-			type = "unlock-recipe",
-			recipe = "alien-steel-plate"
-		})
-
 table.insert(data.raw["technology"]["automation"].effects,
 		{
 			type = "unlock-recipe",

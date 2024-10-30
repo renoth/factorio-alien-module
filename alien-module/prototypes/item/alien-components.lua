@@ -34,21 +34,6 @@ data:extend({
 data:extend({
 	{
 		type = "item",
-		name = "alien-steel-plate",
-		icons = { { icon = "__base__/graphics/icons/steel-plate.png", tint = { r = 0.8, g = 0.4, b = 0.8, a = 0.8 } } },
-		icon_size = 64,
-		subgroup = "component",
-		category = "alien-module",
-		tier = 2,
-		weight = 20000,
-		order = "a-3",
-		stack_size = 200,
-	},
-})
-
-data:extend({
-	{
-		type = "item",
 		name = "alien-fuel",
 		icons = { { icon = "__base__/graphics/icons/solid-fuel.png", tint = { r = 0.8, g = 0.4, b = 0.8, a = 0.8 } } },
 		icon_size = 64,

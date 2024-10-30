@@ -1,4 +1,8 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.0.11
+  Changes:
+    - removed Alien Steel since it is not used anywhere
+---------------------------------------------------------------------------------------------------
 Version: 2.0.10
   Bugfix:
     - Added custom weight to alien items (for balanced rocket loading)

@@ -11,18 +11,6 @@ data:extend({
 	}
 })
 
-data:extend({
-	{
-		type = "recipe",
-		name = "alien-steel-plate",
-		category = "smelting",
-		enabled = false,
-		energy_required = 25,
-		ingredients = { { type = "item", name = "alien-plate", amount = 5 } },
-		results = { { type = "item", name = "alien-steel-plate", amount = 1 } }
-	}
-})
-
 if (settings.startup["alien-module-ore-conversion"].value) then
 	-- make iron ore from alien ore --
 	data:extend({

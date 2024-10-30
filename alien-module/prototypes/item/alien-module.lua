@@ -11,6 +11,7 @@ data:extend({
 		tier = 1,
 		order = "a-1",
 		stack_size = 50,
+		weight = 10000,
 		effect = {
 			consumption = 0.1,
 			speed = 0.05,
@@ -52,6 +53,7 @@ for i = 1, 100, 1 do
 			tier = i,
 			order = "a-" .. i,
 			stack_size = 50,
+			weight = 20000,
 			effect = {
 				consumption = levelbonus * 2,
 				speed = levelbonus,

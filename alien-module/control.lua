@@ -281,7 +281,10 @@ function update_recipes(assemblers, force)
 				end
 				-- Restore previous progress
 				entity.crafting_progress = crafting_progress
-				entity.bonus_progress = bonus_progress
+
+				if bonus_progress > 0 and bonus_progress < 1 then
+					entity.bonus_progress = bonus_progress
+				end
 			end
 
 			if settings.startup["alien-module-hyper-ammo-enabled"].value and string.find(entity.get_recipe().name, "^alien%-hyper%-magazine") then

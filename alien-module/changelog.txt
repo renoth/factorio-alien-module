@@ -1,4 +1,8 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.0.13
+  Changes:
+    - fix quality hypermodule recipes not updating correctyl
+---------------------------------------------------------------------------------------------------
 Version: 2.0.12
   Changes:
     - make GUI Window a bit smaller

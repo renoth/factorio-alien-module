@@ -263,17 +263,20 @@ end
 function update_recipes(assemblers, force)
 	for _, entity in ipairs(assemblers) do
 		if entity.get_recipe() ~= nil then
-			--if the assembler has a set recipe
-			if string.find(entity.get_recipe().name, "^alien%-hyper%-module") then
-				--and its one of ours
-				local plates_to_refund = 0
+			local recipe, quality = entity.get_recipe();
 
+			--if the assembler has a set recipe
+			if string.find(recipe.name, "^alien%-hyper%-module") then
 				-- Save the number of modules in the output slot, crafting progress and bonus progress
 				local finished_module_count = entity.get_inventory(defines.inventory.assembling_machine_output).get_item_count("alien-hyper-module-" .. storage.currentmodulelevel[force.name] - 1)
 				local crafting_progress = entity.crafting_progress
 				local bonus_progress = entity.bonus_progress
 
-				entity.set_recipe(force.recipes["alien-hyper-module-" .. storage.currentmodulelevel[force.name]]) --set it to the updated recipe
+				if quality ~= nil then
+					entity.set_recipe(force.recipes["alien-hyper-module-" .. storage.currentmodulelevel[force.name]], quality) --set it to the updated recipe
+				else
+					entity.set_recipe(force.recipes["alien-hyper-module-" .. storage.currentmodulelevel[force.name]]) --set it to the updated recipe
+				end
 
 				-- Add the modules back
 				if finished_module_count > 0 then

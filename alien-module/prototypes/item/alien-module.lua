@@ -58,11 +58,20 @@ for i = 1, 100, 1 do
 				consumption = levelbonus * 2,
 				speed = levelbonus,
 				productivity = levelbonus,
-				pollution = levelbonus * 2,
-				quality = levelbonus * quality_base_bonus
+				pollution = levelbonus * 2
 			},
 		},
 	})
+	-- adds the quality effect only if quality is enabled, this prevents quality from being a required dependency
+	if mods["quality"] and qualityenabled == true then
+		data.raw["module"]["alien-hyper-module-" .. i].effect = {
+			consumption = levelbonus * 2,
+			speed = levelbonus,
+			productivity = levelbonus,
+			pollution = levelbonus * 2,
+			quality = levelbonus * quality_base_bonus
+		}
+	end
 end
 
 

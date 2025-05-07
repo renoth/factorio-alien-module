@@ -8,7 +8,7 @@ data:extend({
 		energy_required = 10,
 		ingredients = { { type = "item", name = "artifact-ore", amount = 1 } },
 		results = { { type = "item", name = "alien-plate", amount = 1 } },
-		allowed_module_categories = { "productivity", "efficiency", "speed", "quality" }
+		allowed_module_categories = { "productivity", "efficiency", "speed" }
 	}
 })
 
@@ -159,7 +159,6 @@ for i = 1, 100, 1 do
 		{
 			type = "recipe",
 			name = "alien-hyper-module-" .. i,
-			category = "electronics",
 			enabled = false,
 			hidden_in_factoriopedia = true,
 			energy_required = i,
@@ -167,7 +166,18 @@ for i = 1, 100, 1 do
 			ingredients = {
 				{ type = "item", name = "alien-plate", amount = 20 * i }
 			},
-			allowed_module_categories = { "productivity", "efficiency", "speed", "quality" }
+			allowed_module_categories = { "productivity", "efficiency", "speed" }
 		},
 	})
+
+	--adds the electronics catagory to modules if spaceage is installed
+	if mods["space-age"] then
+		data.raw["recipe"]["alien-hyper-module-" .. i].category = "electronics"
+	end
+
+	-- allows quality modules if quality is installed
+	if mods["quality"] then
+		data.raw["recipe"]["alien-hyper-module-" .. i].allowed_module_categories = { "productivity", "efficiency", "speed", "quality" }
+		data.raw["recipe"]["alien-plate"].allowed_module_categories = { "productivity", "efficiency", "speed", "quality" }
+	end
 end

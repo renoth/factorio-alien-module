@@ -1,4 +1,8 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.0.14
+  Changes:
+    - fixed quality and space age being required dependencies
+---------------------------------------------------------------------------------------------------
 Version: 2.0.13
   Changes:
     - fix quality hypermodule recipes not updating correctyl

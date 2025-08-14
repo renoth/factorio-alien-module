@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.1.0
+  Changes:
+    - Removed dependency on Total Productivity
+    - Added Setting to enable Hyper Modules for almost all Recipes (Cheat Mode)
+---------------------------------------------------------------------------------------------------
 Version: 2.0.14
   Changes:
     - fixed quality and space age being required dependencies

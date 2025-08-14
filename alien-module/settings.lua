@@ -37,6 +37,13 @@ data:extend({
 		default_value = true
 	},
 	{
+		type = "bool-setting",
+		name = "alien-module-productivity-everything",
+		order = "e",
+		setting_type = "startup",
+		default_value = false
+	},
+	{
 		type = "int-setting",
 		name = "alien-module-drop-amount",
 		order = "d",

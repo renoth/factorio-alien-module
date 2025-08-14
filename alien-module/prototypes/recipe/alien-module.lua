@@ -8,7 +8,9 @@ data:extend({
 		energy_required = 10,
 		ingredients = { { type = "item", name = "artifact-ore", amount = 1 } },
 		results = { { type = "item", name = "alien-plate", amount = 1 } },
-		allowed_module_categories = { "productivity", "efficiency", "speed" }
+		allowed_module_categories = { "productivity", "efficiency", "speed" },
+		allow_productivity = true,
+		allow_quality = true
 	}
 })
 
@@ -134,7 +136,9 @@ data:extend({
 		results = { { type = "item", name = "alien-module-1", amount = 1 } },
 		ingredients = {
 			{ type = "item", name = "alien-plate", amount = 50 }
-		}
+		},
+		allow_productivity = true,
+		allow_quality = true
 	},
 })
 
@@ -151,6 +155,8 @@ data:extend({
 			{ type = "item", name = "artifact-ore", amount = 2 },
 			{ type = "item", name = "coal", amount = 10 }
 		},
+		allow_productivity = true,
+		allow_quality = true
 	},
 })
 
@@ -166,7 +172,9 @@ for i = 1, 100, 1 do
 			ingredients = {
 				{ type = "item", name = "alien-plate", amount = 20 * i }
 			},
-			allowed_module_categories = { "productivity", "efficiency", "speed" }
+			allowed_module_categories = { "productivity", "efficiency", "speed" },
+			allow_productivity = true,
+			allow_quality = true
 		},
 	})
 
@@ -177,7 +185,7 @@ for i = 1, 100, 1 do
 
 	-- allows quality modules if quality is installed
 	if mods["quality"] then
-		data.raw["recipe"]["alien-hyper-module-" .. i].allowed_module_categories = { "productivity", "efficiency", "speed", "quality" }
-		data.raw["recipe"]["alien-plate"].allowed_module_categories = { "productivity", "efficiency", "speed", "quality" }
+		data.raw["recipe"]["alien-hyper-module-" .. i].allowed_module_categories = { "productivity", "efficiency", "speed", "quality", "alien-module" }
+		data.raw["recipe"]["alien-plate"].allowed_module_categories = { "productivity", "efficiency", "speed", "quality", "alien-module" }
 	end
 end

@@ -34,3 +34,11 @@ end
 
 RampantAddLootToCategory("turret", settings.startup["rampant-alienmodule-compat-max-count-turret"].value)
 RampantAddLootToCategory("unit-spawner", settings.startup["rampant-alienmodule-compat-max-count-spawner"].value)
+
+
+if (settings.startup["alien-module-productivity-everything"].value) then
+    -- Allow Hyper Modules in any recipe (Cheaty)
+    for _, recipe in pairs(data.raw.recipe) do
+        recipe.allow_productivity = true
+    end
+end

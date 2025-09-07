@@ -8,8 +8,15 @@ data:extend({
 	},
 	{
 		type = "bool-setting",
-		name = "alien-module-hyper-ammo-enabled",
+		name = "alien-module-ore-recycle-to-alien",
 		order = "aa",
+		setting_type = "startup",
+		default_value = false
+	},
+	{
+		type = "bool-setting",
+		name = "alien-module-hyper-ammo-enabled",
+		order = "ab",
 		setting_type = "startup",
 		default_value = true
 	},

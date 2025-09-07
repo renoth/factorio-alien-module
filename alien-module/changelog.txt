@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.1.1
+  Changes:
+    - Added setting for how ore conversion recipes should recycle
+    - New setting allows vanilla recycling behavior of ore recipes (iron ore → iron ore)
+    - Added Chinese (zh-CN) locale for additional mod settings
+---------------------------------------------------------------------------------------------------
 Version: 2.1.0
   Changes:
     - Removed dependency on Total Productivity
